@@ -1,0 +1,8 @@
+name = "martini-bar"
+compatibility_date = "2026-01-01"
+pages_build_output_dir = "."
+
+[[d1_databases]]
+binding = "DB"
+database_name = "martini-bar-db"
+database_id = "7325ee65-c67f-4f75-88c6-5122799a1c5f"

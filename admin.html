@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="robots" content="noindex, nofollow">
+<title>Martini Bar — Panel de reservas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#000;--void:#060606;--card:#0b0b0b;--paper:#f2f3ee;--silver:#9a9d9f;--muted:#5c5c58;
+  --line:rgba(242,243,238,.13);--line-soft:rgba(242,243,238,.06);
+  --green:#c9ffe8;--amber:#ffe1a8;--red:#ff8fa3;--blue:#bcd4ff;
+  --holo:linear-gradient(115deg,#fff,#c8d6ff 22%,#ffc9f0 44%,#c9ffe8 66%,#eae0ff 84%,#fff);
+  --font:'Bricolage Grotesque',system-ui,-apple-system,sans-serif;--serif:'Instrument Serif',Georgia,serif;
+  --ease:cubic-bezier(.19,1,.22,1);--padx:clamp(1rem,4vw,2.4rem);
+}
+:root:not([data-theme="light"]){color-scheme:dark}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--black);color:var(--paper);font-family:var(--font);line-height:1.4;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button,input,select{font-family:inherit}
+button{cursor:pointer}
+::selection{background:var(--green);color:#000}
+.grain{position:fixed;inset:-50%;z-index:0;pointer-events:none;opacity:.028;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.holo-text{background:var(--holo);background-size:250% 250%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:holo 9s var(--ease) infinite}
+@keyframes holo{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+/* ---------- login ---------- */
+.gate{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:var(--black);padding:var(--padx)}
+.gate .box{width:min(380px,100%);border:1px solid var(--line);border-radius:8px;padding:2.4rem 2rem;background:linear-gradient(160deg,rgba(201,255,232,.03),transparent)}
+.gate .mark{display:flex;align-items:center;gap:.5rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.4rem}
+.gate .mark svg{width:22px;height:22px}
+.gate h1{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.3rem}
+.gate p{color:var(--muted);font-size:.9rem;margin-bottom:1.6rem}
+.gate input{width:100%;background:none;border:1px solid var(--line);border-radius:8px;color:var(--paper);font-size:16px;padding:.9rem 1rem;text-align:center;letter-spacing:.3em}
+.gate input:focus{outline:none;border-color:var(--paper)}
+.gate button{width:100%;margin-top:1rem;background:var(--paper);color:#000;border:none;border-radius:8px;padding:.95rem;font-weight:600;font-size:1rem;transition:transform .3s var(--ease)}
+.gate button:active{transform:scale(.98)}
+.gate .msg{color:var(--red);font-size:.82rem;margin-top:.9rem;min-height:1.2em;text-align:center}
+
+/* ---------- app ---------- */
+.app{position:relative;z-index:1;display:none}
+.app.on{display:block}
+.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:max(1rem,env(safe-area-inset-top)) var(--padx) 1rem;background:rgba(0,0,0,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
+.tb-brand{display:flex;align-items:center;gap:.55rem;font-weight:700;letter-spacing:-.02em}
+.tb-brand svg{width:22px;height:22px}
+.tb-brand small{font-family:var(--serif);font-style:italic;color:var(--silver);font-weight:400;font-size:.95rem;margin-left:.2rem}
+.tb-actions{display:flex;align-items:center;gap:.5rem}
+.iconbtn{width:40px;height:40px;border:1px solid var(--line);border-radius:8px;background:none;color:var(--paper);display:flex;align-items:center;justify-content:center;transition:.25s}
+.iconbtn:hover{background:#111}
+.iconbtn svg{width:18px;height:18px}
+.iconbtn.spin svg{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.toggle{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--silver);border:1px solid var(--line);border-radius:40px;padding:.35rem .7rem}
+.toggle input{appearance:none;width:34px;height:19px;border-radius:20px;background:#222;position:relative;transition:.3s;cursor:pointer}
+.toggle input:checked{background:var(--green)}
+.toggle input::after{content:"";position:absolute;top:2px;left:2px;width:15px;height:15px;border-radius:50%;background:#000;transition:.3s}
+.toggle input:checked::after{left:17px}
+@media(max-width:600px){.toggle{display:none}}
+
+.wrap{padding:1.6rem var(--padx) 5rem}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem;margin-bottom:1.6rem}
+.stat{border:1px solid var(--line);border-radius:10px;padding:1.1rem 1rem;background:var(--card);cursor:pointer;transition:.25s var(--ease);position:relative;overflow:hidden}
+.stat::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--holo);background-size:200%;transition:width .4s var(--ease)}
+.stat:hover{border-color:var(--line);background:#101010}
+.stat.sel{border-color:var(--paper)}
+.stat.sel::after{width:100%}
+.stat .n{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:700;letter-spacing:-.02em;line-height:1}
+.stat .l{color:var(--muted);font-size:.74rem;margin-top:.4rem;letter-spacing:.02em}
+.stat .n.g{color:var(--green)}.stat .n.a{color:var(--amber)}
+@media(max-width:900px){.stats{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:520px){.stats{grid-template-columns:repeat(2,1fr)}.stat .l{font-size:.68rem}}
+
+/* filters */
+.filters{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-bottom:1.4rem}
+.chips{display:flex;gap:.4rem;flex-wrap:wrap}
+.chip{border:1px solid var(--line);border-radius:40px;padding:.5rem .9rem;font-size:.8rem;color:var(--silver);background:none;transition:.2s;white-space:nowrap}
+.chip:hover{color:var(--paper)}
+.chip.on{background:var(--paper);color:#000;border-color:var(--paper)}
+.search,.datef{border:1px solid var(--line);border-radius:8px;background:none;color:var(--paper);font-size:16px;padding:.55rem .8rem;color-scheme:dark}
+.search{flex:1;min-width:150px}
+.search:focus,.datef:focus{outline:none;border-color:var(--paper)}
+.grow{flex:1}
+
+/* list */
+.list{display:flex;flex-direction:column;gap:.7rem}
+.rcard{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:1.1rem 1.2rem;display:grid;grid-template-columns:1fr auto;gap:.8rem 1rem;align-items:start;transition:border-color .25s,opacity .3s,transform .3s}
+.rcard.leaving{opacity:0;transform:translateX(-16px)}
+.rcard.fresh{border-color:rgba(201,255,232,.5)}
+.r-main{min-width:0}
+.r-top{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.r-name{font-size:1.12rem;font-weight:600;letter-spacing:-.01em}
+.badge{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);border-radius:40px;padding:.2rem .55rem;color:var(--silver)}
+.badge.zona{color:var(--paper)}
+.badge.st-pendiente{color:var(--amber);border-color:rgba(255,225,168,.4)}
+.badge.st-confirmada{color:var(--green);border-color:rgba(201,255,232,.4)}
+.badge.st-cancelada{color:var(--red);border-color:rgba(255,143,163,.4)}
+.badge.st-llego{color:var(--blue);border-color:rgba(188,212,255,.4)}
+.r-meta{color:var(--silver);font-size:.9rem;margin-top:.5rem;display:flex;flex-wrap:wrap;gap:.3rem .9rem}
+.r-meta .k{color:var(--muted)}
+.r-notes{color:var(--silver);font-size:.85rem;margin-top:.5rem;font-family:var(--serif);font-style:italic}
+.r-tel a{color:var(--silver);border-bottom:1px solid var(--line-soft)}
+.r-tel a:hover{color:var(--paper)}
+.r-actions{display:flex;flex-direction:column;gap:.4rem;align-items:stretch;min-width:132px}
+.act{border:1px solid var(--line);border-radius:8px;background:none;color:var(--paper);font-size:.8rem;padding:.5rem .7rem;transition:.2s;display:flex;align-items:center;gap:.45rem;justify-content:center;white-space:nowrap}
+.act:hover{background:#141414}
+.act.ok{border-color:rgba(201,255,232,.4);color:var(--green)}
+.act.ok:hover{background:rgba(201,255,232,.08)}
+.act.wa{border-color:rgba(201,255,232,.4)}
+.act.no{color:var(--red);border-color:rgba(255,143,163,.3)}
+.act svg{width:14px;height:14px}
+.act.mini{padding:.4rem}
+.r-row{display:flex;gap:.4rem}
+.r-row .act{flex:1}
+@media(max-width:640px){.rcard{grid-template-columns:1fr}.r-actions{min-width:0;flex-direction:row;flex-wrap:wrap}.r-actions .act{flex:1;min-width:calc(50% - .2rem)}.r-row{width:100%}}
+
+/* states */
+.state{text-align:center;padding:4rem 1rem;color:var(--muted)}
+.state .big{font-family:var(--serif);font-style:italic;font-size:1.4rem;color:var(--silver);margin-bottom:.4rem}
+.state.err .big{color:var(--red)}
+.skeleton{height:96px;border-radius:10px;background:linear-gradient(90deg,#0b0b0b,#141414,#0b0b0b);background-size:200% 100%;animation:sk 1.3s linear infinite;margin-bottom:.7rem}
+@keyframes sk{to{background-position:-200% 0}}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:max(1.4rem,env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);z-index:60;
+  background:#0e0e0e;border:1px solid var(--line);border-radius:40px;padding:.7rem 1.3rem;font-size:.88rem;opacity:0;pointer-events:none;transition:.35s var(--ease);max-width:90vw}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.good{border-color:rgba(201,255,232,.5)}
+.toast.bad{border-color:rgba(255,143,163,.5);color:var(--red)}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<!-- ===== LOGIN ===== -->
+<div class="gate" id="gate">
+  <div class="box">
+    <div class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M3 4h18l-9 9-9-9Z M12 13v6 M8 21h8" stroke="#c9ffe8" stroke-width="1.3"/></svg> <span class="holo-text">Martini Bar</span></div>
+    <h1>Panel de reservas</h1>
+    <p>Ingresa el PIN para gestionar las reservas.</p>
+    <input id="pinInput" type="password" inputmode="numeric" placeholder="• • • •" autocomplete="off" enterkeyhint="go">
+    <button id="pinBtn">Entrar</button>
+    <div class="msg" id="pinMsg"></div>
+  </div>
+</div>
+
+<!-- ===== APP ===== -->
+<div class="app" id="app">
+  <div class="topbar">
+    <div class="tb-brand"><svg viewBox="0 0 24 24" fill="none"><path d="M3 4h18l-9 9-9-9Z M12 13v6 M8 21h8" stroke="#c9ffe8" stroke-width="1.3"/></svg> Martini Bar <small>reservas</small></div>
+    <div class="tb-actions">
+      <label class="toggle" title="Actualizar solo"><input type="checkbox" id="autoTog" checked> auto</label>
+      <button class="iconbtn" id="csvBtn" title="Exportar CSV"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></button>
+      <button class="iconbtn" id="refreshBtn" title="Actualizar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></svg></button>
+      <button class="iconbtn" id="logoutBtn" title="Salir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></button>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="stats" id="stats">
+      <div class="stat" data-f="todas"><div class="n" id="s-total">0</div><div class="l">Reservas</div></div>
+      <div class="stat" data-f="pendiente"><div class="n a" id="s-pend">0</div><div class="l">Pendientes</div></div>
+      <div class="stat" data-f="confirmada"><div class="n g" id="s-conf">0</div><div class="l">Confirmadas</div></div>
+      <div class="stat" data-f="hoy"><div class="n" id="s-hoy">0</div><div class="l">Para hoy</div></div>
+      <div class="stat"><div class="n" id="s-ppl">0</div><div class="l">Personas</div></div>
+    </div>
+
+    <div class="filters">
+      <div class="chips" id="chips">
+        <button class="chip on" data-estado="todas">Todas</button>
+        <button class="chip" data-estado="pendiente">Pendientes</button>
+        <button class="chip" data-estado="confirmada">Confirmadas</button>
+        <button class="chip" data-estado="llego">Llegaron</button>
+        <button class="chip" data-estado="cancelada">Canceladas</button>
+      </div>
+      <input class="search" id="search" type="search" placeholder="Buscar nombre o teléfono…" enterkeyhint="search">
+      <input class="datef" id="datef" type="date" aria-label="Filtrar por fecha">
+    </div>
+
+    <div class="list" id="list"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+const gate=$('#gate'), app=$('#app');
+const hasGSAP=typeof gsap!=='undefined';
+let PIN=sessionStorage.getItem('mb_pin')||'';
+let all=[], filterEstado='todas', filterHoy=false, timer=null, seen=new Set();
+
+/* ---- helpers ---- */
+function api(path,opts={}){
+  opts.headers=Object.assign({'x-admin-pin':PIN},opts.headers||{});
+  return fetch(path,opts);
+}
+function toast(msg,kind=''){const t=$('#toast');t.textContent=msg;t.className='toast show '+kind;clearTimeout(t._t);t._t=setTimeout(()=>t.className='toast',2400);}
+function esc(s){return (s||'').toString().replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function today(){return new Date().toISOString().slice(0,10);}
+function fmtDate(d){if(!d)return'';try{return new Date(d+'T00:00').toLocaleDateString('es',{weekday:'short',day:'numeric',month:'short'});}catch(e){return d;}}
+function waPhone(raw){let d=(raw||'').replace(/\D/g,'');if(!d)return'';if(d.startsWith('00'))d=d.slice(2);else if(d.startsWith('0'))d='58'+d.slice(1);return d;}
+
+/* ---- login ---- */
+$('#pinBtn').addEventListener('click',tryLogin);
+$('#pinInput').addEventListener('keydown',e=>{if(e.key==='Enter')tryLogin();});
+async function tryLogin(){
+  const v=$('#pinInput').value.trim();if(!v){$('#pinMsg').textContent='Escribe el PIN.';return;}
+  PIN=v;$('#pinMsg').textContent='Verificando…';
+  const r=await probe();
+  if(r.ok){sessionStorage.setItem('mb_pin',PIN);enter();}
+  else{$('#pinMsg').textContent=r.error||'PIN incorrecto.';PIN='';}
+}
+async function probe(){
+  try{const res=await api('/api/reservas');const d=await res.json();return res.ok?{ok:true}:{ok:false,error:d.error};}
+  catch(e){return{ok:false,error:'No hay conexión con el servidor.'};}
+}
+function enter(){gate.style.display='none';app.classList.add('on');load(true);startAuto();}
+function logout(){sessionStorage.removeItem('mb_pin');location.reload();}
+$('#logoutBtn').addEventListener('click',logout);
+
+/* auto-login si ya hay PIN en la sesión */
+(async()=>{ if(PIN){const r=await probe(); if(r.ok){enter();} } })();
+
+/* ---- load + render ---- */
+async function load(showSkeleton){
+  const list=$('#list');
+  if(showSkeleton)list.innerHTML='<div class="skeleton"></div>'.repeat(3);
+  $('#refreshBtn').classList.add('spin');
+  try{
+    const res=await api('/api/reservas');
+    const d=await res.json();
+    $('#refreshBtn').classList.remove('spin');
+    if(!res.ok){renderError(d.error||'Error al cargar');return;}
+    const prevIds=new Set(all.map(r=>r.id));
+    all=d.reservas||[];
+    // marca nuevas
+    all.forEach(r=>{if(!seen.has(r.id)&&prevIds.size&&!prevIds.has(r.id))r._fresh=true;seen.add(r.id);});
+    renderStats();render();
+  }catch(e){$('#refreshBtn').classList.remove('spin');renderError('No hay conexión con el servidor.');}
+}
+function renderError(msg){
+  $('#list').innerHTML=`<div class="state err"><div class="big">${esc(msg)}</div><div>Revisa que la base de datos esté configurada y el PIN sea correcto.</div></div>`;
+}
+function countUp(el,val){
+  if(!hasGSAP){el.textContent=val;return;}
+  const o={v:parseInt(el.textContent)||0};gsap.to(o,{v:val,duration:.7,ease:'power2.out',onUpdate:()=>el.textContent=Math.round(o.v)});
+}
+function renderStats(){
+  const t=all.length;
+  const pend=all.filter(r=>r.estado==='pendiente').length;
+  const conf=all.filter(r=>r.estado==='confirmada').length;
+  const hoy=all.filter(r=>r.fecha===today()&&r.estado!=='cancelada').length;
+  const ppl=all.filter(r=>r.estado!=='cancelada').reduce((a,r)=>a+(r.personas||0),0);
+  countUp($('#s-total'),t);countUp($('#s-pend'),pend);countUp($('#s-conf'),conf);countUp($('#s-hoy'),hoy);countUp($('#s-ppl'),ppl);
+}
+function filtered(){
+  const q=$('#search').value.trim().toLowerCase();
+  const df=$('#datef').value;
+  return all.filter(r=>{
+    if(filterHoy&&r.fecha!==today())return false;
+    if(!filterHoy&&filterEstado!=='todas'&&r.estado!==filterEstado)return false;
+    if(df&&r.fecha!==df)return false;
+    if(q){const hay=(r.nombre+' '+r.telefono).toLowerCase();if(!hay.includes(q))return false;}
+    return true;
+  });
+}
+function render(){
+  const list=$('#list');const rows=filtered();
+  if(!rows.length){list.innerHTML=`<div class="state"><div class="big">Sin reservas por aquí</div><div>Cuando entren reservas desde la web, aparecen al instante.</div></div>`;return;}
+  list.innerHTML=rows.map(cardHTML).join('');
+  if(hasGSAP)gsap.from('.rcard',{y:12,opacity:0,duration:.4,stagger:.03,ease:'power2.out',clearProps:'all'});
+}
+function cardHTML(r){
+  const wp=waPhone(r.telefono);
+  const st=r.estado||'pendiente';
+  const meta=[];
+  meta.push(`<span><span class="k">Personas</span> ${r.personas}</span>`);
+  if(r.fecha)meta.push(`<span><span class="k">Fecha</span> ${esc(fmtDate(r.fecha))}</span>`);
+  if(r.hora)meta.push(`<span><span class="k">Hora</span> ${esc(r.hora)}</span>`);
+  meta.push(`<span class="r-tel"><span class="k">Tel</span> ${wp?`<a href="https://wa.me/${wp}" target="_blank" rel="noopener">${esc(r.telefono)}</a>`:esc(r.telefono)}</span>`);
+  return `<div class="rcard ${r._fresh?'fresh':''}" data-id="${r.id}">
+    <div class="r-main">
+      <div class="r-top">
+        <span class="r-name">${esc(r.nombre)}</span>
+        <span class="badge zona">${esc(r.zona)}</span>
+        <span class="badge st-${st}">${st}</span>
+      </div>
+      <div class="r-meta">${meta.join('')}</div>
+      ${r.notas?`<div class="r-notes">“${esc(r.notas)}”</div>`:''}
+    </div>
+    <div class="r-actions">
+      ${wp?`<a class="act wa" href="https://wa.me/${wp}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Z"/></svg> WhatsApp</a>`:''}
+      <div class="r-row">
+        <button class="act ok" data-act="confirmada" title="Confirmar">✓ Confirmar</button>
+      </div>
+      <div class="r-row">
+        <button class="act" data-act="llego" title="Marcar que llegó">Llegó</button>
+        <button class="act no" data-act="cancelada" title="Cancelar">Cancelar</button>
+      </div>
+      <div class="r-row">
+        <button class="act mini no" data-act="del" title="Borrar">Borrar</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ---- actions (delegated) ---- */
+$('#list').addEventListener('click',async e=>{
+  const btn=e.target.closest('[data-act]');if(!btn)return;
+  const card=btn.closest('.rcard');const id=card.dataset.id;const act=btn.dataset.act;
+  if(act==='del'){
+    if(!confirm('¿Borrar esta reserva? No se puede deshacer.'))return;
+    const res=await api('/api/reservas/'+id,{method:'DELETE'});
+    if(res.ok){card.classList.add('leaving');setTimeout(()=>{all=all.filter(r=>String(r.id)!==String(id));renderStats();render();},300);toast('Reserva borrada');}
+    else toast('No se pudo borrar','bad');
+    return;
+  }
+  const res=await api('/api/reservas/'+id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({estado:act})});
+  if(res.ok){const r=all.find(x=>String(x.id)===String(id));if(r){r.estado=act;r._fresh=false;}renderStats();render();toast('Marcada como '+act,'good');}
+  else toast('No se pudo actualizar','bad');
+});
+
+/* ---- filters ---- */
+$('#chips').addEventListener('click',e=>{
+  const c=e.target.closest('.chip');if(!c)return;
+  $$('.chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');
+  filterEstado=c.dataset.estado;filterHoy=false;syncStatSel();render();
+});
+$$('.stat[data-f]').forEach(s=>s.addEventListener('click',()=>{
+  const f=s.dataset.f;
+  if(f==='hoy'){filterHoy=true;filterEstado='todas';$$('.chip').forEach(x=>x.classList.toggle('on',x.dataset.estado==='todas'));}
+  else{filterHoy=false;filterEstado=f;$$('.chip').forEach(x=>x.classList.toggle('on',x.dataset.estado===f));}
+  syncStatSel();render();
+}));
+function syncStatSel(){$$('.stat[data-f]').forEach(s=>s.classList.toggle('sel',(s.dataset.f==='hoy'&&filterHoy)||(!filterHoy&&s.dataset.f===filterEstado)));}
+$('#search').addEventListener('input',render);
+$('#datef').addEventListener('change',render);
+
+/* ---- refresh + auto ---- */
+$('#refreshBtn').addEventListener('click',()=>load(false));
+function startAuto(){clearInterval(timer);if($('#autoTog').checked)timer=setInterval(()=>load(false),20000);}
+$('#autoTog').addEventListener('change',startAuto);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&app.classList.contains('on'))load(false);});
+
+/* ---- CSV ---- */
+$('#csvBtn').addEventListener('click',()=>{
+  if(!all.length){toast('No hay reservas para exportar');return;}
+  const head=['id','nombre','telefono','zona','personas','fecha','hora','estado','notas','creado_en'];
+  const rows=all.map(r=>head.map(k=>`"${(r[k]??'').toString().replace(/"/g,'""')}"`).join(','));
+  const csv=head.join(',')+'\n'+rows.join('\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='reservas-martini-bar.csv';a.click();URL.revokeObjectURL(a.href);
+  toast('CSV exportado','good');
+});
+</script>
+</body>
+</html>
