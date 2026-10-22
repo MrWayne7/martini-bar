@@ -183,6 +183,31 @@ main,footer,.nav,.menu{position:relative;z-index:2}
 .night-cta .nc-r{font-family:var(--serif);font-style:italic;color:var(--silver);font-size:1.05rem}
 @media(max-width:560px){.night-cta{padding:1.1rem 1.2rem}.night-cta .nc-l{font-size:1rem}.night-cta .nc-r{font-size:.92rem}}
 
+/* ---------- floating whatsapp ---------- */
+.wa-float{position:fixed;right:max(1.1rem,env(safe-area-inset-right));bottom:calc(1.1rem + env(safe-area-inset-bottom));z-index:60;
+  display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1.3rem;border-radius:40px;
+  background:rgba(10,10,10,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(37,211,102,.55);
+  color:var(--paper);font-weight:700;font-size:.95rem;letter-spacing:-.01em;box-shadow:0 10px 30px rgba(0,0,0,.45);
+  transform:translateY(160%);opacity:0;transition:transform .55s var(--ease),opacity .4s,border-color .3s,box-shadow .3s}
+.wa-float.show{transform:none;opacity:1}
+.wa-float:hover{border-color:#25D366;box-shadow:0 14px 40px rgba(37,211,102,.3)}
+.wa-float .ic{width:22px;height:22px;flex-shrink:0;color:#25D366}
+.wa-float::after{content:"";position:absolute;inset:-1px;border-radius:40px;animation:waPulse 2.6s infinite;pointer-events:none}
+@keyframes waPulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.4)}70%{box-shadow:0 0 0 13px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+@media(max-width:560px){.wa-float{padding:0;width:54px;height:54px;justify-content:center}.wa-float .tx{display:none}}
+
+/* ---------- countdown band ---------- */
+.count-band{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;flex-wrap:wrap;margin-top:2.5rem;
+  padding:1.3rem 1.7rem;border:1px solid var(--line);border-radius:6px;background:linear-gradient(120deg,rgba(201,255,232,.045),rgba(255,201,240,.03))}
+.count-band .cb-lbl{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--silver)}
+.count-band .cb-clock{display:flex;gap:1.3rem;font-variant-numeric:tabular-nums}
+.count-band .cb-clock>div{display:flex;flex-direction:column;align-items:center;line-height:1}
+.count-band .cb-clock b{font-size:clamp(1.6rem,4vw,2.3rem);font-weight:800;letter-spacing:-.02em;background:var(--holo);background-size:250% 250%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:holoShift 9s var(--ease) infinite}
+.count-band .cb-clock i{font-style:normal;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.4rem}
+.count-band .cb-cta{display:inline-flex;align-items:center;gap:.4rem;font-weight:600;font-size:.92rem;padding:.75rem 1.3rem;border-radius:40px;background:var(--paper);color:#000;transition:transform .35s var(--ease)}
+.count-band .cb-cta:hover{transform:translateY(-2px)}
+@media(max-width:620px){.count-band{justify-content:center;text-align:center}.count-band .cb-clock{gap:1rem}.count-band .cb-cta{width:100%;justify-content:center}}
+
 /* ---------- eventos ---------- */
 .events{margin-top:8rem}
 .ev-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.1rem;margin-top:3rem}
@@ -464,6 +489,18 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
     <span class="no">02</span>
     <div><h2>Elige tu lugar.</h2><p class="sub">Entrada gratis hasta la 1am. Después, cover $3 hombres · $2 mujeres. O reserva tu mesa VIP con botella incluida.</p></div>
   </div>
+
+  <div class="count-band reveal" data-anim="up">
+    <span class="cb-lbl">La próxima noche abre en</span>
+    <div class="cb-clock" id="cbClock">
+      <div><b id="cbD">0</b><i>días</i></div>
+      <div><b id="cbH">00</b><i>hrs</i></div>
+      <div><b id="cbM">00</b><i>min</i></div>
+      <div><b id="cbS">00</b><i>seg</i></div>
+    </div>
+    <a href="#builder" class="cb-cta" data-hover data-magnet>Reservar ahora →</a>
+  </div>
+
   <div class="plans">
     <div class="plan reveal" data-anim="left">
       <h3>General</h3><div class="price">Gratis<small> hasta la 1am</small></div><div class="desc">Después: $3 hombres · $2 mujeres</div>
@@ -586,6 +623,11 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
   <div class="f-word" id="footWord"><span class="holo-text">martini</span></div>
   <div class="f-bottom"><span>© 2026 Martini Bar · Todos los derechos reservados</span><a href="/admin.html" style="color:var(--muted);opacity:.6" data-hover>Panel</a></div>
 </footer>
+
+<a class="wa-float" id="waFloat" href="https://wa.me/584247819621?text=Hola!%20Quiero%20reservar%20en%20Martini%20Bar%20%F0%9F%8D%B8" target="_blank" rel="noopener" aria-label="Reservar por WhatsApp" data-hover>
+  <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.9-4.44 9.9-9.9S17.5 2 12.04 2zm0 18.15c-1.48 0-2.93-.4-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.39c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.69 8.24-8.23 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.98-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28z"/></svg>
+  <span class="tx">Reservar</span>
+</a>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -857,6 +899,45 @@ waBtn.addEventListener('click',()=>{
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)go();});
   ['pointerdown','touchstart','scroll','keydown','mousemove'].forEach(ev=>addEventListener(ev,function h(){go();removeEventListener(ev,h);},{passive:true}));
 })();
+
+/* ----- floating whatsapp reveal ----- */
+(function(){const f=document.getElementById('waFloat');if(!f)return;
+  const on=()=>f.classList.toggle('show',(window.scrollY||document.documentElement.scrollTop)>520);
+  addEventListener('scroll',on,{passive:true});on();
+})();
+
+/* ----- cuenta regresiva al próximo sábado 10pm ----- */
+(function(){
+  const D=document.getElementById('cbD'),H=document.getElementById('cbH'),M=document.getElementById('cbM'),S=document.getElementById('cbS');
+  if(!D)return;
+  function nextSat(){
+    const now=new Date(),t=new Date(now);t.setHours(22,0,0,0);
+    let add=(6-now.getDay()+7)%7;
+    if(add===0&&now>t)add=7;
+    t.setDate(now.getDate()+add);return t;
+  }
+  function p(n){return String(n).padStart(2,'0');}
+  function tick(){
+    let d=nextSat()-new Date();if(d<0)d=0;
+    const dd=Math.floor(d/864e5);d-=dd*864e5;
+    const hh=Math.floor(d/36e5);d-=hh*36e5;
+    const mm=Math.floor(d/6e4);d-=mm*6e4;
+    const ss=Math.floor(d/1e3);
+    D.textContent=dd;H.textContent=p(hh);M.textContent=p(mm);S.textContent=p(ss);
+  }
+  tick();setInterval(tick,1000);
+})();
+
+/* ----- tilt 3D en tarjetas (desktop) ----- */
+if(!isTouch&&hasGSAP){
+  document.querySelectorAll('.plan,.ev-card').forEach(c=>{
+    c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();
+      const rx=((e.clientY-r.top)/r.height-.5)*-7,ry=((e.clientX-r.left)/r.width-.5)*7;
+      gsap.to(c,{rotateX:rx,rotateY:ry,y:-6,duration:.4,transformPerspective:850,transformOrigin:'center',ease:'power2.out'});
+    });
+    c.addEventListener('mouseleave',()=>gsap.to(c,{rotateX:0,rotateY:0,y:0,duration:.6,ease:'power3.out'}));
+  });
+}
 
 
 </script>
