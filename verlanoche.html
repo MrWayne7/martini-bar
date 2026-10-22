@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>La noche — Martini Bar</title>
+<meta name="description" content="El ambiente de Martini Bar en video: pista, terraza y VIP. Mira la noche.">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta property="og:title" content="La noche — Martini Bar">
+<meta property="og:description" content="El ambiente de Martini Bar en video.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/logo.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23000'/%3E%3Cpath d='M4 5h16l-8 8-8-8Z M12 13v6 M8 21h8' stroke='%23c9ffe8' stroke-width='1.3' fill='none'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#000000;--void:#040404;--paper:#f2f3ee;--silver:#9a9d9f;--muted:#5c5c58;
+  --line:rgba(242,243,238,.13);--line-soft:rgba(242,243,238,.05);
+  --holo:linear-gradient(115deg,#ffffff 0%,#c8d6ff 22%,#ffc9f0 44%,#c9ffe8 66%,#eae0ff 84%,#ffffff 100%);
+  --font:'Bricolage Grotesque',system-ui,-apple-system,sans-serif;
+  --serif:'Instrument Serif',Georgia,serif;--ease:cubic-bezier(.19,1,.22,1);
+  --padx:clamp(1.1rem,4vw,3.4rem);
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0);padding-bottom:env(safe-area-inset-bottom,0);
+}
+:root:not([data-theme="light"]){color-scheme:dark}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{background:var(--black);color:var(--paper);font-family:var(--font);overflow-x:hidden;-webkit-font-smoothing:antialiased;min-height:100svh}
+a{color:inherit;text-decoration:none}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.04;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.vignette{position:fixed;inset:0;pointer-events:none;z-index:1;background:radial-gradient(130% 100% at 50% 0%,transparent 55%,rgba(0,0,0,.6))}
+.holo-text{background:var(--holo);background-size:250% 250%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:holoShift 9s var(--ease) infinite}
+@keyframes holoShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+.wrap{padding-left:max(var(--padx),env(safe-area-inset-left));padding-right:max(var(--padx),env(safe-area-inset-right))}
+
+nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem max(var(--padx),env(safe-area-inset-left));backdrop-filter:blur(14px);background:rgba(0,0,0,.4);border-bottom:1px solid var(--line-soft)}
+nav .brand{display:inline-flex;align-items:center;gap:.6rem;font-weight:700;letter-spacing:.02em}
+nav .brand svg{width:22px;height:22px}
+nav .back{font-size:.84rem;color:var(--silver);display:inline-flex;align-items:center;gap:.5rem;transition:.3s}
+nav .back:hover{color:var(--paper)}
+nav .cta{font-size:.8rem;font-weight:600;padding:.6rem 1.1rem;border-radius:40px;background:var(--paper);color:#000;transition:transform .35s var(--ease)}
+nav .cta:hover{transform:translateY(-2px)}
+
+header.vh-hero{padding:clamp(3.5rem,9vw,7rem) 0 clamp(1.8rem,4vw,3rem)}
+.vh-tag{display:inline-flex;align-items:center;gap:.6rem;font-size:.7rem;letter-spacing:.22em;color:var(--silver);text-transform:uppercase;margin-bottom:1.1rem}
+.vh-tag .lv{width:7px;height:7px;border-radius:50%;background:#c9ffe8;animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
+h1.vh-title{font-weight:800;letter-spacing:-.04em;line-height:.9;font-size:clamp(3rem,13vw,9rem);text-transform:lowercase}
+.vh-sub{font-family:var(--serif);font-style:italic;color:var(--silver);font-size:clamp(1.1rem,2.6vw,1.6rem);margin-top:1rem;max-width:40ch}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.1rem;padding-bottom:clamp(3rem,8vw,6rem)}
+.vcard{position:relative;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#070707;aspect-ratio:9/16;cursor:pointer;transition:border-color .4s,transform .5s var(--ease)}
+.vcard:hover{border-color:rgba(201,255,232,.45);transform:translateY(-4px)}
+.vcard video,.vcard .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.vcard .ph{background:#0a0a0a center/cover no-repeat;z-index:1;transition:opacity .6s}
+.vcard.playing .ph{opacity:0}
+.vcard::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.75))}
+.vcard .lbl{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:1rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:.6rem;font-size:.82rem}
+.vcard .lbl .name{font-weight:600}
+.vcard .lbl .snd{width:30px;height:30px;border:1px solid rgba(242,243,238,.5);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(0,0,0,.35);transition:.3s}
+.vcard .lbl .snd:hover{background:var(--paper);color:#000}
+.vcard .load{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center}
+.vcard .load span{width:26px;height:26px;border:2px solid var(--line);border-top-color:#c9ffe8;border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.vcard.playing .load{display:none}
+@media(max-width:640px){.vgrid{grid-template-columns:1fr 1fr;gap:.6rem}.vcard .lbl{padding:.7rem}}
+@media(max-width:380px){.vgrid{grid-template-columns:1fr}}
+
+footer{border-top:1px solid var(--line);padding:2.4rem max(var(--padx),env(safe-area-inset-left));display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;color:var(--muted);font-size:.82rem}
+footer a{color:var(--silver)}
+</style>
+</head>
+<body>
+<div class="grain"></div><div class="vignette"></div>
+
+<nav>
+  <a href="/" class="back" data-hover>← Inicio</a>
+  <a href="/" class="brand">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M3 4h18l-9 9-9-9Z" stroke="url(#g)" stroke-width="1.2"/><path d="M12 13v6M8 21h8" stroke="url(#g)" stroke-width="1.2"/><defs><linearGradient id="g" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#fff"/><stop offset=".5" stop-color="#ffc9f0"/><stop offset="1" stop-color="#c9ffe8"/></linearGradient></defs></svg>
+    MARTINI
+  </a>
+  <a href="/#reservas" class="cta" data-hover>Reservar</a>
+</nav>
+
+<header class="vh-hero wrap">
+  <div class="vh-tag"><span class="lv"></span> El ambiente, en video</div>
+  <h1 class="vh-title"><span class="holo-text">la noche</span></h1>
+  <p class="vh-sub">Pista, terraza y VIP. Así se vive un sábado en Martini Bar.</p>
+</header>
+
+<section class="vgrid wrap" id="vgrid"></section>
+
+<footer>
+  <span>© 2026 Martini Bar</span>
+  <a href="https://wa.me/584247819621" target="_blank" rel="noopener">Reserva por WhatsApp →</a>
+</footer>
+
+<script>
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+/* Lista de clips — nombres de archivo en /assets. Cambia el "name" a gusto. */
+const CLIPS=[
+  {src:'assets/video-1.mp4',poster:'assets/poster-1.jpg',name:'Pista'},
+  {src:'assets/video-2.mp4',poster:'assets/poster-2.jpg',name:'Terraza'},
+  {src:'assets/video-3.mp4',poster:'assets/poster-3.jpg',name:'VIP'},
+  {src:'assets/video-4.mp4',poster:'assets/poster-4.jpg',name:'La barra'},
+  {src:'assets/video-5.mp4',poster:'assets/poster-5.jpg',name:'La noche'}
+];
+const grid=document.getElementById('vgrid');
+
+CLIPS.forEach(c=>{
+  const card=document.createElement('div');card.className='vcard';
+  card.innerHTML=
+    '<div class="ph" style="background-image:url('+c.poster+')"></div>'+
+    '<div class="load"><span></span></div>'+
+    '<video muted loop playsinline preload="none" poster="'+c.poster+'" data-src="'+c.src+'"></video>'+
+    '<div class="lbl"><span class="name">'+c.name+'</span>'+
+      '<span class="snd" title="Sonido" aria-label="Activar sonido">'+
+        '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 8a5 5 0 0 1 0 8" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>'+
+      '</span>'+
+    '</div>';
+  grid.appendChild(card);
+
+  const v=card.querySelector('video');
+  // carga la fuente solo cuando hace falta
+  function mount(){
+    if(v.dataset.mounted)return;v.dataset.mounted='1';
+    const s=document.createElement('source');s.src=v.dataset.src;s.type='video/mp4';v.appendChild(s);
+    v.load();
+  }
+  function play(){mount();v.muted=v.muted!==false?true:v.muted;const p=v.play();if(p&&p.catch)p.catch(()=>{});}
+  v.addEventListener('playing',()=>card.classList.add('playing'));
+
+  // play/pause según visibilidad — así solo carga y gasta datos lo que se está viendo
+  if('IntersectionObserver' in window && !reduce){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{
+      if(e.isIntersecting){play();}
+      else{try{v.pause();}catch(_){}}
+    }),{threshold:.35});
+    io.observe(card);
+  }else{
+    // respaldo: carga al tocar
+    card.addEventListener('click',play,{once:true});
+  }
+
+  // sonido: silencia los demás y abre pantalla completa
+  card.querySelector('.snd').addEventListener('click',e=>{
+    e.stopPropagation();mount();
+    document.querySelectorAll('.vcard video').forEach(o=>{if(o!==v)o.muted=true;});
+    v.muted=!v.muted;
+    const p=v.play();if(p&&p.catch)p.catch(()=>{});
+  });
+  // tocar la tarjeta: pantalla completa
+  card.addEventListener('click',()=>{
+    mount();
+    if(v.requestFullscreen)v.requestFullscreen();
+    else if(v.webkitEnterFullscreen)v.webkitEnterFullscreen();
+  });
+});
+</script>
+</body>
+</html>
