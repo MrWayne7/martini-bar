@@ -26,6 +26,7 @@ export async function onRequestPost({ request, env }) {
   const fecha    = (b.fecha    || '').toString().slice(0, 10);
   const hora     = (b.hora     || '').toString().slice(0, 5);
   const notas    = (b.notas    || '').toString().trim().slice(0, 200);
+  const evento   = (b.evento   || "").toString().trim().slice(0, 60);
 
   if (!nombre || telefono.replace(/\D/g, '').length < 7)
     return json({ ok: false, error: 'Nombre y teléfono son obligatorios' }, 422);
@@ -35,8 +36,8 @@ export async function onRequestPost({ request, env }) {
 
   try {
     const r = await env.DB
-      .prepare(`INSERT INTO reservas (nombre,telefono,zona,personas,fecha,hora,notas) VALUES (?,?,?,?,?,?,?)`)
-      .bind(nombre, telefono, zona, personas, fecha, hora, notas)
+      .prepare(`INSERT INTO reservas (nombre,telefono,zona,personas,fecha,hora,notas,evento) VALUES (?,?,?,?,?,?,?,?)`)
+      .bind(nombre, telefono, zona, personas, fecha, hora, notas, evento)
       .run();
     return json({ ok: true, saved: true, id: r.meta.last_row_id });
   } catch (e) {

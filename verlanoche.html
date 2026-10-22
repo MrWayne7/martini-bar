@@ -15,12 +15,12 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="assets/logo.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23000'/%3E%3Cpath d='M4 5h16l-8 8-8-8Z M12 13v6 M8 21h8' stroke='%23c9ffe8' stroke-width='1.3' fill='none'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.youtube-nocookie.com"><link rel="preconnect" href="https://i.ytimg.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
 :root{
-  --black:#000000;--void:#040404;--paper:#f2f3ee;--silver:#9a9d9f;--muted:#5c5c58;
+  --black:#000;--void:#040404;--paper:#f2f3ee;--silver:#9a9d9f;--muted:#5c5c58;
   --line:rgba(242,243,238,.13);--line-soft:rgba(242,243,238,.05);
   --holo:linear-gradient(115deg,#ffffff 0%,#c8d6ff 22%,#ffc9f0 44%,#c9ffe8 66%,#eae0ff 84%,#ffffff 100%);
   --font:'Bricolage Grotesque',system-ui,-apple-system,sans-serif;
@@ -56,23 +56,23 @@ header.vh-hero{padding:clamp(3.5rem,9vw,7rem) 0 clamp(1.8rem,4vw,3rem)}
 h1.vh-title{font-weight:800;letter-spacing:-.04em;line-height:.9;font-size:clamp(3rem,13vw,9rem);text-transform:lowercase}
 .vh-sub{font-family:var(--serif);font-style:italic;color:var(--silver);font-size:clamp(1.1rem,2.6vw,1.6rem);margin-top:1rem;max-width:40ch}
 
-.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.1rem;padding-bottom:clamp(3rem,8vw,6rem)}
-.vcard{position:relative;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:#070707;aspect-ratio:9/16;cursor:pointer;transition:border-color .4s,transform .5s var(--ease)}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.1rem;padding-bottom:clamp(3rem,8vw,6rem)}
+.vcard{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#070707;aspect-ratio:9/16;cursor:pointer;transition:border-color .4s,transform .5s var(--ease)}
 .vcard:hover{border-color:rgba(201,255,232,.45);transform:translateY(-4px)}
-.vcard video,.vcard .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.vcard .ph{background:#0a0a0a center/cover no-repeat;z-index:1;transition:opacity .6s}
-.vcard.playing .ph{opacity:0}
-.vcard::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.75))}
-.vcard .lbl{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:1rem 1.1rem;display:flex;align-items:center;justify-content:space-between;gap:.6rem;font-size:.82rem}
-.vcard .lbl .name{font-weight:600}
-.vcard .lbl .snd{width:30px;height:30px;border:1px solid rgba(242,243,238,.5);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(0,0,0,.35);transition:.3s}
-.vcard .lbl .snd:hover{background:var(--paper);color:#000}
-.vcard .load{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center}
-.vcard .load span{width:26px;height:26px;border:2px solid var(--line);border-top-color:#c9ffe8;border-radius:50%;animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.vcard.playing .load{display:none}
-@media(max-width:640px){.vgrid{grid-template-columns:1fr 1fr;gap:.6rem}.vcard .lbl{padding:.7rem}}
-@media(max-width:380px){.vgrid{grid-template-columns:1fr}}
+.vcard img.thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s var(--ease),opacity .5s;filter:saturate(1.02)}
+.vcard:hover img.thumb{transform:scale(1.05)}
+.vcard iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:1;pointer-events:none}
+.vcard.sound iframe{z-index:4;pointer-events:auto}
+.vcard.playing .thumb,.vcard.playing .play,.vcard.playing::after{opacity:0;pointer-events:none}
+.vcard::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.72));transition:opacity .4s}
+.vcard .play{position:absolute;inset:0;z-index:3;display:flex;align-items:center;justify-content:center;pointer-events:none;transition:opacity .4s}
+.vcard .play span{width:62px;height:62px;border-radius:50%;background:rgba(0,0,0,.45);border:1.5px solid rgba(255,255,255,.8);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;transition:.35s var(--ease)}
+.vcard:hover .play span{background:#c9ffe8;border-color:#c9ffe8}
+.vcard:hover .play span svg{color:#000}
+.vcard .play svg{width:22px;height:22px;color:#fff;margin-left:3px;transition:.35s}
+.vcard .lbl{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:1rem 1.1rem;font-weight:600;font-size:.95rem}
+.empty{border:1px dashed var(--line);border-radius:8px;padding:2.5rem 1.5rem;text-align:center;color:var(--silver);grid-column:1/-1}
+@media(max-width:560px){.vgrid{grid-template-columns:1fr;gap:.8rem}}
 
 footer{border-top:1px solid var(--line);padding:2.4rem max(var(--padx),env(safe-area-inset-left));display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;color:var(--muted);font-size:.82rem}
 footer a{color:var(--silver)}
@@ -104,69 +104,68 @@ footer a{color:var(--silver)}
 </footer>
 
 <script>
-const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-/* Lista de clips — nombres de archivo en /assets. Cambia el "name" a gusto. */
-const CLIPS=[
-  {src:'assets/video-1.mp4',poster:'assets/poster-1.jpg',name:'Pista'},
-  {src:'assets/video-2.mp4',poster:'assets/poster-2.jpg',name:'Terraza'},
-  {src:'assets/video-3.mp4',poster:'assets/poster-3.jpg',name:'VIP'},
-  {src:'assets/video-4.mp4',poster:'assets/poster-4.jpg',name:'La barra'},
-  {src:'assets/video-5.mp4',poster:'assets/poster-5.jpg',name:'La noche'},
-  {src:'assets/video-6.mp4',poster:'assets/poster-6.jpg',name:'Láseres'},
-  {src:'assets/video-7.mp4',poster:'assets/poster-7.jpg',name:'Bola de disco'},
-  {src:'assets/video-8.mp4',poster:'assets/poster-8.jpg',name:'Full'}
+/* ============================================================
+   PEGA AQUÍ LOS VIDEOS DE YOUTUBE
+   Por cada video reemplaza el id por el de tu link de YouTube.
+   El id es lo que va después de  watch?v=  o de  youtu.be/
+   Ej: https://youtu.be/dQw4w9WgXcQ  ->  id: 'dQw4w9WgXcQ'
+   Puedes agregar o quitar líneas. Cambia el "name" a gusto.
+   ============================================================ */
+const VIDEOS=[
+  {id:'yLpsVgl7pYU', name:'La pista'},
+  {id:'4SsfRaEgXfc', name:'Las luces'},
+  {id:'nOycOYXvPXQ', name:'El ambiente'},
+  {id:'86T3N278_to', name:'VIP'},
+  {id:'CULcavd6KBo', name:'La barra'},
+  {id:'0Hw2eDndFs0', name:'La noche'}
 ];
+
 const grid=document.getElementById('vgrid');
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const ready=VIDEOS.filter(v=>v.id && !/^PEGA_ID/.test(v.id));
 
-CLIPS.forEach(c=>{
-  const card=document.createElement('div');card.className='vcard';
-  card.innerHTML=
-    '<div class="ph" style="background-image:url('+c.poster+')"></div>'+
-    '<div class="load"><span></span></div>'+
-    '<video muted loop playsinline preload="none" poster="'+c.poster+'" data-src="'+c.src+'"></video>'+
-    '<div class="lbl"><span class="name">'+c.name+'</span>'+
-      '<span class="snd" title="Sonido" aria-label="Activar sonido">'+
-        '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 8a5 5 0 0 1 0 8" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>'+
-      '</span>'+
-    '</div>';
-  grid.appendChild(card);
+function embed(id,opts){
+  const f=document.createElement('iframe');
+  f.src='https://www.youtube-nocookie.com/embed/'+id+'?'+opts+'&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1&fs=0';
+  f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';
+  f.setAttribute('frameborder','0');f.setAttribute('tabindex','-1');f.title='';
+  return f;
+}
 
-  const v=card.querySelector('video');
-  // carga la fuente solo cuando hace falta
-  function mount(){
-    if(v.dataset.mounted)return;v.dataset.mounted='1';
-    const s=document.createElement('source');s.src=v.dataset.src;s.type='video/mp4';v.appendChild(s);
-    v.load();
-  }
-  function play(){mount();v.muted=v.muted!==false?true:v.muted;const p=v.play();if(p&&p.catch)p.catch(()=>{});}
-  v.addEventListener('playing',()=>card.classList.add('playing'));
+if(!ready.length){
+  grid.innerHTML='<div class="empty">Pronto: los videos de la noche.</div>';
+}else{
+  ready.forEach(v=>{
+    const card=document.createElement('div');card.className='vcard';card.dataset.id=v.id;
+    card.innerHTML=
+      '<img class="thumb" loading="lazy" alt="'+v.name+'" src="https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg">'+
+      '<div class="play"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>'+
+      '<div class="lbl">'+v.name+'</div>';
+    grid.appendChild(card);
 
-  // play/pause según visibilidad — así solo carga y gasta datos lo que se está viendo
-  if('IntersectionObserver' in window && !reduce){
-    const io=new IntersectionObserver(es=>es.forEach(e=>{
-      if(e.isIntersecting){play();}
-      else{try{v.pause();}catch(_){}}
-    }),{threshold:.35});
-    io.observe(card);
-  }else{
-    // respaldo: carga al tocar
-    card.addEventListener('click',play,{once:true});
-  }
+    function mountMuted(){
+      if(card.querySelector('iframe'))return;
+      const f=embed(v.id,'autoplay=1&mute=1&loop=1&playlist='+v.id+'&controls=0');
+      card.appendChild(f);card.classList.add('playing');
+    }
+    function unmount(){const f=card.querySelector('iframe');if(f)f.remove();card.classList.remove('playing','sound');}
 
-  // sonido: silencia los demás y abre pantalla completa
-  card.querySelector('.snd').addEventListener('click',e=>{
-    e.stopPropagation();mount();
-    document.querySelectorAll('.vcard video').forEach(o=>{if(o!==v)o.muted=true;});
-    v.muted=!v.muted;
-    const p=v.play();if(p&&p.catch)p.catch(()=>{});
+    // autoplay en silencio y en loop cuando entra en pantalla; se descarga al salir (liviano)
+    if('IntersectionObserver'in window && !reduce){
+      const io=new IntersectionObserver(es=>es.forEach(e=>{e.isIntersecting?mountMuted():unmount();}),{threshold:.5});
+      io.observe(card);
+    }
+
+    // tocar: abre con sonido + controles y a pantalla completa
+    card.addEventListener('click',()=>{
+      const old=card.querySelector('iframe');if(old)old.remove();
+      const f=embed(v.id,'autoplay=1&mute=0&loop=1&playlist='+v.id+'&controls=1');
+      card.appendChild(f);card.classList.add('playing','sound');
+      const go=f.requestFullscreen||f.webkitRequestFullscreen||f.webkitEnterFullscreen;
+      if(go)try{go.call(f);}catch(e){}
+    });
   });
-  // tocar la tarjeta: pantalla completa
-  card.addEventListener('click',()=>{
-    mount();
-    if(v.requestFullscreen)v.requestFullscreen();
-    else if(v.webkitEnterFullscreen)v.webkitEnterFullscreen();
-  });
-});
+}
 </script>
 </body>
 </html>
