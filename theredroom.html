@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, viewport-fit=cover">
+<meta name="theme-color" content="#0a0203">
+<title>The Red Room — 31 Oct · Martini Bar</title>
+<meta name="description" content="The Red Room — La noche de Halloween en Martini Bar. 31 de octubre. Negro y rojo, oscuro, de otro mundo. Reserva tu lugar.">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta property="og:title" content="The Red Room — 31 Oct · Martini Bar">
+<meta property="og:description" content="La noche de Halloween en Martini Bar. Negro y rojo. De otro mundo.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/fotos/foto-1.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23050304'/%3E%3Cpath d='M4 5h16l-8 8-8-8Z M12 13v6 M8 21h8' stroke='%23d4112b' stroke-width='1.3' fill='none'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#070203;--black:#000;--blood:#d4112b;--blood-deep:#7a0a1a;--ember:#ff3b3b;--amber:#ff9a4d;
+  --paper:#f3e9e9;--ash:#a88f91;--muted:#6b4f52;
+  --line:rgba(243,233,233,.12);--line-red:rgba(212,17,43,.35);
+  --font:'Bricolage Grotesque',system-ui,-apple-system,sans-serif;--serif:'Instrument Serif',Georgia,serif;
+  --ease:cubic-bezier(.19,1,.22,1);--padx:clamp(1.1rem,4vw,3.4rem);
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0);padding-bottom:env(safe-area-inset-bottom,0);
+}
+:root:not([data-theme="light"]){color-scheme:dark}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{background:var(--ink);color:var(--paper);font-family:var(--font);overflow-x:hidden;-webkit-font-smoothing:antialiased;min-height:100svh;position:relative}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;background:
+  radial-gradient(120% 90% at 50% 0%,rgba(122,10,26,.42),transparent 55%),
+  radial-gradient(90% 70% at 80% 110%,rgba(212,17,43,.18),transparent 60%),
+  #070203}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(130% 100% at 50% 40%,transparent 48%,rgba(0,0,0,.85))}
+.glow{position:fixed;width:520px;height:520px;border-radius:50%;z-index:1;pointer-events:none;transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(212,17,43,.14),transparent 62%);opacity:0;transition:opacity .6s}
+.fog{position:fixed;left:0;right:0;bottom:0;height:34vh;z-index:1;pointer-events:none;
+  background:linear-gradient(0deg,rgba(122,10,26,.3),transparent);mask:linear-gradient(0deg,#000,transparent)}
+/* fantasmas flotando */
+.ghost{position:fixed;z-index:1;pointer-events:none;opacity:.14;color:#fff;animation:drift linear infinite}
+@keyframes drift{0%{transform:translateY(20vh) translateX(0) scale(1);opacity:0}15%{opacity:.16}100%{transform:translateY(-120vh) translateX(40px) scale(1.15);opacity:0}}
+@media (prefers-reduced-motion:reduce){.ghost{display:none}}
+
+main{position:relative;z-index:2}
+.wrap{padding-left:max(var(--padx),env(safe-area-inset-left));padding-right:max(var(--padx),env(safe-area-inset-right));max-width:1180px;margin:0 auto}
+
+nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;
+  padding:1rem max(var(--padx),env(safe-area-inset-left));backdrop-filter:blur(12px);background:rgba(7,2,3,.55);border-bottom:1px solid var(--line-red)}
+nav .back{font-size:.84rem;color:var(--ash);display:inline-flex;gap:.5rem;transition:.3s}nav .back:hover{color:var(--paper)}
+nav .nm{font-weight:700;letter-spacing:.1em;font-size:.82rem;color:var(--blood);text-transform:uppercase}
+nav .cta{font-size:.8rem;font-weight:700;padding:.6rem 1.15rem;border-radius:40px;background:var(--blood);color:#fff;transition:transform .35s var(--ease),box-shadow .3s;box-shadow:0 0 22px rgba(212,17,43,.4)}
+nav .cta:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(212,17,43,.65)}
+
+/* HERO */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem 0 3rem;position:relative}
+.hero .candles{display:flex;gap:clamp(1.5rem,6vw,4rem);margin-bottom:2.2rem}
+.flame{transform-origin:center bottom;animation:flicker 2.6s infinite}
+.flame:nth-child(2){animation-delay:.5s}.flame:nth-child(3){animation-delay:1.1s}
+@keyframes flicker{0%,100%{opacity:1;transform:scaleY(1) rotate(-1deg)}25%{opacity:.75;transform:scaleY(.92) rotate(2deg)}50%{opacity:1;transform:scaleY(1.05) rotate(-2deg)}75%{opacity:.82;transform:scaleY(.95) rotate(1deg)}}
+.tag{display:inline-flex;align-items:center;gap:.6rem;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ash);margin-bottom:1.4rem}
+.tag b{color:var(--blood)}
+h1.title{font-family:var(--serif);font-weight:400;line-height:.86;letter-spacing:-.01em;font-size:clamp(3.4rem,15vw,11rem);
+  color:#fff;text-shadow:0 0 18px rgba(212,17,43,.7),0 0 52px rgba(212,17,43,.45);animation:titleFlick 5s infinite}
+h1.title i{font-style:italic;display:block;color:var(--blood)}
+@keyframes titleFlick{0%,100%{text-shadow:0 0 18px rgba(212,17,43,.7),0 0 52px rgba(212,17,43,.45)}48%{text-shadow:0 0 18px rgba(212,17,43,.7),0 0 52px rgba(212,17,43,.45)}50%{text-shadow:0 0 6px rgba(212,17,43,.4),0 0 16px rgba(212,17,43,.2)}52%{text-shadow:0 0 18px rgba(212,17,43,.7),0 0 52px rgba(212,17,43,.45)}}
+.hero .sub{font-family:var(--serif);font-style:italic;color:var(--ash);font-size:clamp(1.15rem,3vw,1.7rem);margin-top:1.4rem;max-width:30ch}
+.hero .meta{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;margin-top:2rem}
+.hero .chip{border:1px solid var(--line-red);border-radius:40px;padding:.5rem 1rem;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--paper)}
+.hero .chip b{color:var(--blood)}
+.hero-cta{margin-top:2.4rem;display:inline-flex;align-items:center;gap:.6rem;font-weight:700;font-size:1.05rem;padding:1rem 2rem;border-radius:46px;
+  background:var(--blood);color:#fff;box-shadow:0 0 30px rgba(212,17,43,.5);transition:transform .35s var(--ease),box-shadow .3s}
+.hero-cta:hover{transform:translateY(-3px);box-shadow:0 0 46px rgba(212,17,43,.75)}
+.cue{margin-top:3rem;font-size:.66rem;letter-spacing:.3em;color:var(--muted);text-transform:uppercase}
+
+section{padding:clamp(3.5rem,9vw,7rem) 0}
+.eyebrow{font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:var(--blood);margin-bottom:1rem}
+h2{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(2.2rem,6vw,4rem);line-height:1;letter-spacing:-.01em}
+.lead{color:var(--ash);font-size:clamp(1rem,2.4vw,1.2rem);max-width:54ch;margin-top:1.2rem;line-height:1.6}
+
+.motifs{display:flex;gap:clamp(1.5rem,5vw,3.5rem);flex-wrap:wrap;margin-top:2.6rem;color:var(--blood)}
+.motif{display:flex;flex-direction:column;align-items:center;gap:.6rem;color:var(--ash);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+.motif svg{width:38px;height:38px;color:var(--blood);filter:drop-shadow(0 0 10px rgba(212,17,43,.5))}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.7rem;margin-top:2.6rem}
+.strip figure{position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:6px;border:1px solid var(--line-red);background:#120406}
+.strip img{width:100%;height:100%;object-fit:cover;filter:saturate(.7) hue-rotate(-12deg) brightness(.85) contrast(1.05);transition:transform .7s var(--ease),filter .5s}
+.strip figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(122,10,26,.55)),radial-gradient(120% 90% at 50% 0,rgba(212,17,43,.12),transparent)}
+.strip figure:hover img{transform:scale(1.07);filter:saturate(1) hue-rotate(-8deg) brightness(1) contrast(1.08)}
+
+/* COUNTDOWN */
+.count{display:flex;gap:clamp(1rem,4vw,2.6rem);justify-content:center;margin-top:2.4rem;font-variant-numeric:tabular-nums}
+.count>div{display:flex;flex-direction:column;align-items:center}
+.count b{font-family:var(--serif);font-size:clamp(2.4rem,8vw,4.5rem);line-height:1;color:#fff;text-shadow:0 0 20px rgba(212,17,43,.6)}
+.count i{font-style:normal;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:.5rem}
+
+/* RESERVA */
+.resv{border:1px solid var(--line-red);border-radius:10px;padding:clamp(1.5rem,4vw,2.6rem);margin-top:2.6rem;background:linear-gradient(160deg,rgba(212,17,43,.06),transparent)}
+.field{margin-bottom:1rem}
+.field label{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ash);margin-bottom:.5rem}
+.field input,.field select{width:100%;background:rgba(0,0,0,.4);border:1px solid var(--line);border-radius:6px;color:var(--paper);font-family:inherit;font-size:16px;padding:.85rem 1rem;transition:border-color .3s}
+.field input:focus,.field select:focus{outline:none;border-color:var(--blood)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.zones{display:flex;flex-wrap:wrap;gap:.5rem}
+.zone{border:1px solid var(--line);border-radius:40px;padding:.5rem 1rem;font-size:.82rem;cursor:pointer;transition:.3s;user-select:none}
+.zone.active{background:var(--blood);border-color:var(--blood);color:#fff}
+.err-msg{color:var(--ember);font-size:.8rem;margin:.3rem 0 0;display:none}
+.submit{width:100%;margin-top:.6rem;display:flex;align-items:center;justify-content:center;gap:.6rem;font-weight:700;font-size:1.05rem;padding:1.05rem;border:none;border-radius:46px;background:var(--blood);color:#fff;cursor:pointer;box-shadow:0 0 26px rgba(212,17,43,.45);transition:transform .3s var(--ease),box-shadow .3s}
+.submit:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(212,17,43,.7)}
+.methods{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.7rem;margin-top:1.6rem}
+.method{display:flex;align-items:center;gap:.6rem;border:1px solid var(--line);border-radius:8px;padding:.85rem 1rem;font-size:.9rem;transition:.3s;cursor:pointer;background:rgba(0,0,0,.25)}
+.method:hover{border-color:var(--blood-deep);background:rgba(212,17,43,.08)}
+.method svg{width:20px;height:20px;flex-shrink:0;color:var(--blood)}
+.done{display:none;text-align:center;padding:1.5rem 0}
+.done.show{display:block}
+.done .big{font-family:var(--serif);font-style:italic;font-size:clamp(1.6rem,5vw,2.4rem);color:#fff;text-shadow:0 0 18px rgba(212,17,43,.5)}
+.done .sm{color:var(--ash);margin-top:.6rem}
+
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line);margin-top:2.6rem;border:1px solid var(--line)}
+.info>div{background:var(--ink);padding:1.5rem}
+.info .k{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.info .v{font-family:var(--serif);font-size:1.3rem}
+
+footer{border-top:1px solid var(--line-red);padding:2.4rem max(var(--padx),env(safe-area-inset-left));display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;color:var(--muted);font-size:.82rem;position:relative;z-index:2}
+footer a{color:var(--ash)}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}.hero .candles{gap:2rem}}
+</style>
+</head>
+<body>
+<div class="bg"></div><div class="grain"></div><div class="fog"></div><div class="vignette"></div>
+<div class="glow" id="glow"></div>
+
+<svg class="ghost" style="left:12%;width:70px;animation-duration:26s" viewBox="0 0 64 80" fill="currentColor"><path d="M32 4C18 4 10 15 10 30v44l8-7 7 7 7-7 7 7 8-7V30C47 15 46 4 32 4Z"/><circle cx="24" cy="30" r="4" fill="#070203"/><circle cx="40" cy="30" r="4" fill="#070203"/></svg>
+<svg class="ghost" style="left:68%;width:54px;animation-duration:34s;animation-delay:8s" viewBox="0 0 64 80" fill="currentColor"><path d="M32 4C18 4 10 15 10 30v44l8-7 7 7 7-7 7 7 8-7V30C47 15 46 4 32 4Z"/><circle cx="24" cy="30" r="4" fill="#070203"/><circle cx="40" cy="30" r="4" fill="#070203"/></svg>
+<svg class="ghost" style="left:42%;width:46px;animation-duration:30s;animation-delay:16s" viewBox="0 0 64 80" fill="currentColor"><path d="M32 4C18 4 10 15 10 30v44l8-7 7 7 7-7 7 7 8-7V30C47 15 46 4 32 4Z"/><circle cx="24" cy="30" r="4" fill="#070203"/><circle cx="40" cy="30" r="4" fill="#070203"/></svg>
+
+<nav>
+  <a href="/" class="back">← Martini Bar</a>
+  <span class="nm">The Red Room</span>
+  <a href="#reservar" class="cta">Reservar</a>
+</nav>
+
+<main>
+  <!-- HERO -->
+  <section class="hero wrap">
+    <div class="candles" aria-hidden="true">
+      <svg width="34" height="60" viewBox="0 0 34 60"><g class="flame"><ellipse cx="17" cy="10" rx="5" ry="10" fill="#ff9a4d"/><ellipse cx="17" cy="12" rx="2.5" ry="6" fill="#fff2cc"/></g><rect x="13" y="20" width="8" height="34" rx="2" fill="#2a1416"/><rect x="13" y="20" width="8" height="5" fill="#d4112b" opacity=".6"/></svg>
+      <svg width="34" height="70" viewBox="0 0 34 70"><g class="flame"><ellipse cx="17" cy="10" rx="5" ry="10" fill="#ff9a4d"/><ellipse cx="17" cy="12" rx="2.5" ry="6" fill="#fff2cc"/></g><rect x="13" y="20" width="8" height="44" rx="2" fill="#2a1416"/><rect x="13" y="20" width="8" height="5" fill="#d4112b" opacity=".6"/></svg>
+      <svg width="34" height="60" viewBox="0 0 34 60"><g class="flame"><ellipse cx="17" cy="10" rx="5" ry="10" fill="#ff9a4d"/><ellipse cx="17" cy="12" rx="2.5" ry="6" fill="#fff2cc"/></g><rect x="13" y="20" width="8" height="34" rx="2" fill="#2a1416"/><rect x="13" y="20" width="8" height="5" fill="#d4112b" opacity=".6"/></svg>
+    </div>
+    <div class="tag"><b>Martini Bar</b> · presenta</div>
+    <h1 class="title">The<i>Red Room</i></h1>
+    <p class="sub">La Roja. Una noche de otro mundo — negro, rojo y oscuridad.</p>
+    <div class="meta">
+      <span class="chip"><b>Sáb</b> 31 Oct</span>
+      <span class="chip">Desde las <b>10pm</b></span>
+      <span class="chip">Dress code: <b>Negro & Rojo</b></span>
+    </div>
+    <a href="#reservar" class="hero-cta">🩸 Reservar mi lugar</a>
+    <div class="cue">Baja — entra a la sala</div>
+  </section>
+
+  <!-- TEMA -->
+  <section class="wrap reveal">
+    <div class="eyebrow">La temática</div>
+    <h2>Todo oscuro. Todo rojo.</h2>
+    <p class="lead">Fantasmas entre la gente, manos que salen de las sombras, calaveras, candelabros y tumbas. Una ambientación completa para la noche más esperada del año en Martini Bar. Ven disfrazado, ven de negro y rojo — pero ven preparado para otro mundo.</p>
+    <div class="motifs">
+      <div class="motif"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C7 2 4 6 4 11c0 3 1 4 1 6 0 2 2 3 3 2v2h2v-2h4v2h2v-2c1 1 3 0 3-2 0-2 1-3 1-6 0-5-3-9-8-9Zm-3 9a2 2 0 1 1 0 4 2 2 0 0 1 0-4Zm6 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4Z"/></svg>Calaveras</div>
+      <div class="motif"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a6 6 0 0 0-6 6v10l3-2 3 2 3-2 3 2V8a6 6 0 0 0-6-6Zm-2 7a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/></svg>Fantasmas</div>
+      <div class="motif"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 2v3H8v2h3v13h2V7h3V5h-3V2h-2Zm-5 6v12h2V8H6Zm10 0v12h2V8h-2Z"/></svg>Candelabros</div>
+      <div class="motif"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 22V9a6 6 0 0 1 12 0v13H6Zm4-11h4v-2h-4v2Z"/></svg>Tumbas</div>
+    </div>
+    <div class="strip">
+      <figure><img src="assets/fotos/foto-1.webp" alt="Martini Bar de noche" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+      <figure><img src="assets/fotos/foto-2.webp" alt="Ambiente Martini Bar" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+      <figure><img src="assets/fotos/foto-3.webp" alt="Pista Martini Bar" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+      <figure><img src="assets/fotos/foto-4.webp" alt="Luces Martini Bar" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
+    </div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section class="wrap reveal" style="text-align:center">
+    <div class="eyebrow" style="color:var(--blood)">La sala se abre en</div>
+    <div class="count" id="count">
+      <div><b id="cD">0</b><i>días</i></div>
+      <div><b id="cH">00</b><i>horas</i></div>
+      <div><b id="cM">00</b><i>min</i></div>
+      <div><b id="cS">00</b><i>seg</i></div>
+    </div>
+  </section>
+
+  <!-- RESERVA -->
+  <section class="wrap reveal" id="reservar">
+    <div class="eyebrow">Tu lugar en la sala</div>
+    <h2>Reserva para el 31.</h2>
+    <p class="lead">Asegura tu entrada o tu mesa VIP. Te confirmamos por WhatsApp al instante.</p>
+
+    <div class="resv">
+      <div id="form">
+        <div class="field">
+          <label>Zona</label>
+          <div class="zones" id="zones">
+            <div class="zone active" data-zone="General">Entrada general</div>
+            <div class="zone" data-zone="Mesa VIP">Mesa VIP · $100</div>
+            <div class="zone" data-zone="VIP Deluxe">Deluxe · $150</div>
+            <div class="zone" data-zone="VIP Diamante">Diamante · $200</div>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>Nombre</label><input id="fName" type="text" autocomplete="name" placeholder="Tu nombre"><p class="err-msg" id="eName">Escribe tu nombre.</p></div>
+          <div class="field"><label>Teléfono / WhatsApp</label><input id="fPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Ej. 0414 123 4567"><p class="err-msg" id="ePhone">Escribe un teléfono válido.</p></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>Personas</label><input id="fPpl" type="number" min="1" max="30" value="2"></div>
+          <div class="field"><label>Disfraz / nota (opcional)</label><input id="fNote" type="text" placeholder="Ej. venimos disfrazados 🎭"></div>
+        </div>
+        <button class="submit" id="send">🩸 Reservar por WhatsApp</button>
+      </div>
+      <div class="done" id="done">
+        <div class="big">Nos vemos en la sala.</div>
+        <div class="sm" id="doneSm">Abrimos tu WhatsApp con la reserva lista. Si no se abrió, toca el botón de abajo.</div>
+        <a class="submit" id="doneWa" href="#" target="_blank" rel="noopener" style="margin-top:1.2rem;text-decoration:none">Abrir WhatsApp</a>
+      </div>
+
+      <div class="methods">
+        <a class="method" id="mWa" href="https://wa.me/584247819621?text=Hola!%20Quiero%20reservar%20para%20The%20Red%20Room%20(31%20Oct)%20en%20Martini%20Bar%20%F0%9F%A9%B8" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.3-1.4A10 10 0 1 0 12 2Z"/></svg> WhatsApp directo</a>
+        <a class="method" href="tel:+584247819621"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11 11 0 0 0 3.5.56 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.2.2 2.4.56 3.5a1 1 0 0 1-.25 1Z"/></svg> Llamar</a>
+        <div class="method" id="mCopy"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4a2 2 0 0 0-2 2v12h2V3h12V1Zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Z"/></svg> <span id="copyLbl">Copiar número</span></div>
+        <a class="method" id="mIg" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c2.7 0 3 0 4.1.1 1 .1 1.7.2 2.3.5.6.2 1.1.5 1.6 1 .5.5.8 1 1 1.6.2.6.4 1.3.5 2.3.1 1.1.1 1.4.1 4.1s0 3-.1 4.1c-.1 1-.2 1.7-.5 2.3a4.6 4.6 0 0 1-1 1.6 4.6 4.6 0 0 1-1.6 1c-.6.2-1.3.4-2.3.5-1.1.1-1.4.1-4.1.1s-3 0-4.1-.1c-1-.1-1.7-.2-2.3-.5a4.6 4.6 0 0 1-1.6-1 4.6 4.6 0 0 1-1-1.6c-.2-.6-.4-1.3-.5-2.3C2 15 2 14.7 2 12s0-3 .1-4.1c.1-1 .2-1.7.5-2.3.2-.6.5-1.1 1-1.6.5-.5 1-.8 1.6-1 .6-.2 1.3-.4 2.3-.5C9 2 9.3 2 12 2Zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4ZM17.4 6.6a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4Z"/></svg> Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFO -->
+  <section class="wrap reveal">
+    <div class="info">
+      <div><div class="k">Fecha</div><div class="v">Sáb 31 Oct</div></div>
+      <div><div class="k">Hora</div><div class="v">10pm en adelante</div></div>
+      <div><div class="k">Lugar</div><div class="v">Martini Bar</div></div>
+      <div><div class="k">Dress code</div><div class="v">Negro & Rojo</div></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>© 2026 Martini Bar · The Red Room</span>
+  <a href="/">← Volver al inicio</a>
+</footer>
+
+<script>
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const PHONE='584247819621';
+const EVENTO='The Red Room · 31 Oct';
+
+/* glow que sigue el cursor */
+(function(){const g=document.getElementById('glow');if(!g||matchMedia('(hover:none)').matches)return;
+  addEventListener('pointermove',e=>{g.style.left=e.clientX+'px';g.style.top=e.clientY+'px';g.style.opacity=1;});
+})();
+
+/* reveals */
+(function(){const els=document.querySelectorAll('.reveal');if(!('IntersectionObserver'in window)||reduce){els.forEach(e=>e.classList.add('in'));return;}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.15});
+  els.forEach(e=>io.observe(e));
+})();
+
+/* countdown al 31 oct 2026, 10pm */
+(function(){const D=document.getElementById('cD'),H=document.getElementById('cH'),M=document.getElementById('cM'),S=document.getElementById('cS');
+  const target=new Date(2026,9,31,22,0,0);function p(n){return String(n).padStart(2,'0');}
+  function tick(){let d=target-new Date();if(d<0)d=0;
+    const dd=Math.floor(d/864e5);d-=dd*864e5;const hh=Math.floor(d/36e5);d-=hh*36e5;const mm=Math.floor(d/6e4);d-=mm*6e4;const ss=Math.floor(d/1e3);
+    D.textContent=dd;H.textContent=p(hh);M.textContent=p(mm);S.textContent=p(ss);}
+  tick();setInterval(tick,1000);
+})();
+
+/* zonas */
+let zona='General';
+document.getElementById('zones').addEventListener('click',e=>{const z=e.target.closest('.zone');if(!z)return;
+  document.querySelectorAll('.zone').forEach(x=>x.classList.remove('active'));z.classList.add('active');zona=z.dataset.zone;});
+
+/* copiar número */
+document.getElementById('mCopy').addEventListener('click',()=>{
+  const n='+58 424 781 9621';const lbl=document.getElementById('copyLbl');
+  (navigator.clipboard?navigator.clipboard.writeText(n):Promise.reject()).then(()=>{lbl.textContent='¡Copiado!';setTimeout(()=>lbl.textContent='Copiar número',1800);}).catch(()=>{lbl.textContent=n;});
+});
+
+/* reserva: guarda en el backend + abre WhatsApp */
+function waURL(d){
+  const L=['🩸 Reserva THE RED ROOM — Sáb 31 Oct','Nombre: '+d.nombre,'Teléfono: '+d.telefono,'Zona: '+d.zona,'Personas: '+d.personas];
+  if(d.nota)L.push('Nota: '+d.nota);
+  return 'https://wa.me/'+PHONE+'?text='+encodeURIComponent(L.join('\n'));
+}
+document.getElementById('send').addEventListener('click',()=>{
+  const nombre=document.getElementById('fName').value.trim();
+  const telefono=document.getElementById('fPhone').value.trim();
+  const personas=Math.max(1,Math.min(30,parseInt(document.getElementById('fPpl').value)||1));
+  const nota=document.getElementById('fNote').value.trim();
+  const eN=document.getElementById('eName'),eP=document.getElementById('ePhone');
+  eN.style.display=nombre?'none':'block';
+  eP.style.display=(telefono.replace(/\D/g,'').length>=7)?'none':'block';
+  if(!nombre||telefono.replace(/\D/g,'').length<7)return;
+  const data={nombre,telefono,zona,personas,nota};
+  const url=waURL(data);
+  // guarda (no bloquea el WhatsApp)
+  try{fetch('/api/reservas',{method:'POST',headers:{'Content-Type':'application/json'},keepalive:true,
+    body:JSON.stringify({nombre,telefono,zona,personas,notas:nota,evento:EVENTO})});}catch(e){}
+  const w=window.open(url,'_blank');
+  document.getElementById('doneWa').href=url;
+  document.getElementById('form').style.display='none';
+  document.getElementById('done').classList.add('show');
+  if(!w)location.href=url;
+});
+</script>
+</body>
+</html>

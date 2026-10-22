@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS reservas (
   fecha     TEXT,                    -- YYYY-MM-DD
   hora      TEXT,                    -- HH:MM
   notas     TEXT,
+  evento    TEXT,                    -- nombre del evento (ej. The Red Room)
   estado    TEXT    NOT NULL DEFAULT 'pendiente',  -- pendiente | confirmada | cancelada | llego
   creado_en TEXT    NOT NULL DEFAULT (datetime('now'))
 );
