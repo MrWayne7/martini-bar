@@ -16,6 +16,8 @@
 <meta property="og:title" content="Martini Bar — Bar · Terraza · VIP">
 <meta property="og:description" content="Sábados de fiesta. Reserva mesa o VIP directo por WhatsApp.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="assets/logo.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23000'/%3E%3Cpath d='M4 5h16l-8 8-8-8Z M12 13v6 M8 21h8' stroke='%23c9ffe8' stroke-width='1.3' fill='none'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -141,7 +143,12 @@ main,footer,.nav,.menu{position:relative;z-index:2}
 
 /* ---------- hero ---------- */
 .hero{min-height:100svh;min-height:100dvh;display:flex;flex-direction:column;justify-content:flex-end;
-  padding-bottom:max(2rem,env(safe-area-inset-bottom));perspective:900px}
+  padding-bottom:max(2rem,env(safe-area-inset-bottom));perspective:900px;position:relative;overflow:hidden}
+.hero>.hero-tag,.hero>.hero-word,.hero>.hero-row,.hero>.scroll-cue{position:relative;z-index:2}
+.hero-video{position:absolute;inset:0;z-index:0;overflow:hidden;background:#050505}
+.hero-video video{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.4s var(--ease)}
+.hero-video video.ready{opacity:.62}
+.hero-video::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.28) 42%,rgba(0,0,0,.92) 100%)}
 .hero-word{font-weight:800;letter-spacing:-.05em;line-height:.82;font-size:clamp(4rem,21vw,20rem);text-transform:lowercase}
 .hero-word .line{overflow:hidden;display:block}
 .hero-word .char{display:inline-block;transform:translateY(110%)}
@@ -160,6 +167,22 @@ main,footer,.nav,.menu{position:relative;z-index:2}
 .glass-wrap{position:relative}
 .glass-svg{width:100%;height:auto;animation:hue 9s linear infinite}
 @keyframes hue{to{filter:hue-rotate(360deg)}}
+
+/* ---------- loader logo ---------- */
+.load-logo{width:min(64vw,440px);height:auto;display:block;filter:drop-shadow(0 0 46px rgba(226,183,92,.28))}
+
+/* ---------- eventos ---------- */
+.events{margin-top:8rem}
+.ev-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.1rem;margin-top:3rem}
+.ev-card{position:relative;display:block;border-radius:6px;overflow:hidden;border:1px solid var(--line);background:#070707;aspect-ratio:4/5;transition:transform .5s var(--ease),border-color .4s}
+.ev-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s var(--ease),filter .5s;filter:saturate(1.02)}
+.ev-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.82) 100%);pointer-events:none}
+.ev-card:hover{transform:translateY(-5px);border-color:rgba(226,183,92,.5)}
+.ev-card:hover img{transform:scale(1.06)}
+.ev-meta{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:1.1rem 1.1rem 1rem;display:flex;flex-direction:column;gap:.25rem}
+.ev-meta .ev-name{font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.ev-meta .ev-cta{font-size:.74rem;letter-spacing:.14em;color:#e2b75c;opacity:.9;text-transform:uppercase}
+@media(max-width:640px){.events{margin-top:5rem}.ev-grid{grid-template-columns:repeat(2,1fr);gap:.7rem}.ev-meta .ev-name{font-size:.9rem}}
 
 /* ---------- video ---------- */
 .video{position:relative;margin-top:1.2rem;aspect-ratio:16/9;border-radius:4px;overflow:hidden;background:#000;border:1px solid var(--line-soft)}
@@ -191,7 +214,7 @@ main,footer,.nav,.menu{position:relative;z-index:2}
 @media(max-width:680px){.stats{grid-template-columns:repeat(2,1fr)}}
 
 /* ---------- plans ---------- */
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-soft);margin-top:3rem}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line-soft);margin-top:3rem}
 .plan{background:var(--black);padding:2.2rem 1.7rem;display:flex;flex-direction:column;min-height:420px;position:relative;transition:background .5s}
 .plan:hover{background:#080808}
 .plan.feat::before{content:"Más pedida";position:absolute;top:1.5rem;right:1.5rem;font-family:var(--serif);font-style:italic;color:#c9ffe8;font-size:.95rem}
@@ -308,7 +331,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 <div class="cur"></div><div class="cur-dot"></div>
 
 <div class="loader">
-  <div class="lg"><span class="holo-text">martini</span></div>
+  <div class="lg"><img src="assets/logo.png" alt="Martini Bar" class="load-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block'"><span class="holo-text" style="display:none">martini</span></div>
   <div class="num" id="loadNum">00</div>
 </div>
 
@@ -319,6 +342,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
   </a>
   <div class="nav-links">
     <a href="#reservas" data-hover>Reservas</a>
+    <a href="#eventos" data-hover>Eventos</a>
     <a href="#cartas" data-hover>Cartas</a>
     <a href="#terraza" data-hover>Terraza · VIP</a>
     <a href="#faq" data-hover>Info</a>
@@ -330,6 +354,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 <div class="menu" id="menu">
   <div class="menu-close" id="menuClose" data-hover>CERRAR</div>
   <a href="#reservas" data-hover><span>Reservas</span></a>
+  <a href="#eventos" data-hover><span>Eventos</span></a>
   <a href="#cartas" data-hover><span>Cartas</span></a>
   <a href="#terraza" data-hover><span>Terraza · VIP</span></a>
   <a href="#faq" data-hover><span>Info</span></a>
@@ -340,9 +365,14 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 
 <!-- HERO -->
 <section class="hero wrap">
+  <div class="hero-video" aria-hidden="true">
+    <video id="heroBg" muted loop playsinline autoplay preload="metadata" poster="assets/hero-poster.jpg">
+      <source src="assets/hero.mp4" type="video/mp4">
+    </video>
+  </div>
   <svg class="seal" viewBox="0 0 100 100" aria-hidden="true">
     <defs><path id="sealPath" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
-    <text textLength="238" lengthAdjust="spacing"><textPath href="#sealPath">Exclusivo · Solo sábados · Aforo 500 ·</textPath></text>
+    <text textLength="238" lengthAdjust="spacing"><textPath href="#sealPath">Exclusivo · Solo sábados · Aforo 300 ·</textPath></text>
   </svg>
   <div class="hero-glass" id="heroGlass">
     <div class="glass-wrap">
@@ -359,13 +389,13 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
     </div>
   </div>
 
-  <div class="hero-tag"><span class="lv"></span> Solo sábados · Aforo limitado 500 · Entrada con lista</div>
+  <div class="hero-tag"><span class="lv"></span> Solo sábados · Aforo 300 · Entrada gratis hasta la 1am</div>
   <h1 class="hero-word"><span class="line" data-split>martini</span></h1>
 
   <div class="hero-row">
     <div class="phrases" id="phrases">
       <div class="p">Agitado, nunca revuelto.</div>
-      <div class="p">500 almas. Una sola noche.</div>
+      <div class="p">300 almas. Una sola noche.</div>
       <div class="p">Terraza, luces y una copa que cambia de color.</div>
       <div class="p">La elegancia se sirve fría.</div>
     </div>
@@ -378,7 +408,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 <!-- VIDEO -->
 <section class="wrap" style="margin-top:2rem">
   <div class="video reveal">
-    <video id="partyVideo" muted loop playsinline></video>
+    <video id="partyVideo" muted loop playsinline poster="assets/hero-poster.jpg"><source src="assets/video-1.mp4" type="video/mp4"></video>
     <div class="video-fallback" id="videoFallback"></div>
     <div class="video-play" id="videoPlay" data-hover>
       <div class="ring"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
@@ -391,13 +421,13 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 <section class="wrap" style="margin-top:7rem" id="terraza">
   <div class="chapter reveal">
     <span class="no">01</span>
-    <div><h2>La noche, servida.</h2><p class="sub">Centro comercial, estacionamiento propio, terraza al aire libre y un área VIP para los que llegan a brillar. Toca cada dato.</p></div>
+    <div><h2>La noche, servida.</h2><p class="sub">Pista, terraza solar, área VIP, zona VIP al lado del DJ y estacionamiento privado. Toca cada dato.</p></div>
   </div>
   <div class="stats">
-    <div class="stat reveal"><div class="n" data-count="500">0</div><div class="l">personas cada sábado</div><div class="d">Pista, terraza y VIP llenos hasta la madrugada.</div><span class="hint">+</span></div>
-    <div class="stat reveal"><div class="n">Terraza</div><div class="l">al aire libre</div><div class="d">Bajo las luces, con la mejor brisa de la ciudad.</div><span class="hint">+</span></div>
-    <div class="stat reveal"><div class="n">Área VIP</div><div class="l">mesas y botella</div><div class="d">Servicio dedicado y la mejor vista de la pista.</div><span class="hint">+</span></div>
-    <div class="stat reveal"><div class="n">Parking</div><div class="l">en el CC</div><div class="d">Estacionamiento propio: llegas y entras directo.</div><span class="hint">+</span></div>
+    <div class="stat reveal"><div class="n" data-count="300">0</div><div class="l">de aforo</div><div class="d">Pista, área general, terraza y VIP llenos hasta la madrugada.</div><span class="hint">+</span></div>
+    <div class="stat reveal"><div class="n">Terraza</div><div class="l">solar al aire libre</div><div class="d">Bajo las luces y con la mejor brisa. También bodegón y tasca.</div><span class="hint">+</span></div>
+    <div class="stat reveal"><div class="n">VIP + DJ</div><div class="l">mesas y botella</div><div class="d">Área VIP y una zona exclusiva justo al lado del DJ.</div><span class="hint">+</span></div>
+    <div class="stat reveal"><div class="n">Parking</div><div class="l">privado</div><div class="d">Estacionamiento propio: llegas y entras directo.</div><span class="hint">+</span></div>
   </div>
 </section>
 
@@ -405,23 +435,28 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 <section class="wrap" style="margin-top:8rem" id="reservas">
   <div class="chapter reveal">
     <span class="no">02</span>
-    <div><h2>Elige tu lugar.</h2><p class="sub">General, mesa o VIP. Reserva en segundos — los combos los cuadras tú, aquí van de ejemplo.</p></div>
+    <div><h2>Elige tu lugar.</h2><p class="sub">Entrada gratis hasta la 1am. Después, cover $3 hombres · $2 mujeres. O reserva tu mesa VIP con botella incluida.</p></div>
   </div>
   <div class="plans">
     <div class="plan reveal">
-      <h3>General</h3><div class="price">$50.000<small> /cover</small></div><div class="desc">Para vivir la pista</div>
-      <ul><li><span class="ck">✦</span> Entrada garantizada</li><li><span class="ck">✦</span> Acceso a la barra</li><li><span class="ck">✦</span> Pista y terraza</li><li><span class="ck">✦</span> Fila preferencial antes de 11pm</li></ul>
+      <h3>General</h3><div class="price">Gratis<small> hasta la 1am</small></div><div class="desc">Después: $3 hombres · $2 mujeres</div>
+      <ul><li><span class="ck">✦</span> Pista y área general</li><li><span class="ck">✦</span> Terraza solar</li><li><span class="ck">✦</span> Acceso a la barra</li><li><span class="ck">✦</span> Estacionamiento privado</li></ul>
       <a href="#builder" class="go" data-hover data-zone="General"><span>Reservar general</span> →</a>
     </div>
+    <div class="plan reveal">
+      <h3>Mesa VIP</h3><div class="price">$100<small> USD</small></div><div class="desc">Hasta 5 personas</div>
+      <ul><li><span class="ck">✦</span> 1 botella de Buchanan's 12 años</li><li><span class="ck">✦</span> 1 balde de cerveza</li><li><span class="ck">✦</span> 2 entradas incluidas</li><li><span class="ck">✦</span> Servicio en mesa</li></ul>
+      <a href="#builder" class="go" data-hover data-zone="VIP"><span>Reservar mesa VIP</span> →</a>
+    </div>
     <div class="plan feat reveal">
-      <h3>Mesa</h3><div class="price">$350.000<small> /mesa</small></div><div class="desc">Para la mesa completa</div>
-      <ul><li><span class="ck">✦</span> Mesa reservada (hasta 6)</li><li><span class="ck">✦</span> 1 botella + mezcladores</li><li><span class="ck">✦</span> Servicio en mesa</li><li><span class="ck">✦</span> Ingreso sin fila</li></ul>
-      <a href="#builder" class="go" data-hover data-zone="Mesa"><span>Reservar mesa</span> →</a>
+      <h3>VIP Deluxe</h3><div class="price">$150<small> USD</small></div><div class="desc">Hasta 6 personas</div>
+      <ul><li><span class="ck">✦</span> 1 botella de whisky 12 años</li><li><span class="ck">✦</span> 2 baldes de cerveza</li><li><span class="ck">✦</span> 1 hooka</li><li><span class="ck">✦</span> 3 entradas incluidas</li></ul>
+      <a href="#builder" class="go" data-hover data-zone="VIP Deluxe"><span>Reservar Deluxe</span> →</a>
     </div>
     <div class="plan reveal">
-      <h3>VIP</h3><div class="price">$700.000<small> /área</small></div><div class="desc">Para brillar toda la noche</div>
-      <ul><li><span class="ck">✦</span> Área VIP con mejor vista</li><li><span class="ck">✦</span> Botella premium + mixología</li><li><span class="ck">✦</span> Atención personalizada</li><li><span class="ck">✦</span> Terraza VIP y parqueo cerca</li></ul>
-      <a href="#builder" class="go" data-hover data-zone="VIP"><span>Reservar VIP</span> →</a>
+      <h3>VIP Diamante</h3><div class="price">$200<small> USD</small></div><div class="desc">Hasta 7 personas</div>
+      <ul><li><span class="ck">✦</span> 2 botellas de whisky 12 años</li><li><span class="ck">✦</span> 2 baldes de cerveza</li><li><span class="ck">✦</span> 1 hooka</li><li><span class="ck">✦</span> 4 entradas incluidas</li></ul>
+      <a href="#builder" class="go" data-hover data-zone="VIP Diamante"><span>Reservar Diamante</span> →</a>
     </div>
   </div>
 
@@ -431,9 +466,10 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
     <div class="resv-grid">
       <div class="field"><label>Zona</label><div class="zones" id="zones">
         <div class="zone active" data-zone="General" data-hover>General</div>
-        <div class="zone" data-zone="Mesa" data-hover>Mesa</div>
-        <div class="zone" data-zone="VIP" data-hover>VIP</div>
-        <div class="zone" data-zone="Terraza" data-hover>Terraza</div>
+        <div class="zone" data-zone="VIP" data-hover>Mesa VIP · $100</div>
+        <div class="zone" data-zone="VIP Deluxe" data-hover>Deluxe · $150</div>
+        <div class="zone" data-zone="VIP Diamante" data-hover>Diamante · $200</div>
+        <div class="zone" data-zone="VIP DJ" data-hover>VIP DJ · $100</div>
       </div></div>
       <div class="field"><label>Personas</label><div class="counter">
         <button id="minus" aria-label="Menos" data-hover>–</button><span class="val" id="pplVal">4</span><button id="plus" aria-label="Más" data-hover>+</button>
@@ -460,9 +496,39 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
   </div>
 </section>
 
+<!-- EVENTOS -->
+<section class="wrap events" id="eventos">
+  <div class="chapter reveal">
+    <span class="no">03</span>
+    <div><h2>Las noches.</h2><p class="sub">Lo que se viene en Martini Bar. Toca un flyer y reserva para esa fecha directo por WhatsApp.</p></div>
+  </div>
+  <div class="ev-grid">
+    <a class="ev-card reveal" href="https://wa.me/584247819621?text=Hola!%20Quiero%20reservar%20para%20Ladies%20Night%20en%20Martini%20Bar%20%F0%9F%8D%B8" target="_blank" rel="noopener" data-hover>
+      <img src="assets/eventos/ladies-night.webp" alt="Ladies Night" loading="lazy">
+      <div class="ev-meta"><span class="ev-name">Ladies Night</span><span class="ev-cta">Reservar →</span></div>
+    </a>
+    <a class="ev-card reveal" href="https://wa.me/584247819621?text=Hola!%20Quiero%20reservar%20para%20la%20noche%20Los%20de%20Siempre%20en%20Martini%20Bar%20%F0%9F%8D%B8" target="_blank" rel="noopener" data-hover>
+      <img src="assets/eventos/los-de-siempre.webp" alt="Los de Siempre" loading="lazy">
+      <div class="ev-meta"><span class="ev-name">Los de Siempre</span><span class="ev-cta">Reservar →</span></div>
+    </a>
+    <a class="ev-card reveal" href="https://wa.me/584247819621?text=Hola!%20Quiero%20reservar%20para%20%C3%81ngel%20vs%20Diablitos%20en%20Martini%20Bar%20%F0%9F%8D%B8" target="_blank" rel="noopener" data-hover>
+      <img src="assets/eventos/angel-vs-diablitos.webp" alt="Ángel vs Diablitos" loading="lazy">
+      <div class="ev-meta"><span class="ev-name">Ángel vs Diablitos</span><span class="ev-cta">Reservar →</span></div>
+    </a>
+    <a class="ev-card reveal" href="https://wa.me/584247819621?text=Hola!%20Quiero%20reservar%20para%20Otra%20Noche%20Nuevas%20Historias%20en%20Martini%20Bar%20%F0%9F%8D%B8" target="_blank" rel="noopener" data-hover>
+      <img src="assets/eventos/otra-noche.webp" alt="Otra Noche, Nuevas Historias" loading="lazy">
+      <div class="ev-meta"><span class="ev-name">Otra Noche, Nuevas Historias</span><span class="ev-cta">Reservar →</span></div>
+    </a>
+    <a class="ev-card reveal" href="https://wa.me/584247819621?text=Hola!%20Quiero%20info%20del%20pr%C3%B3ximo%20evento%20en%20Martini%20Bar%20%F0%9F%8D%B8" target="_blank" rel="noopener" data-hover>
+      <img src="assets/eventos/evento-5.webp" alt="Próxima noche en Martini Bar" loading="lazy">
+      <div class="ev-meta"><span class="ev-name">Próxima noche</span><span class="ev-cta">Reservar →</span></div>
+    </a>
+  </div>
+</section>
+
 <!-- CARTAS -->
 <section class="gallery" id="cartas">
-  <div class="wrap"><div class="chapter reveal"><span class="no">03</span><div><h2>La carta.</h2><p class="sub">Martinis de autor. Toca cada copa para ver la receta.</p></div></div></div>
+  <div class="wrap"><div class="chapter reveal"><span class="no">04</span><div><h2>La carta.</h2><p class="sub">Martinis de autor. Toca cada copa para ver la receta.</p></div></div></div>
   <div class="gscroller"><div class="gtrack" id="gtrack"></div></div>
   <p class="gnote">Arrastra o desliza · toca una copa para voltearla · carta de ejemplo, editable.</p>
 </section>
@@ -472,13 +538,13 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 
 <!-- FAQ -->
 <section class="wrap" id="faq">
-  <div class="chapter reveal"><span class="no">04</span><div><h2>Antes de venir.</h2><p class="sub">Lo que todos preguntan.</p></div></div>
+  <div class="chapter reveal"><span class="no">05</span><div><h2>Antes de venir.</h2><p class="sub">Lo que todos preguntan.</p></div></div>
   <div id="faqList">
     <div class="faq-item reveal"><div class="faq-q">¿Dónde queda y hay parqueadero? <span class="ico">+</span></div><div class="faq-a">Estamos dentro del centro comercial, con estacionamiento propio. La entrada al bar es independiente y la terraza da al exterior.</div></div>
     <div class="faq-item reveal"><div class="faq-q">¿Cómo reservo mesa o VIP? <span class="ico">+</span></div><div class="faq-a">Usa "Arma tu reserva": eliges zona, personas y fecha, y te abre WhatsApp con todo listo. También puedes escribirnos por redes.</div></div>
-    <div class="faq-item reveal"><div class="faq-q">¿Qué días abren? <span class="ico">+</span></div><div class="faq-a">El sábado es la noche grande — hasta 500 personas entre pista, terraza y VIP. Horarios especiales en nuestras redes.</div></div>
+    <div class="faq-item reveal"><div class="faq-q">¿Qué días abren? <span class="ico">+</span></div><div class="faq-a">El sábado es la noche grande — hasta 300 personas entre pista, terraza y VIP. Horarios especiales en nuestras redes.</div></div>
     <div class="faq-item reveal"><div class="faq-q">¿Hay código de vestuario? <span class="ico">+</span></div><div class="faq-a">Elegante casual. Ven como para brillar en la mejor foto de la noche. El VIP se lo toma en serio.</div></div>
-    <div class="faq-item reveal"><div class="faq-q">¿Puedo llegar sin reserva? <span class="ico">+</span></div><div class="faq-a">Sí, con cover general según disponibilidad. Para asegurar tu lugar en sábado, mejor reserva — sobre todo mesa y VIP.</div></div>
+    <div class="faq-item reveal"><div class="faq-q">¿Puedo llegar sin reserva? <span class="ico">+</span></div><div class="faq-a">Sí. La entrada es gratis hasta la 1am; después el cover es $3 hombres y $2 mujeres. Para asegurar mesa o VIP en sábado, mejor reserva.</div></div>
   </div>
 </section>
 
@@ -488,7 +554,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
   <div class="f-grid">
     <div class="f-col"><h5>MARTINI BAR</h5><p class="f-info">Bar · Terraza · Área VIP.<br>Dentro del centro comercial, con estacionamiento.<br>Sábados de fiesta hasta la madrugada.</p></div>
     <div class="f-col"><h5>SÍGUENOS</h5><a href="#" data-hover>Instagram</a><a href="#" data-hover>TikTok</a><a href="https://wa.me/584247819621" target="_blank" rel="noopener" data-hover>WhatsApp</a></div>
-    <div class="f-col"><h5>NAVEGA</h5><a href="#reservas" data-hover>Reservas</a><a href="#cartas" data-hover>Cartas</a><a href="#faq" data-hover>Info</a></div>
+    <div class="f-col"><h5>NAVEGA</h5><a href="#reservas" data-hover>Reservas</a><a href="#eventos" data-hover>Eventos</a><a href="#cartas" data-hover>Cartas</a><a href="#faq" data-hover>Info</a></div>
   </div>
   <div class="f-word" id="footWord"><span class="holo-text">martini</span></div>
   <div class="f-bottom"><span>© 2026 Martini Bar · Todos los derechos reservados</span><a href="/admin.html" style="color:var(--muted);opacity:.6" data-hover>Panel</a></div>
@@ -745,6 +811,16 @@ waBtn.addEventListener('click',()=>{
   if(hasGSAP)gsap.from(doneEl,{y:14,opacity:0,duration:.5,ease:'power3.out'});
   waLbl.textContent='Abrir WhatsApp otra vez';
 });
+
+/* ----- hero background video ----- */
+(function(){
+  const hv=document.getElementById('heroBg');if(!hv)return;
+  if(reduce){try{hv.removeAttribute('autoplay');hv.pause();}catch(e){}hv.classList.add('ready');return;}
+  const ready=()=>hv.classList.add('ready');
+  hv.addEventListener('loadeddata',ready);
+  hv.addEventListener('canplay',ready);
+  const p=hv.play&&hv.play();if(p&&p.catch)p.catch(()=>{});
+})();
 
 /* ----- video slot ----- */
 document.getElementById('videoPlay').addEventListener('click',()=>{
