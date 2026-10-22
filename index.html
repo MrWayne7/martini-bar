@@ -39,7 +39,7 @@
 }
 :root:not([data-theme="light"]){color-scheme:dark}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:hidden;max-width:100%}
 body{
   background:var(--black);color:var(--paper);
   font-family:var(--font);font-weight:400;line-height:1.4;
@@ -443,9 +443,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 <!-- HERO -->
 <section class="hero wrap">
   <div class="hero-video" aria-hidden="true" style="background-image:url('assets/hero-poster.jpg')">
-    <video id="heroBg" muted loop playsinline autoplay preload="metadata" poster="assets/hero-poster.jpg">
-      <source src="assets/hero.mp4" type="video/mp4">
-    </video>
+    <video id="heroBg" muted loop playsinline autoplay preload="metadata" poster="assets/hero-poster.jpg"></video>
   </div>
   <svg class="seal" viewBox="0 0 100 100" aria-hidden="true">
     <defs><path id="sealPath" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
@@ -918,6 +916,12 @@ waBtn.addEventListener('click',()=>{
 (function(){
   const hv=document.getElementById('heroBg');if(!hv)return;
   try{hv.muted=true;hv.defaultMuted=true;hv.setAttribute('muted','');}catch(e){}
+  // 16:9 en pantallas anchas, 9:16 en celulares verticales
+  const portrait=matchMedia('(max-aspect-ratio: 1/1)').matches;
+  let tried=false;
+  function setSrc(src){hv.innerHTML='';const s=document.createElement('source');s.src=src;s.type='video/mp4';hv.appendChild(s);hv.load();}
+  setSrc(portrait?'assets/hero-portrait.mp4':'assets/hero.mp4');
+  hv.addEventListener('error',()=>{if(!tried){tried=true;setSrc('assets/hero.mp4');hv.play&&hv.play().catch(()=>{});}},true);
   const ready=()=>hv.classList.add('ready');
   ['loadeddata','canplay','playing'].forEach(ev=>hv.addEventListener(ev,ready));
   if(reduce){try{hv.removeAttribute('autoplay');hv.pause();}catch(e){}ready();return;}
