@@ -443,7 +443,9 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 <!-- HERO -->
 <section class="hero wrap">
   <div class="hero-video" aria-hidden="true" style="background-image:url('assets/hero-poster.jpg')">
-    <div class="hero-yt" id="heroYt"></div>
+    <video id="heroBg" muted loop playsinline autoplay preload="metadata" poster="assets/hero-poster.jpg">
+      <source src="assets/hero.mp4" type="video/mp4">
+    </video>
   </div>
   <svg class="seal" viewBox="0 0 100 100" aria-hidden="true">
     <defs><path id="sealPath" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
@@ -912,17 +914,17 @@ waBtn.addEventListener('click',()=>{
   waLbl.textContent='Abrir WhatsApp otra vez';
 });
 
-/* ----- hero background video (YouTube Short, mute+loop, sin controles) ----- */
+/* ----- hero background video (MP4 local, mute+loop, autoplay garantizado) ----- */
 (function(){
-  const host=document.getElementById('heroYt');if(!host)return;
-  if(reduce)return; // respeta "reducir movimiento": solo queda el poster
-  const ID='JPbScRcMgPg';
-  const f=document.createElement('iframe');
-  f.src='https://www.youtube-nocookie.com/embed/'+ID+'?autoplay=1&mute=1&loop=1&playlist='+ID+'&controls=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&disablekb=1&fs=0';
-  f.allow='autoplay; encrypted-media';
-  f.setAttribute('frameborder','0');f.setAttribute('tabindex','-1');f.title='';
-  f.addEventListener('load',()=>f.classList.add('ready'));
-  host.appendChild(f);
+  const hv=document.getElementById('heroBg');if(!hv)return;
+  try{hv.muted=true;hv.defaultMuted=true;hv.setAttribute('muted','');}catch(e){}
+  const ready=()=>hv.classList.add('ready');
+  ['loadeddata','canplay','playing'].forEach(ev=>hv.addEventListener(ev,ready));
+  if(reduce){try{hv.removeAttribute('autoplay');hv.pause();}catch(e){}ready();return;}
+  function go(){try{const p=hv.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}}
+  go();
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)go();});
+  ['pointerdown','touchstart','scroll','keydown','mousemove'].forEach(ev=>addEventListener(ev,function h(){go();removeEventListener(ev,h);},{passive:true}));
 })();
 
 /* ----- canción de fondo (arranca al primer gesto; botón para silenciar) ----- */
