@@ -318,7 +318,24 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 .f-bottom{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:1.3rem max(var(--padx),env(safe-area-inset-left)) max(1.3rem,env(safe-area-inset-bottom));border-top:1px solid var(--line);color:var(--muted);font-size:.8rem;letter-spacing:.03em}
 @media(max-width:680px){.f-grid{grid-template-columns:1fr 1fr}.f-info{grid-column:1/-1}}
 
-.reveal{opacity:0;transform:translateY(28px)}
+/* ---------- responsive fino (cualquier pantalla) ---------- */
+@media(min-width:1500px){section.wrap:not(.hero){max-width:1440px;margin-left:auto;margin-right:auto}}
+@media(max-width:900px){.hero-word{font-size:clamp(4rem,26vw,13rem)}}
+@media(max-width:560px){
+  .hero-tag{font-size:.56rem;letter-spacing:.1em}
+  .plan{padding:1.9rem 1.4rem;min-height:auto}
+  .resv{padding:1.3rem}
+}
+@media(max-width:380px){
+  :root{--padx:.95rem}
+  .ev-grid{grid-template-columns:1fr;gap:.7rem}
+  .ev-card{aspect-ratio:16/10}
+  .hero-cta{font-size:.95rem;padding:.9rem 1.4rem}
+}
+@media(max-width:620px) and (orientation:landscape){.hero{min-height:124svh}.hero-glass{opacity:.5}}
+
+.reveal{will-change:transform,opacity}
+.chapter h2 .wword{display:inline-block;white-space:nowrap}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
 </style>
 </head>
@@ -441,7 +458,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
     <div><h2>Elige tu lugar.</h2><p class="sub">Entrada gratis hasta la 1am. Después, cover $3 hombres · $2 mujeres. O reserva tu mesa VIP con botella incluida.</p></div>
   </div>
   <div class="plans">
-    <div class="plan reveal">
+    <div class="plan reveal" data-anim="left">
       <h3>General</h3><div class="price">Gratis<small> hasta la 1am</small></div><div class="desc">Después: $3 hombres · $2 mujeres</div>
       <ul><li><span class="ck">✦</span> Pista y área general</li><li><span class="ck">✦</span> Terraza solar</li><li><span class="ck">✦</span> Acceso a la barra</li><li><span class="ck">✦</span> Estacionamiento privado</li></ul>
       <a href="#builder" class="go" data-hover data-zone="General"><span>Reservar general</span> →</a>
@@ -456,7 +473,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
       <ul><li><span class="ck">✦</span> 1 botella de whisky 12 años</li><li><span class="ck">✦</span> 2 baldes de cerveza</li><li><span class="ck">✦</span> 1 hooka</li><li><span class="ck">✦</span> 3 entradas incluidas</li></ul>
       <a href="#builder" class="go" data-hover data-zone="VIP Deluxe"><span>Reservar Deluxe</span> →</a>
     </div>
-    <div class="plan reveal">
+    <div class="plan reveal" data-anim="right">
       <h3>VIP Diamante</h3><div class="price">$200<small> USD</small></div><div class="desc">Hasta 7 personas</div>
       <ul><li><span class="ck">✦</span> 2 botellas de whisky 12 años</li><li><span class="ck">✦</span> 2 baldes de cerveza</li><li><span class="ck">✦</span> 1 hooka</li><li><span class="ck">✦</span> 4 entradas incluidas</li></ul>
       <a href="#builder" class="go" data-hover data-zone="VIP Diamante"><span>Reservar Diamante</span> →</a>
@@ -501,7 +518,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 
 <!-- EVENTOS -->
 <section class="wrap events" id="eventos">
-  <div class="chapter reveal">
+  <div class="chapter reveal" data-anim="down">
     <span class="no">03</span>
     <div><h2>Las noches.</h2><p class="sub">Lo que se viene en Martini Bar. Toca un flyer y reserva para esa fecha directo por WhatsApp.</p></div>
   </div>
@@ -543,11 +560,11 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 <section class="wrap" id="faq">
   <div class="chapter reveal"><span class="no">05</span><div><h2>Antes de venir.</h2><p class="sub">Lo que todos preguntan.</p></div></div>
   <div id="faqList">
-    <div class="faq-item reveal"><div class="faq-q">¿Dónde queda y hay parqueadero? <span class="ico">+</span></div><div class="faq-a">Estamos dentro del centro comercial, con estacionamiento propio. La entrada al bar es independiente y la terraza da al exterior.</div></div>
-    <div class="faq-item reveal"><div class="faq-q">¿Cómo reservo mesa o VIP? <span class="ico">+</span></div><div class="faq-a">Usa "Arma tu reserva": eliges zona, personas y fecha, y te abre WhatsApp con todo listo. También puedes escribirnos por redes.</div></div>
-    <div class="faq-item reveal"><div class="faq-q">¿Qué días abren? <span class="ico">+</span></div><div class="faq-a">El sábado es la noche grande — hasta 300 personas entre pista, terraza y VIP. Horarios especiales en nuestras redes.</div></div>
-    <div class="faq-item reveal"><div class="faq-q">¿Hay código de vestuario? <span class="ico">+</span></div><div class="faq-a">Elegante casual. Ven como para brillar en la mejor foto de la noche. El VIP se lo toma en serio.</div></div>
-    <div class="faq-item reveal"><div class="faq-q">¿Puedo llegar sin reserva? <span class="ico">+</span></div><div class="faq-a">Sí. La entrada es gratis hasta la 1am; después el cover es $3 hombres y $2 mujeres. Para asegurar mesa o VIP en sábado, mejor reserva.</div></div>
+    <div class="faq-item reveal" data-anim="left"><div class="faq-q">¿Dónde queda y hay parqueadero? <span class="ico">+</span></div><div class="faq-a">Estamos dentro del centro comercial, con estacionamiento propio. La entrada al bar es independiente y la terraza da al exterior.</div></div>
+    <div class="faq-item reveal" data-anim="left"><div class="faq-q">¿Cómo reservo mesa o VIP? <span class="ico">+</span></div><div class="faq-a">Usa "Arma tu reserva": eliges zona, personas y fecha, y te abre WhatsApp con todo listo. También puedes escribirnos por redes.</div></div>
+    <div class="faq-item reveal" data-anim="left"><div class="faq-q">¿Qué días abren? <span class="ico">+</span></div><div class="faq-a">El sábado es la noche grande — hasta 300 personas entre pista, terraza y VIP. Horarios especiales en nuestras redes.</div></div>
+    <div class="faq-item reveal" data-anim="left"><div class="faq-q">¿Hay código de vestuario? <span class="ico">+</span></div><div class="faq-a">Elegante casual. Ven como para brillar en la mejor foto de la noche. El VIP se lo toma en serio.</div></div>
+    <div class="faq-item reveal" data-anim="left"><div class="faq-q">¿Puedo llegar sin reserva? <span class="ico">+</span></div><div class="faq-a">Sí. La entrada es gratis hasta la 1am; después el cover es $3 hombres y $2 mujeres. Para asegurar mesa o VIP en sábado, mejor reserva.</div></div>
   </div>
 </section>
 
@@ -682,16 +699,22 @@ document.getElementById('menuClose').addEventListener('click',closeMenu);
 document.querySelectorAll('#menu a[href^="#"]').forEach(a=>a.addEventListener('click',closeMenu));
 
 /* ----- reveals ----- */
-if(hasGSAP)gsap.utils.toArray('.reveal').forEach(el=>gsap.to(el,{opacity:1,y:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 90%'}}));
+if(hasGSAP&&!reduce){
+  const D={up:{y:46},down:{y:-46},left:{x:-72},right:{x:72},zoom:{scale:.88}};
+  gsap.utils.toArray('.reveal').forEach(el=>{
+    const d=D[el.dataset.anim]||D.up;
+    gsap.from(el,Object.assign({opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}},d));
+  });
+}
 
 /* ----- headings: masked word reveal ----- */
 if(hasGSAP&&!reduce){
   gsap.utils.toArray('.chapter h2').forEach(h=>{
     const words=h.textContent.trim().split(/\s+/);
-    h.innerHTML=words.map(w=>`<span class="wm"><span class="wi">${w}</span></span>`).join(' ');
+    h.innerHTML=words.map(w=>'<span class="wword">'+[...w].map(c=>`<span class="wm"><span class="wi">${c}</span></span>`).join('')+'</span>').join(' ');
     const wi=h.querySelectorAll('.wi');
     gsap.set(wi,{yPercent:115});
-    ScrollTrigger.create({trigger:h,start:'top 88%',once:true,onEnter:()=>gsap.to(wi,{yPercent:0,duration:.9,ease:'power4.out',stagger:.08})});
+    ScrollTrigger.create({trigger:h,start:'top 88%',once:true,onEnter:()=>gsap.to(wi,{yPercent:0,duration:.7,ease:'power4.out',stagger:.028})});
   });
 }
 
