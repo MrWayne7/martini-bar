@@ -39,6 +39,15 @@ img{max-width:100%;display:block}
   #070203}
 .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(130% 100% at 50% 40%,transparent 48%,rgba(0,0,0,.85))}
+.blackout{position:fixed;inset:0;z-index:40;pointer-events:none;background:#000;opacity:0}
+.lightning{position:fixed;inset:0;z-index:41;pointer-events:none;opacity:0;mix-blend-mode:screen;background:radial-gradient(130% 90% at 50% 25%,rgba(255,90,90,.55),rgba(255,255,255,.15) 30%,transparent 62%)}
+.sound-rr{position:fixed;left:max(1rem,env(safe-area-inset-left));bottom:calc(1rem + env(safe-area-inset-bottom));z-index:60;display:inline-flex;align-items:center;gap:.5rem;padding:.65rem .95rem;border-radius:40px;cursor:pointer;background:rgba(10,2,3,.72);backdrop-filter:blur(10px);border:1px solid var(--line-red);color:var(--paper);font-family:inherit;font-size:.8rem;font-weight:600;transition:border-color .3s,transform .3s var(--ease)}
+.sound-rr:hover{border-color:var(--blood);transform:translateY(-2px)}
+.sound-rr .bars{display:inline-flex;align-items:flex-end;gap:2px;height:13px}
+.sound-rr .bars i{width:2.5px;height:4px;background:var(--blood);border-radius:2px}
+.sound-rr.on .bars i{animation:eqrr .9s ease-in-out infinite}
+.sound-rr.on .bars i:nth-child(2){animation-delay:.2s}.sound-rr.on .bars i:nth-child(3){animation-delay:.4s}
+@keyframes eqrr{0%,100%{height:4px}50%{height:13px}}
 .glow{position:fixed;width:520px;height:520px;border-radius:50%;z-index:1;pointer-events:none;transform:translate(-50%,-50%);
   background:radial-gradient(circle,rgba(212,17,43,.14),transparent 62%);opacity:0;transition:opacity .6s}
 .fog{position:fixed;left:0;right:0;bottom:0;height:34vh;z-index:1;pointer-events:none;
@@ -139,6 +148,10 @@ footer a{color:var(--ash)}
 <body>
 <div class="bg"></div><div class="grain"></div><div class="fog"></div><div class="vignette"></div>
 <div class="glow" id="glow"></div>
+<div class="blackout" id="blackout"></div>
+<div class="lightning" id="lightning"></div>
+<audio id="rrSong" src="assets/halloween.mp3" loop preload="none"></audio>
+<button class="sound-rr" id="rrToggle" aria-label="Música de Halloween"><span class="bars"><i></i><i></i><i></i></span><span>Música</span></button>
 
 <svg class="ghost" style="left:12%;width:70px;animation-duration:26s" viewBox="0 0 64 80" fill="currentColor"><path d="M32 4C18 4 10 15 10 30v44l8-7 7 7 7-7 7 7 8-7V30C47 15 46 4 32 4Z"/><circle cx="24" cy="30" r="4" fill="#070203"/><circle cx="40" cy="30" r="4" fill="#070203"/></svg>
 <svg class="ghost" style="left:68%;width:54px;animation-duration:34s;animation-delay:8s" viewBox="0 0 64 80" fill="currentColor"><path d="M32 4C18 4 10 15 10 30v44l8-7 7 7 7-7 7 7 8-7V30C47 15 46 4 32 4Z"/><circle cx="24" cy="30" r="4" fill="#070203"/><circle cx="40" cy="30" r="4" fill="#070203"/></svg>
@@ -164,7 +177,8 @@ footer a{color:var(--ash)}
     <div class="meta">
       <span class="chip"><b>Sáb</b> 31 Oct</span>
       <span class="chip">Desde las <b>10pm</b></span>
-      <span class="chip">Dress code: <b>Negro & Rojo</b></span>
+      <span class="chip">Cover <b>$10</b> toda la noche</span>
+      <span class="chip">Dress code: <b>Negro, Rojo o disfraz</b></span>
     </div>
     <a href="#reservar" class="hero-cta">🩸 Reservar mi lugar</a>
     <div class="cue">Baja — entra a la sala</div>
@@ -204,17 +218,15 @@ footer a{color:var(--ash)}
   <section class="wrap reveal" id="reservar">
     <div class="eyebrow">Tu lugar en la sala</div>
     <h2>Reserva para el 31.</h2>
-    <p class="lead">Asegura tu entrada o tu mesa VIP. Te confirmamos por WhatsApp al instante.</p>
+    <p class="lead">Cover $10 toda la noche. O reserva tu <b>Mesa VIP $250</b>: 2 botellas de Buchanan's, 4 baldes de cerveza y 3 entradas. Te confirmamos por WhatsApp al instante.</p>
 
     <div class="resv">
       <div id="form">
         <div class="field">
           <label>Zona</label>
           <div class="zones" id="zones">
-            <div class="zone active" data-zone="General">Entrada general</div>
-            <div class="zone" data-zone="Mesa VIP">Mesa VIP · $100</div>
-            <div class="zone" data-zone="VIP Deluxe">Deluxe · $150</div>
-            <div class="zone" data-zone="VIP Diamante">Diamante · $200</div>
+            <div class="zone active" data-zone="Entrada general">Entrada general · $10</div>
+            <div class="zone" data-zone="Mesa VIP">Mesa VIP · $250</div>
           </div>
         </div>
         <div class="grid2">
@@ -249,7 +261,9 @@ footer a{color:var(--ash)}
       <div><div class="k">Fecha</div><div class="v">Sáb 31 Oct</div></div>
       <div><div class="k">Hora</div><div class="v">10pm en adelante</div></div>
       <div><div class="k">Lugar</div><div class="v">Martini Bar</div></div>
-      <div><div class="k">Dress code</div><div class="v">Negro & Rojo</div></div>
+      <div><div class="k">Dress code</div><div class="v">Negro, Rojo · Disfraz opcional</div></div>
+      <div><div class="k">Cover</div><div class="v">$10 toda la noche</div></div>
+      <div><div class="k">Mesa VIP</div><div class="v">$250 · 2 botellas + 4 baldes + 3 entradas</div></div>
     </div>
   </section>
 </main>
@@ -261,6 +275,26 @@ footer a{color:var(--ash)}
 
 <script>
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* relámpagos + apagones tipo bombillo dañado */
+(function(){
+  if(reduce)return;
+  const bo=document.getElementById('blackout'),lg=document.getElementById('lightning');if(!bo||!lg)return;
+  function flicker(){const seq=[.9,0,.7,0,.95,0,.5,0];let i=0;(function step(){if(i>=seq.length){bo.style.opacity=0;return;}bo.style.opacity=seq[i++];setTimeout(step,55+Math.random()*95);})();}
+  function bolt(){lg.style.opacity=.95;setTimeout(()=>lg.style.opacity=0,80);setTimeout(()=>{lg.style.opacity=.6;setTimeout(()=>lg.style.opacity=0,70);},170);}
+  (function loop(){setTimeout(()=>{(Math.random()<.55?flicker:bolt)();loop();},4500+Math.random()*6500);})();
+})();
+
+/* música de Halloween (arranca al primer gesto; botón para silenciar) */
+(function(){
+  const a=document.getElementById('rrSong'),b=document.getElementById('rrToggle');if(!a||!b)return;
+  let on=false,started=false,starting=false;
+  function fade(to){let v=a.volume,n=0;const step=(to-v)/18;const t=setInterval(()=>{v+=step;a.volume=Math.max(0,Math.min(1,v));if(++n>=18){a.volume=to;clearInterval(t);}},40);}
+  function start(){if(started||starting)return;starting=true;a.volume=0;const p=a.play();if(p&&p.then){p.then(()=>{started=true;on=true;b.classList.add('on');fade(.4);}).catch(()=>{starting=false;});}else{started=true;on=true;b.classList.add('on');fade(.4);}}
+  function toggle(){if(!started){start();return;}if(on){fade(0);setTimeout(()=>a.pause(),760);on=false;b.classList.remove('on');}else{a.play();fade(.4);on=true;b.classList.add('on');}}
+  b.addEventListener('click',toggle);
+  ['pointerdown','touchstart','keydown','scroll'].forEach(ev=>addEventListener(ev,function once(){if(!started)start();removeEventListener(ev,once);},{once:true,passive:true}));
+})();
 const PHONE='584247819621';
 const EVENTO='The Red Room · 31 Oct';
 
