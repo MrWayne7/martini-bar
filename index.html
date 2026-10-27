@@ -335,7 +335,20 @@ main,footer,.nav,.menu{position:relative;z-index:2}
 .card .face{backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .card .art{aspect-ratio:3/4;border-radius:4px;position:relative;overflow:hidden;background:#050505}
 .card .art .holo{position:absolute;inset:0;background:var(--holo);background-size:320% 320%;opacity:.9;mix-blend-mode:screen;animation:holoShift 7s var(--ease) infinite}
-.card .art .veil{position:absolute;inset:0;background:radial-gradient(circle at 50% 25%,transparent,rgba(0,0,0,.6))}
+.card .art .veil{position:absolute;inset:0;background:radial-gradient(circle at 50% 25%,transparent,rgba(0,0,0,.6));z-index:2}
+/* arte animado por trago */
+.card .art[style]{background:radial-gradient(130% 100% at 50% 0%,color-mix(in srgb,var(--c,#888) 26%,#070707),#050505)}
+.drink-glow{position:absolute;inset:0;z-index:1;background:radial-gradient(circle at 50% 36%,color-mix(in srgb,var(--c,#888) 50%,transparent),transparent 62%);animation:glowP 4.5s ease-in-out infinite}
+@keyframes glowP{0%,100%{opacity:.55}50%{opacity:1}}
+.drink-ic{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:44%;height:auto;color:var(--c,#fff);z-index:2;filter:drop-shadow(0 0 20px color-mix(in srgb,var(--c,#888) 65%,transparent));animation:drinkFloat 5s var(--ease) infinite}
+@keyframes drinkFloat{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,-55%)}}
+.bubbles{position:absolute;inset:0;z-index:1;overflow:hidden}
+.bubbles i{position:absolute;bottom:-6%;width:7px;height:7px;border-radius:50%;background:color-mix(in srgb,var(--c,#fff) 72%,#fff);opacity:.5;animation:bub linear infinite}
+@keyframes bub{0%{transform:translateY(0) scale(1);opacity:0}12%{opacity:.6}100%{transform:translateY(-360px) scale(.3);opacity:0}}
+.spark{position:absolute;inset:0;z-index:1;background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--c,#888) 55%,transparent),transparent 55%);animation:sparkP 1.5s ease-in-out infinite}
+@keyframes sparkP{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:1;transform:scale(1.14)}}
+.drink-name{position:absolute;left:1rem;bottom:1rem;z-index:3;font-weight:700;font-size:1.1rem;letter-spacing:-.01em;text-shadow:0 2px 12px rgba(0,0,0,.65)}
+@media(prefers-reduced-motion:reduce){.drink-glow,.drink-ic,.bubbles i,.spark{animation:none}}
 .card .art .idx{position:absolute;top:1rem;left:1rem;font-family:var(--serif);font-style:italic;font-size:1.2rem;z-index:2}
 .card .art .tap{position:absolute;bottom:1rem;right:1rem;font-size:.66rem;letter-spacing:.2em;color:#000;background:rgba(242,243,238,.9);padding:.35rem .6rem;border-radius:20px;z-index:2}
 .card .back{position:absolute;inset:0;transform:rotateY(180deg);background:#080808;border:1px solid var(--line);border-radius:4px;padding:1.4rem;display:flex;flex-direction:column;justify-content:center;gap:.8rem}
@@ -674,18 +687,26 @@ if(hasGSAP)gsap.registerPlugin(ScrollTrigger);
 
 /* ----- cocktails ----- */
 const cocktails=[
-  {n:"Buchanan's 12",d:'Whisky escocés 12 años. El de las mesas VIP.',b:'WHISKY'},
-  {n:'Black & White',d:'Whisky escocés, suave y clásico.',b:'WHISKY'},
-  {n:'Tequila',d:'Para los shots de la noche.',b:'TEQUILA'},
-  {n:'Ron Linaje',d:'Ron añejo, para la mesa.',b:'RON'},
-  {n:'Red Bull',d:'Para que la noche no pare.',b:'ENERGÍA'},
-  {n:'Monster',d:'Varios sabores. Energía fría.',b:'ENERGÍA'},
+  {n:"Buchanan's 12",d:'Whisky escocés 12 años. El de las mesas VIP.',b:'WHISKY',c:'#d08a3a',k:'whisky'},
+  {n:'Black & White',d:'Whisky escocés, suave y clásico.',b:'WHISKY',c:'#9aa0a8',k:'whisky'},
+  {n:'Tequila',d:'Para los shots de la noche.',b:'TEQUILA',c:'#e0bb4e',k:'shot'},
+  {n:'Ron Linaje',d:'Ron añejo, para la mesa.',b:'RON',c:'#b06a32',k:'whisky'},
+  {n:'Red Bull',d:'Para que la noche no pare.',b:'ENERGÍA',c:'#3b7bff',k:'energy'},
+  {n:'Monster',d:'Varios sabores. Energía fría.',b:'ENERGÍA',c:'#46d67a',k:'energy'},
 ];
+const ICONS={
+  whisky:'<svg class="drink-ic" viewBox="0 0 48 56" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M9 7h30l-2.6 40A4 4 0 0 1 32.4 51H15.6A4 4 0 0 1 11.6 47L9 7Z"/><path d="M11 30h26" stroke-opacity=".5"/></svg>',
+  shot:'<svg class="drink-ic" viewBox="0 0 40 56" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"><path d="M11 10h18l-2 36a3 3 0 0 1-3 2.7H16A3 3 0 0 1 13 46L11 10Z"/><path d="M12.5 30h15" stroke-opacity=".5"/></svg>',
+  energy:'<svg class="drink-ic" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg>'
+};
 const gtrack=document.getElementById('gtrack');
 cocktails.forEach((c,i)=>{
   const el=document.createElement('div');el.className='card';el.dataset.hover='';
+  let fx;
+  if(c.k==='energy'){fx='<div class="spark"></div>';}
+  else{let bb='';for(let n=0;n<6;n++){bb+=`<i style="left:${8+n*15}%;animation-duration:${(3+Math.random()*2.5).toFixed(2)}s;animation-delay:${(Math.random()*3).toFixed(2)}s"></i>`;}fx='<div class="bubbles">'+bb+'</div>';}
   el.innerHTML=`<div class="card-inner">
-    <div class="face art"><div class="holo" style="animation-delay:${i*-1.2}s"></div><div class="veil"></div><div class="idx">0${i+1}</div><div class="tap">TOCAR</div></div>
+    <div class="face art art-${c.k}" style="--c:${c.c}"><div class="drink-glow"></div>${fx}${ICONS[c.k]}<div class="veil"></div><div class="idx">0${i+1}</div><div class="tap">TOCAR</div><div class="drink-name">${c.n}</div></div>
     <div class="face back"><div class="bn">${c.n}</div><div class="bd">${c.d}</div><div class="bb">${c.b}</div></div>
   </div>
   <h4>${c.n}</h4><p>${c.d}</p>`;
