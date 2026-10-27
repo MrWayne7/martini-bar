@@ -257,10 +257,23 @@ main,footer,.nav,.menu{position:relative;z-index:2}
 .video-play .lbl{font-size:.72rem;letter-spacing:.28em}
 
 /* ---------- stats (interactive toggles) ---------- */
+#terraza{position:relative;isolation:isolate}
+.noche-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.noche-bg video{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s var(--ease);filter:brightness(.72) saturate(1.1)}
+.noche-bg video.ready{opacity:.42}
+.noche-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.66),rgba(0,0,0,.42) 50%,rgba(0,0,0,.8))}
+.noche-fx{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.noche-fx .copa{position:absolute;bottom:-12%;color:rgba(201,255,232,.45);animation:copaUp linear infinite}
+.noche-fx .copa svg{width:100%;height:auto}
+@keyframes copaUp{0%{transform:translateY(0) rotate(-6deg);opacity:0}12%{opacity:.6}88%{opacity:.45}100%{transform:translateY(-130%) rotate(10deg);opacity:0}}
+.noche-fx .spk{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;box-shadow:0 0 6px rgba(255,255,255,.9);opacity:0;animation:spk2 3s ease-in-out infinite}
+@keyframes spk2{0%,100%{opacity:0;transform:scale(.6)}50%{opacity:.9;transform:scale(1)}}
+#terraza .chapter,#terraza .stats{position:relative;z-index:1}
+@media(prefers-reduced-motion:reduce){.noche-fx,.noche-bg video{display:none}}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-soft);margin-top:4rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.stat{background:var(--black);padding:2rem 1.3rem 1.6rem;position:relative;overflow:hidden;transition:background .4s}
+.stat{background:rgba(6,6,6,.52);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);padding:2rem 1.3rem 1.6rem;position:relative;overflow:hidden;transition:background .4s}
 .stat::before{content:"";position:absolute;top:0;left:-100%;width:100%;height:2px;background:var(--holo);background-size:200%;transition:left .55s var(--ease)}
-.stat:hover,.stat.active{background:#080808}
+.stat:hover,.stat.active{background:rgba(12,12,12,.66)}
 .stat:hover::before,.stat.active::before{left:0}
 .stat .n{font-size:clamp(2rem,5vw,3.6rem);font-weight:700;letter-spacing:-.03em;line-height:1;transition:.4s;background-size:250% 250%}
 .stat:hover .n,.stat.active .n{background-image:var(--holo);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:holoShift 6s var(--ease) infinite}
@@ -526,6 +539,8 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 
 <!-- STATS -->
 <section class="wrap" style="margin-top:7rem" id="terraza">
+  <div class="noche-bg" aria-hidden="true"><video id="nocheVid" muted loop playsinline preload="none" poster="assets/hero-poster.jpg"></video></div>
+  <div class="noche-fx" id="nocheFx" aria-hidden="true"></div>
   <div class="chapter reveal">
     <span class="no">01</span>
     <div><h2>La noche, servida.</h2><p class="sub">Pista, terraza solar, área VIP, zona VIP al lado del DJ y estacionamiento privado. Toca cada dato.</p></div>
@@ -750,6 +765,30 @@ const words=['martini','shaken not stirred','terraza','vip','sábados','la noche
 const mtrack=document.getElementById('mtrack');
 let mhtml='';for(let k=0;k<2;k++){words.forEach(w=>mhtml+=`<span>${w}</span><span class="star">✦</span>`);}
 mtrack.innerHTML=mhtml;
+
+/* ----- fondo "La noche, servida": video + copas/destellos ----- */
+(function(){
+  const v=document.getElementById('nocheVid'),sec=document.getElementById('terraza');
+  if(v&&!reduce){
+    try{v.muted=true;v.setAttribute('muted','');}catch(e){}
+    let tried=false;
+    function setSrc(s){v.innerHTML='';const el=document.createElement('source');el.src=s;el.type='video/mp4';v.appendChild(el);v.load();}
+    v.addEventListener('error',()=>{if(!tried){tried=true;setSrc('assets/hero.mp4');v.play&&v.play().catch(()=>{});}},true);
+    const rdy=()=>v.classList.add('ready');
+    v.addEventListener('loadeddata',rdy);v.addEventListener('playing',rdy);
+    setSrc('assets/noche.mp4');
+    if('IntersectionObserver'in window&&sec){new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){v.play&&v.play().catch(()=>{});}else{try{v.pause();}catch(_){}}}),{threshold:.1}).observe(sec);}
+    else{v.play&&v.play().catch(()=>{});}
+  }
+  const box=document.getElementById('nocheFx');
+  if(box&&!reduce){
+    const copa='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 4h18l-9 9-9-9Z"/><path d="M12 13v6M8 21h8"/></svg>';
+    let h='';
+    for(let i=0;i<6;i++){h+=`<span class="copa" style="left:${(Math.random()*92+2).toFixed(1)}%;width:${(14+Math.random()*16).toFixed(0)}px;animation-duration:${(12+Math.random()*10).toFixed(1)}s;animation-delay:${(Math.random()*12).toFixed(1)}s">${copa}</span>`;}
+    for(let i=0;i<14;i++){h+=`<span class="spk" style="left:${(Math.random()*98).toFixed(1)}%;top:${(Math.random()*90+5).toFixed(1)}%;animation-delay:${(Math.random()*3).toFixed(2)}s"></span>`;}
+    box.innerHTML=h;
+  }
+})();
 
 /* ----- cursor ----- */
 const cur=document.querySelector('.cur'),dot=document.querySelector('.cur-dot');
