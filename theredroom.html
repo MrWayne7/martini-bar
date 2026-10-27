@@ -48,6 +48,37 @@ img{max-width:100%;display:block}
 .sound-rr.on .bars i{animation:eqrr .9s ease-in-out infinite}
 .sound-rr.on .bars i:nth-child(2){animation-delay:.2s}.sound-rr.on .bars i:nth-child(3){animation-delay:.4s}
 @keyframes eqrr{0%,100%{height:4px}50%{height:13px}}
+/* === mejoras red room === */
+.smoke{position:fixed;left:0;right:0;bottom:0;height:46vh;z-index:1;pointer-events:none;opacity:.5;filter:blur(10px);mix-blend-mode:screen;
+  background:radial-gradient(60% 100% at 30% 100%,rgba(150,22,38,.4),transparent 70%),radial-gradient(55% 100% at 75% 100%,rgba(95,10,22,.32),transparent 70%)}
+.smoke.s1{animation:smokeA 26s ease-in-out infinite}
+.smoke.s2{animation:smokeB 34s ease-in-out infinite;opacity:.32}
+@keyframes smokeA{0%,100%{transform:translateX(-6%)}50%{transform:translateX(8%)}}
+@keyframes smokeB{0%,100%{transform:translateX(7%)}50%{transform:translateX(-9%)}}
+.flashlight{position:fixed;inset:0;z-index:39;pointer-events:none;opacity:0;transition:opacity .8s;
+  background:radial-gradient(circle 340px at var(--fx,50%) var(--fy,42%),transparent 0,transparent 32%,rgba(3,1,2,.58) 80%)}
+@media (hover:hover) and (pointer:fine){.flashlight{opacity:1}}
+.drips{position:fixed;top:0;left:0;right:0;height:0;z-index:5;pointer-events:none}
+.drip{position:absolute;top:0;width:3px;background:linear-gradient(#d4112b,#7a0a1a);border-radius:0 0 3px 3px;animation:drip 8s ease-in infinite}
+.drip::after{content:"";position:absolute;left:-2.5px;bottom:-5px;width:8px;height:8px;border-radius:50%;background:#b00020;opacity:0;animation:dropFall 8s ease-in infinite}
+@keyframes drip{0%,100%{height:0}22%{height:var(--h,60px)}60%{height:var(--h,60px)}78%{height:0}}
+@keyframes dropFall{0%,56%{opacity:0;transform:translateY(0)}60%{opacity:1}100%{opacity:0;transform:translateY(55vh)}}
+.hand{position:fixed;bottom:0;z-index:2;width:clamp(110px,16vw,240px);opacity:0;pointer-events:none;color:#160508;transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
+.hand svg{width:100%;height:auto;filter:drop-shadow(0 0 22px rgba(0,0,0,.85))}
+.hand-l{left:0;transform:translateX(-32%) translateY(14%)}
+.hand-r{right:0;transform:translateX(32%) translateY(14%) scaleX(-1)}
+.hand-l.show{opacity:.9;transform:translateX(0) translateY(4%)}
+.hand-r.show{opacity:.9;transform:translateX(0) translateY(4%) scaleX(-1)}
+.intro{position:fixed;inset:0;z-index:120;background:#000;pointer-events:none;opacity:1}
+.candle-light{position:absolute;left:50%;top:0;transform:translateX(-50%);width:70%;height:48%;z-index:0;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,150,70,.2),transparent 65%);animation:candleGlow 2.4s ease-in-out infinite}
+@keyframes candleGlow{0%,100%{opacity:.7}30%{opacity:1}55%{opacity:.55}80%{opacity:.9}}
+.poster{position:relative;margin:2.6rem auto 0;max-width:430px;background:#120406;border:1px solid var(--line-red);padding:2.1rem 1.7rem;text-align:center;
+  clip-path:polygon(0 3%,8% 0,22% 4%,40% 0,60% 5%,80% 0,94% 4%,100% 2%,100% 97%,90% 100%,70% 96%,50% 100%,30% 96%,12% 100%,0 97%);box-shadow:0 22px 60px rgba(0,0,0,.6)}
+.poster .pk{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--blood)}
+.poster .pt{font-family:var(--serif);font-style:italic;font-size:2rem;margin:.5rem 0;color:#fff;text-shadow:0 0 16px rgba(212,17,43,.5)}
+.poster .ps{color:var(--ash);font-size:.9rem}
+@media(prefers-reduced-motion:reduce){.smoke,.drip,.drip::after,.candle-light{animation:none}.hand{display:none}}
 .glow{position:fixed;width:520px;height:520px;border-radius:50%;z-index:1;pointer-events:none;transform:translate(-50%,-50%);
   background:radial-gradient(circle,rgba(212,17,43,.14),transparent 62%);opacity:0;transition:opacity .6s}
 .fog{position:fixed;left:0;right:0;bottom:0;height:34vh;z-index:1;pointer-events:none;
@@ -150,6 +181,17 @@ footer a{color:var(--ash)}
 <div class="glow" id="glow"></div>
 <div class="blackout" id="blackout"></div>
 <div class="lightning" id="lightning"></div>
+<div class="smoke s1"></div><div class="smoke s2"></div>
+<div class="flashlight" id="flashlight"></div>
+<div class="drips" aria-hidden="true">
+  <span class="drip" style="left:12%;--h:72px;animation-delay:0s"></span>
+  <span class="drip" style="left:34%;--h:50px;animation-delay:2.6s"></span>
+  <span class="drip" style="left:58%;--h:84px;animation-delay:4.1s"></span>
+  <span class="drip" style="left:81%;--h:56px;animation-delay:1.3s"></span>
+</div>
+<div class="hand hand-l" aria-hidden="true"><svg viewBox="0 0 120 160" fill="currentColor"><path d="M18 160V72c0-9 11-9 11 0v38h4V42c0-9 11-9 11 0v68h4V30c0-9 11-9 11 0v80h4V46c0-9 11-9 11 0v64h4V72c0-9 11-7 13 2l9 40c7 31-10 46-40 46H18z"/></svg></div>
+<div class="hand hand-r" aria-hidden="true"><svg viewBox="0 0 120 160" fill="currentColor"><path d="M18 160V72c0-9 11-9 11 0v38h4V42c0-9 11-9 11 0v68h4V30c0-9 11-9 11 0v80h4V46c0-9 11-9 11 0v64h4V72c0-9 11-7 13 2l9 40c7 31-10 46-40 46H18z"/></svg></div>
+<div class="intro" id="intro"></div>
 <audio id="rrSong" src="assets/blue-martini.mp3" loop preload="none"></audio>
 <button class="sound-rr" id="rrToggle" aria-label="Música de Halloween"><span class="bars"><i></i><i></i><i></i></span><span>Música</span></button>
 
@@ -166,6 +208,7 @@ footer a{color:var(--ash)}
 <main>
   <!-- HERO -->
   <section class="hero wrap">
+    <div class="candle-light" aria-hidden="true"></div>
     <div class="candles" aria-hidden="true">
       <svg width="34" height="60" viewBox="0 0 34 60"><g class="flame"><ellipse cx="17" cy="10" rx="5" ry="10" fill="#ff9a4d"/><ellipse cx="17" cy="12" rx="2.5" ry="6" fill="#fff2cc"/></g><rect x="13" y="20" width="8" height="34" rx="2" fill="#2a1416"/><rect x="13" y="20" width="8" height="5" fill="#d4112b" opacity=".6"/></svg>
       <svg width="34" height="70" viewBox="0 0 34 70"><g class="flame"><ellipse cx="17" cy="10" rx="5" ry="10" fill="#ff9a4d"/><ellipse cx="17" cy="12" rx="2.5" ry="6" fill="#fff2cc"/></g><rect x="13" y="20" width="8" height="44" rx="2" fill="#2a1416"/><rect x="13" y="20" width="8" height="5" fill="#d4112b" opacity=".6"/></svg>
@@ -194,6 +237,11 @@ footer a{color:var(--ash)}
       <div class="motif"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a6 6 0 0 0-6 6v10l3-2 3 2 3-2 3 2V8a6 6 0 0 0-6-6Zm-2 7a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/></svg>Fantasmas</div>
       <div class="motif"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 2v3H8v2h3v13h2V7h3V5h-3V2h-2Zm-5 6v12h2V8H6Zm10 0v12h2V8h-2Z"/></svg>Candelabros</div>
       <div class="motif"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 22V9a6 6 0 0 1 12 0v13H6Zm4-11h4v-2h-4v2Z"/></svg>Tumbas</div>
+    </div>
+    <div class="poster reveal">
+      <div class="pk">Flyer oficial · en camino</div>
+      <div class="pt">The Red Room</div>
+      <div class="ps">Sáb 31 de octubre · Martini Bar · Negro, rojo o disfraz</div>
     </div>
     <div class="strip">
       <figure><img src="assets/fotos/foto-1.webp" alt="Martini Bar de noche" loading="lazy" onerror="this.closest('figure').style.display='none'"></figure>
@@ -276,12 +324,48 @@ footer a{color:var(--ash)}
 <script>
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
+/* audio de trueno (se genera, sin archivo; arranca tras el primer gesto) */
+let AC=null,audioReady=false;
+function initAudio(){if(audioReady)return;try{AC=new (window.AudioContext||window.webkitAudioContext)();audioReady=true;}catch(e){}}
+['pointerdown','touchstart','keydown','scroll'].forEach(ev=>addEventListener(ev,initAudio,{once:true,passive:true}));
+function thunder(){if(!audioReady||!AC)return;try{
+  const dur=1.3,sr=AC.sampleRate,buf=AC.createBuffer(1,Math.floor(sr*dur),sr),d=buf.getChannelData(0);
+  for(let i=0;i<d.length;i++){d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,2);}
+  const src=AC.createBufferSource();src.buffer=buf;
+  const lp=AC.createBiquadFilter();lp.type='lowpass';lp.frequency.value=360;
+  const g=AC.createGain();const t=AC.currentTime;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.32,t+.05);g.gain.exponentialRampToValueAtTime(.001,t+dur);
+  src.connect(lp);lp.connect(g);g.connect(AC.destination);src.start();
+}catch(e){}}
+
+/* entrada dramática: negro → relámpago → revela la sala */
+(function(){const el=document.getElementById('intro');if(!el)return;
+  if(reduce){el.remove();return;}
+  setTimeout(()=>{
+    const lg=document.getElementById('lightning');
+    if(lg){lg.style.opacity=1;setTimeout(()=>lg.style.opacity=0,130);}
+    el.style.transition='opacity 1.1s';el.style.opacity='0';
+    setTimeout(()=>{try{el.remove();}catch(e){}},1200);
+  },480);
+})();
+
+/* linterna que sigue el cursor (solo PC) */
+(function(){const fl=document.getElementById('flashlight');if(!fl||matchMedia('(hover:none)').matches)return;
+  let x=innerWidth/2,y=innerHeight*.42,raf=0;
+  addEventListener('pointermove',e=>{x=e.clientX;y=e.clientY;if(raf)return;raf=requestAnimationFrame(()=>{raf=0;fl.style.setProperty('--fx',x+'px');fl.style.setProperty('--fy',y+'px');});},{passive:true});
+})();
+
+/* manos que salen de los bordes al hacer scroll */
+(function(){const hands=document.querySelectorAll('.hand');if(!hands.length||reduce)return;
+  const on=()=>{const s=(window.scrollY||0)>320;hands.forEach(h=>h.classList.toggle('show',s));};
+  addEventListener('scroll',on,{passive:true});on();
+})();
+
 /* relámpagos + apagones tipo bombillo dañado */
 (function(){
   if(reduce)return;
   const bo=document.getElementById('blackout'),lg=document.getElementById('lightning');if(!bo||!lg)return;
   function flicker(){const seq=[.9,0,.7,0,.95,0,.5,0];let i=0;(function step(){if(i>=seq.length){bo.style.opacity=0;return;}bo.style.opacity=seq[i++];setTimeout(step,55+Math.random()*95);})();}
-  function bolt(){lg.style.opacity=.95;setTimeout(()=>lg.style.opacity=0,80);setTimeout(()=>{lg.style.opacity=.6;setTimeout(()=>lg.style.opacity=0,70);},170);}
+  function bolt(){lg.style.opacity=.95;setTimeout(()=>lg.style.opacity=0,80);setTimeout(()=>{lg.style.opacity=.6;setTimeout(()=>lg.style.opacity=0,70);},170);setTimeout(thunder,120);}
   (function loop(){setTimeout(()=>{(Math.random()<.55?flicker:bolt)();loop();},4500+Math.random()*6500);})();
 })();
 
