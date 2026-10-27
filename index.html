@@ -621,9 +621,9 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 
 <!-- CARTAS -->
 <section class="gallery" id="cartas">
-  <div class="wrap"><div class="chapter reveal"><span class="no">04</span><div><h2>La carta.</h2><p class="sub">Martinis de autor. Toca cada copa para ver la receta.</p></div></div></div>
+  <div class="wrap"><div class="chapter reveal"><span class="no">04</span><div><h2>La carta.</h2><p class="sub">Lo que servimos en la barra y en tu mesa VIP. Toca cada una.</p></div></div></div>
   <div class="gscroller"><div class="gtrack" id="gtrack"></div></div>
-  <p class="gnote">Arrastra o desliza · toca una copa para voltearla · carta de ejemplo, editable.</p>
+  <p class="gnote">Arrastra o desliza · toca una carta para voltearla.</p>
 </section>
 
 <!-- MARQUEE -->
@@ -674,21 +674,21 @@ if(hasGSAP)gsap.registerPlugin(ScrollTrigger);
 
 /* ----- cocktails ----- */
 const cocktails=[
-  {n:'Classic Dry',d:'Gin, vermut seco, twist de limón.',b:'GIN · SECO'},
-  {n:'Espresso',d:'Vodka, café, licor de café.',b:'VODKA · CAFÉ'},
-  {n:'Lychee',d:'Vodka, lichi, toque floral.',b:'VODKA · FLORAL'},
-  {n:'Dirty',d:'Gin, salmuera de oliva.',b:'GIN · SALADO'},
-  {n:'Pornstar',d:'Vodka, maracuyá, prosecco.',b:'VODKA · TROPICAL'},
-  {n:'French',d:'Vodka, chambord, piña.',b:'VODKA · DULCE'},
+  {n:"Buchanan's 12",d:'Whisky escocés 12 años. El de las mesas VIP.',b:'WHISKY'},
+  {n:'Black & White',d:'Whisky escocés, suave y clásico.',b:'WHISKY'},
+  {n:'Tequila',d:'Para los shots de la noche.',b:'TEQUILA'},
+  {n:'Ron Linaje',d:'Ron añejo, para la mesa.',b:'RON'},
+  {n:'Red Bull',d:'Para que la noche no pare.',b:'ENERGÍA'},
+  {n:'Monster',d:'Varios sabores. Energía fría.',b:'ENERGÍA'},
 ];
 const gtrack=document.getElementById('gtrack');
 cocktails.forEach((c,i)=>{
   const el=document.createElement('div');el.className='card';el.dataset.hover='';
   el.innerHTML=`<div class="card-inner">
     <div class="face art"><div class="holo" style="animation-delay:${i*-1.2}s"></div><div class="veil"></div><div class="idx">0${i+1}</div><div class="tap">TOCAR</div></div>
-    <div class="face back"><div class="bn">${c.n} Martini</div><div class="bd">${c.d}</div><div class="bb">${c.b}</div></div>
+    <div class="face back"><div class="bn">${c.n}</div><div class="bd">${c.d}</div><div class="bb">${c.b}</div></div>
   </div>
-  <h4>${c.n} Martini</h4><p>${c.d}</p>`;
+  <h4>${c.n}</h4><p>${c.d}</p>`;
   el.addEventListener('click',()=>el.classList.toggle('flip'));
   gtrack.appendChild(el);
 });
