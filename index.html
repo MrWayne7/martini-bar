@@ -178,6 +178,8 @@ main,footer,.nav,.menu{position:relative;z-index:2}
 .load-logo{width:min(64vw,440px);height:auto;display:block;filter:drop-shadow(0 0 46px rgba(226,183,92,.28))}
 
 /* ---------- night CTA ---------- */
+.brand-logo{height:32px;width:auto;display:block}
+@media(max-width:560px){.brand-logo{height:26px}}
 .night-cta{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:1.3rem 1.6rem;border:1px solid var(--line);border-radius:6px;background:linear-gradient(120deg,rgba(201,255,232,.04),rgba(255,201,240,.03));transition:border-color .4s,background .4s}
 .night-cta:hover{border-color:rgba(201,255,232,.5);background:linear-gradient(120deg,rgba(201,255,232,.09),rgba(255,201,240,.06))}
 .night-cta .nc-l{display:inline-flex;align-items:center;gap:.8rem;font-size:1.15rem;font-weight:600;letter-spacing:-.01em}
@@ -387,7 +389,15 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 }
 @media(max-width:620px) and (orientation:landscape){.hero{min-height:124svh}.hero-glass{opacity:.5}}
 
-.reveal{will-change:transform,opacity}
+/* ---------- rendimiento en celular (scroll fluido) ---------- */
+@media(max-width:820px){
+  .beam{display:none}
+  .floor{display:none}
+  .grain{display:none}
+  .hero-video::before{display:none}
+  .nav.scrolled{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);background:rgba(0,0,0,.84)}
+}
+
 .chapter h2 .wword{display:inline-block;white-space:nowrap}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
 </style>
@@ -409,9 +419,9 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 </div>
 
 <nav class="nav">
-  <a href="#top" class="brand" data-hover>
-    <svg viewBox="0 0 24 24" fill="none"><path d="M3 4h18l-9 9-9-9Z" stroke="url(#g)" stroke-width="1.2"/><path d="M12 13v6M8 21h8" stroke="url(#g)" stroke-width="1.2"/><defs><linearGradient id="g" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#fff"/><stop offset=".5" stop-color="#ffc9f0"/><stop offset="1" stop-color="#c9ffe8"/></linearGradient></defs></svg>
-    MARTINI
+  <a href="#top" class="brand" data-hover aria-label="Martini Bar">
+    <img src="assets/logo-blanco.png" alt="Martini Bar" class="brand-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
+    <span class="brand-fallback" style="display:none">MARTINI BAR</span>
   </a>
   <div class="nav-links">
     <a href="#reservas" data-hover>Reservas</a>
@@ -480,14 +490,6 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
   <div class="scroll-cue"><span>DESLIZA</span><span class="bar"></span></div>
 </section>
 
-<!-- VER LA NOCHE (enlace a página dedicada) -->
-<section class="wrap" style="margin-top:2.2rem">
-  <a class="night-cta reveal" href="/verlanoche" data-hover data-magnet>
-    <span class="nc-l"><span class="nc-ring"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span> Ver la noche</span>
-    <span class="nc-r">El ambiente, en video →</span>
-  </a>
-</section>
-
 <!-- STATS -->
 <section class="wrap" style="margin-top:7rem" id="terraza">
   <div class="chapter reveal">
@@ -500,6 +502,14 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
     <div class="stat reveal"><div class="n">VIP + DJ</div><div class="l">mesas y botella</div><div class="d">Área VIP y una zona exclusiva justo al lado del DJ.</div><span class="hint">+</span></div>
     <div class="stat reveal"><div class="n">Parking</div><div class="l">privado</div><div class="d">Estacionamiento propio: llegas y entras directo.</div><span class="hint">+</span></div>
   </div>
+</section>
+
+<!-- VER LA NOCHE (enlace a página dedicada) -->
+<section class="wrap" style="margin-top:3rem">
+  <a class="night-cta reveal" href="/verlanoche" data-hover data-magnet>
+    <span class="nc-l"><span class="nc-ring"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span> Ver la noche</span>
+    <span class="nc-r">El ambiente, en video →</span>
+  </a>
 </section>
 
 <!-- PLANS -->
@@ -973,11 +983,11 @@ waBtn.addEventListener('click',()=>{
 /* ----- tilt 3D en tarjetas (desktop) ----- */
 if(!isTouch&&hasGSAP){
   document.querySelectorAll('.plan,.ev-card').forEach(c=>{
-    c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();
-      const rx=((e.clientY-r.top)/r.height-.5)*-7,ry=((e.clientX-r.left)/r.width-.5)*7;
-      gsap.to(c,{rotateX:rx,rotateY:ry,y:-6,duration:.4,transformPerspective:850,transformOrigin:'center',ease:'power2.out'});
-    });
-    c.addEventListener('mouseleave',()=>gsap.to(c,{rotateX:0,rotateY:0,y:0,duration:.6,ease:'power3.out'}));
+    let raf=0,mx=0,my=0;
+    c.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;if(raf)return;raf=requestAnimationFrame(()=>{raf=0;const r=c.getBoundingClientRect();
+      const rx=((my-r.top)/r.height-.5)*-7,ry=((mx-r.left)/r.width-.5)*7;
+      gsap.to(c,{rotateX:rx,rotateY:ry,y:-6,duration:.4,transformPerspective:850,transformOrigin:'center',ease:'power2.out'});});});
+    c.addEventListener('mouseleave',()=>{if(raf){cancelAnimationFrame(raf);raf=0;}gsap.to(c,{rotateX:0,rotateY:0,y:0,duration:.6,ease:'power3.out'});});
   });
 }
 
