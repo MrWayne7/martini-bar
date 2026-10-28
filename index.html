@@ -210,6 +210,10 @@ main,footer,.nav,.menu{position:relative;z-index:2}
 .share-btn{display:inline-flex;align-items:center;gap:.5rem;font-family:inherit;font-weight:600;font-size:.82rem;color:var(--paper);background:none;border:1px solid var(--line);border-radius:40px;padding:.55rem 1rem;cursor:pointer;transition:.3s}
 .share-btn:hover{border-color:rgba(201,255,232,.5);background:rgba(201,255,232,.06)}
 .share-btn svg{width:16px;height:16px}
+.map-wrap{position:relative;margin-top:2.5rem;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#070707}
+.map-wrap iframe{width:100%;height:clamp(280px,42vw,460px);border:0;display:block;filter:grayscale(.35) contrast(1.05) brightness(.82)}
+.map-cta{position:absolute;bottom:1rem;left:1rem;z-index:2;display:inline-flex;align-items:center;gap:.4rem;font-weight:600;font-size:.85rem;padding:.7rem 1.1rem;border-radius:40px;background:var(--paper);color:#000;box-shadow:0 6px 20px rgba(0,0,0,.45);transition:transform .3s var(--ease)}
+.map-cta:hover{transform:translateY(-2px)}
 
 /* ---------- floating whatsapp ---------- */
 .wa-float{position:fixed;right:max(1.1rem,env(safe-area-inset-right));bottom:calc(1.1rem + env(safe-area-inset-bottom));z-index:60;
@@ -518,8 +522,9 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
   <a href="/theredroom" data-hover><span>Red Room · 31 Oct</span></a>
   <a href="#cartas" data-hover><span>Cartas</span></a>
   <a href="#lugar" data-hover><span>El lugar</span></a>
+  <a href="#ubicacion" data-hover><span>Cómo llegar</span></a>
   <a href="#faq" data-hover><span>Info</span></a>
-  <div class="m-foot"><a href="#" data-hover>Instagram</a><a href="#" data-hover>TikTok</a><a href="https://wa.me/584247819621" target="_blank" rel="noopener" data-hover>WhatsApp</a></div>
+  <div class="m-foot"><a href="https://www.instagram.com/martinibar.live/" target="_blank" rel="noopener" data-hover>Instagram</a><a href="https://wa.me/584247819621" target="_blank" rel="noopener" data-hover>WhatsApp</a></div>
 </div>
 
 <main id="top">
@@ -729,13 +734,22 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
   </div>
 </section>
 
+<!-- UBICACIÓN -->
+<section class="wrap lugar" id="ubicacion" style="margin-top:8rem">
+  <div class="chapter reveal"><span class="no">07</span><div><h2>Cómo llegar.</h2><p class="sub">Estamos en El Vigía, Mérida. Toca el mapa para abrir las indicaciones.</p></div></div>
+  <div class="map-wrap reveal">
+    <iframe title="Ubicación Martini Bar" src="https://www.google.com/maps?q=Martini+Bar+El+Vig%C3%ADa+M%C3%A9rida+Venezuela&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <a class="map-cta" href="https://www.google.com/maps/search/?api=1&query=Martini+Bar+El+Vig%C3%ADa+M%C3%A9rida+Venezuela" target="_blank" rel="noopener" data-hover>Abrir en Google Maps →</a>
+  </div>
+</section>
+
 </main>
 
 <footer>
   <div class="f-grid">
-    <div class="f-col"><h5>MARTINI BAR</h5><p class="f-info">Bar · Terraza · Área VIP.<br>Dentro del centro comercial, con estacionamiento.<br>Sábados de fiesta hasta la madrugada.</p></div>
-    <div class="f-col"><h5>SÍGUENOS</h5><a href="#" data-hover>Instagram</a><a href="#" data-hover>TikTok</a><a href="https://wa.me/584247819621" target="_blank" rel="noopener" data-hover>WhatsApp</a></div>
-    <div class="f-col"><h5>NAVEGA</h5><a href="#reservas" data-hover>Reservas</a><a href="#eventos" data-hover>Eventos</a><a href="/verlanoche" data-hover>La noche</a><a href="/theredroom" data-hover>Red Room</a><a href="#cartas" data-hover>Cartas</a><a href="#lugar" data-hover>El lugar</a><a href="#faq" data-hover>Info</a></div>
+    <div class="f-col"><h5>MARTINI BAR</h5><p class="f-info">Bar · Terraza · Área VIP.<br>El Vigía, Mérida · Venezuela.<br>Sábados de fiesta hasta la madrugada.</p></div>
+    <div class="f-col"><h5>SÍGUENOS</h5><a href="https://www.instagram.com/martinibar.live/" target="_blank" rel="noopener" data-hover>Instagram</a><a href="https://wa.me/584247819621" target="_blank" rel="noopener" data-hover>WhatsApp</a></div>
+    <div class="f-col"><h5>NAVEGA</h5><a href="#reservas" data-hover>Reservas</a><a href="#eventos" data-hover>Eventos</a><a href="/verlanoche" data-hover>La noche</a><a href="/theredroom" data-hover>Red Room</a><a href="#cartas" data-hover>Cartas</a><a href="#lugar" data-hover>El lugar</a><a href="#ubicacion" data-hover>Cómo llegar</a><a href="#faq" data-hover>Info</a></div>
   </div>
   <div class="f-word" id="footWord"><span class="holo-text">martini</span></div>
   <div class="f-bottom"><span>© 2026 Martini Bar · Todos los derechos reservados</span><div style="display:flex;gap:1.2rem;align-items:center;flex-wrap:wrap"><button class="share-btn" id="shareBtn" data-hover><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg> Invita a tus panas</button><a href="/admin.html" style="color:var(--muted);opacity:.6" data-hover>Panel</a></div></div>
