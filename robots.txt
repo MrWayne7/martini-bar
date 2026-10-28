@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://martini-bar.pages.dev/sitemap.xml

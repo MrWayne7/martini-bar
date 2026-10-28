@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>Página no encontrada — Martini Bar</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f2f3ee;--silver:#9a9d9f;--holo:linear-gradient(115deg,#fff,#c8d6ff 22%,#ffc9f0 44%,#c9ffe8 66%,#eae0ff 84%,#fff);--ease:cubic-bezier(.19,1,.22,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;color:var(--paper);font-family:'Bricolage Grotesque',system-ui,sans-serif;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;overflow:hidden;position:relative}
+.vig{position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 40%,transparent 50%,rgba(0,0,0,.7))}
+.glass{width:clamp(70px,14vw,120px);height:auto;margin-bottom:2rem;filter:drop-shadow(0 0 40px rgba(201,255,232,.3));animation:sway 5s var(--ease) infinite}
+@keyframes sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+h1{font-size:clamp(4rem,20vw,11rem);line-height:.9;font-weight:800;letter-spacing:-.04em;background:var(--holo);background-size:250% 250%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:holo 9s var(--ease) infinite}
+@keyframes holo{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+p{font-family:'Instrument Serif',Georgia,serif;font-style:italic;color:var(--silver);font-size:clamp(1.1rem,3vw,1.5rem);margin:1.2rem 0 2.2rem;max-width:30ch}
+a{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;padding:.9rem 1.8rem;border-radius:46px;background:var(--paper);color:#000;text-decoration:none;transition:transform .35s var(--ease)}
+a:hover{transform:translateY(-3px)}
+</style>
+</head>
+<body>
+<div class="vig"></div>
+<svg class="glass" viewBox="0 0 48 60" fill="none" stroke="url(#g)" stroke-width="2.2" stroke-linejoin="round"><path d="M4 6h40L24 30 4 6Z"/><path d="M24 30v22M14 54h20"/><defs><linearGradient id="g" x1="0" y1="0" x2="48" y2="60"><stop stop-color="#fff"/><stop offset=".5" stop-color="#ffc9f0"/><stop offset="1" stop-color="#c9ffe8"/></linearGradient></defs></svg>
+<h1>404</h1>
+<p>Esta copa está vacía. La página que buscas no existe.</p>
+<a href="/">← Volver a Martini Bar</a>
+</body>
+</html>
