@@ -182,6 +182,17 @@ h2{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(2.
 .share-btn{display:inline-flex;align-items:center;gap:.5rem;font-family:inherit;font-weight:600;font-size:.82rem;color:var(--paper);background:none;border:1px solid var(--line-red);border-radius:40px;padding:.55rem 1rem;cursor:pointer;transition:.3s}
 .share-btn:hover{border-color:var(--blood);background:rgba(212,17,43,.08)}
 .share-btn svg{width:16px;height:16px}
+.heartbeat{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(circle at 50% 50%,transparent 55%,rgba(122,10,26,.3));animation:beat 2.6s ease-in-out infinite}
+@keyframes beat{0%,100%{opacity:.4}14%{opacity:.85}28%{opacity:.45}42%{opacity:.75}}
+.static{position:fixed;inset:0;z-index:42;pointer-events:none;opacity:0;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.cupos{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;font-size:.8rem;font-weight:600;color:#ff9a9a;background:rgba(212,17,43,.1);border:1px solid var(--line-red);border-radius:40px;padding:.5rem 1rem}
+.cupos .dot{width:7px;height:7px;border-radius:50%;background:var(--blood);box-shadow:0 0 8px var(--blood);animation:cuposDot 1.4s infinite}
+@keyframes cuposDot{0%,100%{opacity:1}50%{opacity:.35}}
+.to-top{position:fixed;right:max(1rem,env(safe-area-inset-right));bottom:calc(4.8rem + env(safe-area-inset-bottom));z-index:54;width:42px;height:42px;border-radius:50%;border:1px solid var(--line-red);background:rgba(10,2,3,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--paper);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:translateY(14px);transition:opacity .4s,transform .4s var(--ease)}
+.to-top.show{opacity:1;transform:none}.to-top svg{width:18px;height:18px}
+.cal-link{display:inline-flex;align-items:center;gap:.4rem;margin-top:1rem;font-size:.85rem;font-weight:600;color:var(--paper);border:1px solid var(--line-red);border-radius:40px;padding:.55rem 1rem;text-decoration:none;transition:.3s}
+.cal-link:hover{border-color:var(--blood);background:rgba(212,17,43,.08)}
+@media(prefers-reduced-motion:reduce){.heartbeat{animation:none;opacity:.4}}
 .zones{display:flex;flex-wrap:wrap;gap:.5rem}
 .zone{border:1px solid var(--line);border-radius:40px;padding:.5rem 1rem;font-size:.82rem;cursor:pointer;transition:.3s;user-select:none}
 .zone.active{background:var(--blood);border-color:var(--blood);color:#fff}
@@ -217,6 +228,7 @@ footer a{color:var(--ash)}
 </head>
 <body>
 <div class="bg"></div><div class="grain"></div><div class="fog"></div><div class="vignette"></div>
+<div class="heartbeat" aria-hidden="true"></div><div class="static" id="static" aria-hidden="true"></div>
 <div class="glow" id="glow"></div>
 <div class="blackout" id="blackout"></div>
 <div class="lightning" id="lightning"></div>
@@ -235,6 +247,7 @@ footer a{color:var(--ash)}
 <div class="hand hand-l" aria-hidden="true"><svg viewBox="0 0 120 160" fill="currentColor"><path d="M18 160V72c0-9 11-9 11 0v38h4V42c0-9 11-9 11 0v68h4V30c0-9 11-9 11 0v80h4V46c0-9 11-9 11 0v64h4V72c0-9 11-7 13 2l9 40c7 31-10 46-40 46H18z"/></svg></div>
 <div class="hand hand-r" aria-hidden="true"><svg viewBox="0 0 120 160" fill="currentColor"><path d="M18 160V72c0-9 11-9 11 0v38h4V42c0-9 11-9 11 0v68h4V30c0-9 11-9 11 0v80h4V46c0-9 11-9 11 0v64h4V72c0-9 11-7 13 2l9 40c7 31-10 46-40 46H18z"/></svg></div>
 <div class="intro" id="intro"></div>
+<button class="to-top" id="toTop" aria-label="Volver arriba"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <a class="rr-float" id="rrFloat" href="#reservar" aria-label="Reservar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2 2 2 0 0 0 0 4 2 2 0 0 1-2 2 2 2 0 0 1-2 2H5a2 2 0 0 1-2-2 2 2 0 0 0 0-4Z"/></svg><span>Reservar</span></a>
 <audio id="rrSong" src="assets/blue-martini.mp3" loop preload="none"></audio>
 <button class="sound-rr" id="rrToggle" aria-label="Música de Halloween"><span class="bars"><i></i><i></i><i></i></span><span>Música</span></button>
@@ -323,6 +336,7 @@ footer a{color:var(--ash)}
     <div class="eyebrow">Tu lugar en la sala</div>
     <h2>Reserva para el 31.</h2>
     <p class="lead">Cover $10 toda la noche. O reserva tu <b>Mesa VIP $250</b>: 2 botellas de Buchanan's, 4 baldes de cerveza y 3 entradas. Te confirmamos por WhatsApp al instante.</p>
+    <div class="cupos reveal"><span class="dot"></span> Mesas VIP limitadas · reserva antes de que se acaben</div>
 
     <div class="resv">
       <div id="form">
@@ -347,6 +361,7 @@ footer a{color:var(--ash)}
         <div class="big">Nos vemos en la sala.</div>
         <div class="sm" id="doneSm">Abrimos tu WhatsApp con la reserva lista. Si no se abrió, toca el botón de abajo.</div>
         <a class="submit" id="doneWa" href="#" target="_blank" rel="noopener" style="margin-top:1.2rem;text-decoration:none">Abrir WhatsApp</a>
+        <div><a class="cal-link" id="calLink" href="#" target="_blank" rel="noopener">📅 Añadir al calendario</a></div>
       </div>
 
       <div class="methods">
@@ -439,7 +454,8 @@ function thunder(){if(!audioReady||!AC)return;try{
   if(reduce)return;
   const bo=document.getElementById('blackout'),lg=document.getElementById('lightning');if(!bo||!lg)return;
   function flicker(){const seq=[.9,0,.7,0,.95,0,.5,0];let i=0;(function step(){if(i>=seq.length){bo.style.opacity=0;return;}bo.style.opacity=seq[i++];setTimeout(step,55+Math.random()*95);})();}
-  function bolt(){lg.style.opacity=.95;setTimeout(()=>lg.style.opacity=0,80);setTimeout(()=>{lg.style.opacity=.6;setTimeout(()=>lg.style.opacity=0,70);},170);setTimeout(thunder,120);}
+  const st=document.getElementById('static');
+  function bolt(){lg.style.opacity=.95;setTimeout(()=>lg.style.opacity=0,80);setTimeout(()=>{lg.style.opacity=.6;setTimeout(()=>lg.style.opacity=0,70);},170);setTimeout(thunder,120);if(st){st.style.opacity=.5;setTimeout(()=>st.style.opacity=0,110);}}
   (function loop(){setTimeout(()=>{(Math.random()<.55?flicker:bolt)();loop();},4500+Math.random()*6500);})();
 })();
 
@@ -474,6 +490,20 @@ const PHONE='584247819621';
   });
 })();
 const EVENTO='The Red Room · 31 Oct';
+
+/* añadir al calendario (31 oct) */
+(function(){const c=document.getElementById('calLink');if(!c)return;
+  const text=encodeURIComponent('The Red Room · Martini Bar');
+  const det=encodeURIComponent('La noche de Halloween en Martini Bar. Negro, rojo o disfraz.');
+  const loc=encodeURIComponent('Martini Bar, El Vigía, Mérida, Venezuela');
+  c.href='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+text+'&dates=20261031T220000/20261101T040000&details='+det+'&location='+loc;
+})();
+
+/* volver arriba */
+(function(){const t=document.getElementById('toTop');if(!t)return;
+  addEventListener('scroll',()=>t.classList.toggle('show',(window.scrollY||0)>700),{passive:true});
+  t.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
+})();
 
 /* glow que sigue el cursor */
 (function(){const g=document.getElementById('glow');if(!g||matchMedia('(hover:none)').matches)return;
