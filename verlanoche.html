@@ -72,7 +72,10 @@ h1.vh-title{font-weight:800;letter-spacing:-.04em;line-height:.9;font-size:clamp
 .vcard:hover .play span{background:#c9ffe8;border-color:#c9ffe8}
 .vcard:hover .play span svg{color:#000}
 .vcard .play svg{width:22px;height:22px;color:#fff;margin-left:3px;transition:.35s}
-.vcard .lbl{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:1rem 1.1rem;font-weight:600;font-size:.95rem}
+.vcard .lbl{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:1rem 1.1rem;font-weight:600;font-size:.95rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.vcard .lbl-yt{font-size:.72rem;font-weight:600;color:#c9ffe8;opacity:.9;white-space:nowrap;text-decoration:none}
+.vcard .lbl-yt:hover{opacity:1}
+.vcard.playing .lbl{opacity:0;pointer-events:none}
 .empty{border:1px dashed var(--line);border-radius:8px;padding:2.5rem 1.5rem;text-align:center;color:var(--silver);grid-column:1/-1}
 @media(max-width:560px){.vgrid{grid-template-columns:1fr;gap:.8rem}}
 
@@ -139,32 +142,17 @@ if(!ready.length){
 }else{
   ready.forEach(v=>{
     const card=document.createElement('div');card.className='vcard';card.dataset.id=v.id;
+    const yt='https://youtube.com/shorts/'+v.id;
     card.innerHTML=
-      '<img class="thumb" loading="lazy" alt="'+v.name+'" src="https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg">'+
+      '<img class="thumb" loading="lazy" alt="'+v.name+'" src="https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg" onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/'+v.id+'/mqdefault.jpg\'">'+
       '<div class="play"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>'+
-      '<div class="lbl">'+v.name+'</div>';
+      '<div class="lbl"><span class="lbl-name">'+v.name+'</span><a class="lbl-yt" href="'+yt+'" target="_blank" rel="noopener">YouTube ↗</a></div>';
     grid.appendChild(card);
-
-    function mountMuted(){
-      if(card.querySelector('iframe'))return;
-      const f=embed(v.id,'autoplay=1&mute=1&loop=1&playlist='+v.id+'&controls=0');
-      card.appendChild(f);card.classList.add('playing');
-    }
-    function unmount(){const f=card.querySelector('iframe');if(f)f.remove();card.classList.remove('playing','sound');}
-
-    // autoplay en silencio y en loop cuando entra en pantalla; se descarga al salir (liviano)
-    if('IntersectionObserver'in window && !reduce){
-      const io=new IntersectionObserver(es=>es.forEach(e=>{e.isIntersecting?mountMuted():unmount();}),{threshold:.5});
-      io.observe(card);
-    }
-
-    // tocar: abre con sonido + controles y a pantalla completa
+    card.querySelector('.lbl-yt').addEventListener('click',e=>e.stopPropagation());
     card.addEventListener('click',()=>{
-      const old=card.querySelector('iframe');if(old)old.remove();
+      if(card.querySelector('iframe'))return;
       const f=embed(v.id,'autoplay=1&mute=0&loop=1&playlist='+v.id+'&controls=1');
       card.appendChild(f);card.classList.add('playing','sound');
-      const go=f.requestFullscreen||f.webkitRequestFullscreen||f.webkitEnterFullscreen;
-      if(go)try{go.call(f);}catch(e){}
     });
   });
 }
