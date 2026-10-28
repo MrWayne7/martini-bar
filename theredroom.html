@@ -157,6 +157,21 @@ h2{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(2.
 .field input,.field select{width:100%;background:rgba(0,0,0,.4);border:1px solid var(--line);border-radius:6px;color:var(--paper);font-family:inherit;font-size:16px;padding:.85rem 1rem;transition:border-color .3s}
 .field input:focus,.field select:focus{outline:none;border-color:var(--blood)}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.rr-counter{display:inline-flex;align-items:center;gap:1.1rem;border:1px solid var(--line-red);border-radius:40px;padding:.45rem 1rem}
+.rr-counter button{width:30px;height:30px;border:1px solid var(--line);border-radius:50%;background:none;color:var(--paper);font-size:1.2rem;line-height:1;cursor:pointer;transition:.3s}
+.rr-counter button:hover{border-color:var(--blood);color:var(--blood)}
+.rr-counter span{min-width:1.6ch;text-align:center;font-family:var(--serif);font-size:1.4rem}
+.rr-float{position:fixed;right:max(1rem,env(safe-area-inset-right));bottom:calc(1rem + env(safe-area-inset-bottom));z-index:55;display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 1.3rem;border-radius:46px;background:var(--blood);color:#fff;font-weight:700;font-size:.95rem;box-shadow:0 0 28px rgba(212,17,43,.5);transform:translateY(160%);opacity:0;transition:transform .55s var(--ease),opacity .4s,box-shadow .3s}
+.rr-float.show{transform:none;opacity:1}
+.rr-float:hover{box-shadow:0 0 42px rgba(212,17,43,.8)}
+.rr-float svg{width:18px;height:18px}
+@media(max-width:560px){.rr-float span{display:none}.rr-float{padding:0;width:54px;height:54px;justify-content:center}}
+.exp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:2.6rem}
+.exp-card{border:1px solid var(--line-red);border-radius:10px;padding:1.6rem 1.4rem;background:linear-gradient(160deg,rgba(212,17,43,.06),transparent);transition:transform .4s var(--ease),border-color .4s}
+.exp-card:hover{transform:translateY(-4px);border-color:var(--blood)}
+.exp-card svg{width:28px;height:28px;color:var(--blood);margin-bottom:.9rem;filter:drop-shadow(0 0 10px rgba(212,17,43,.45))}
+.exp-card h4{font-size:1.1rem;font-weight:700;margin-bottom:.4rem}
+.exp-card p{color:var(--ash);font-size:.88rem;line-height:1.5}
 .zones{display:flex;flex-wrap:wrap;gap:.5rem}
 .zone{border:1px solid var(--line);border-radius:40px;padding:.5rem 1rem;font-size:.82rem;cursor:pointer;transition:.3s;user-select:none}
 .zone.active{background:var(--blood);border-color:var(--blood);color:#fff}
@@ -210,6 +225,7 @@ footer a{color:var(--ash)}
 <div class="hand hand-l" aria-hidden="true"><svg viewBox="0 0 120 160" fill="currentColor"><path d="M18 160V72c0-9 11-9 11 0v38h4V42c0-9 11-9 11 0v68h4V30c0-9 11-9 11 0v80h4V46c0-9 11-9 11 0v64h4V72c0-9 11-7 13 2l9 40c7 31-10 46-40 46H18z"/></svg></div>
 <div class="hand hand-r" aria-hidden="true"><svg viewBox="0 0 120 160" fill="currentColor"><path d="M18 160V72c0-9 11-9 11 0v38h4V42c0-9 11-9 11 0v68h4V30c0-9 11-9 11 0v80h4V46c0-9 11-9 11 0v64h4V72c0-9 11-7 13 2l9 40c7 31-10 46-40 46H18z"/></svg></div>
 <div class="intro" id="intro"></div>
+<a class="rr-float" id="rrFloat" href="#reservar" aria-label="Reservar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2 2 2 0 0 0 0 4 2 2 0 0 1-2 2 2 2 0 0 1-2 2H5a2 2 0 0 1-2-2 2 2 0 0 0 0-4Z"/></svg><span>Reservar</span></a>
 <audio id="rrSong" src="assets/blue-martini.mp3" loop preload="none"></audio>
 <button class="sound-rr" id="rrToggle" aria-label="Música de Halloween"><span class="bars"><i></i><i></i><i></i></span><span>Música</span></button>
 
@@ -280,6 +296,18 @@ footer a{color:var(--ash)}
     </div>
   </section>
 
+  <!-- EXPERIENCIA -->
+  <section class="wrap reveal">
+    <div class="eyebrow">La experiencia</div>
+    <h2>Lo que vas a vivir.</h2>
+    <div class="exp-grid">
+      <div class="exp-card reveal"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C7 2 4 6 4 11c0 3 1 4 1 6 0 2 2 3 3 2v2h2v-2h4v2h2v-2c1 1 3 0 3-2 0-2 1-3 1-6 0-5-3-9-8-9Zm-3 9a2 2 0 1 1 0 4 2 2 0 0 1 0-4Zm6 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4Z"/></svg><h4>Ambientación total</h4><p>Fantasmas, calaveras, candelabros y tumbas. La sala entera transformada.</p></div>
+      <div class="exp-card reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 4h12l-1.5 20a1 1 0 0 1-1 .9H8.5a1 1 0 0 1-1-.9L6 4Z"/><path d="M7 11h10" stroke-opacity=".6"/></svg><h4>Barra completa</h4><p>Buchanan's 12, Black &amp; White, tequila, ron, Red Bull y Monster.</p></div>
+      <div class="exp-card reveal"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 9.2 8.6 2 9.2l5.5 4.6L5.8 21 12 17.3 18.2 21l-1.7-7.2L22 9.2l-7.2-.6L12 2Z"/></svg><h4>Mesas VIP · $250</h4><p>2 botellas de Buchanan's, 4 baldes de cerveza y 3 entradas.</p></div>
+      <div class="exp-card reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M9 18V5l10-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg><h4>Hasta la madrugada</h4><p>DJ y la mejor música desde las 10pm. Negro, rojo o disfraz.</p></div>
+    </div>
+  </section>
+
   <!-- RESERVA -->
   <section class="wrap reveal" id="reservar">
     <div class="eyebrow">Tu lugar en la sala</div>
@@ -300,7 +328,7 @@ footer a{color:var(--ash)}
           <div class="field"><label>Teléfono / WhatsApp</label><input id="fPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Ej. 0414 123 4567"><p class="err-msg" id="ePhone">Escribe un teléfono válido.</p></div>
         </div>
         <div class="grid2">
-          <div class="field"><label>Personas</label><input id="fPpl" type="number" min="1" max="30" value="2"></div>
+          <div class="field"><label>Personas</label><div class="rr-counter"><button type="button" id="ppMinus" aria-label="Menos">–</button><span id="ppVal">2</span><button type="button" id="ppPlus" aria-label="Más">+</button></div></div>
           <div class="field"><label>Disfraz / nota (opcional)</label><input id="fNote" type="text" placeholder="Ej. venimos disfrazados 🎭"></div>
         </div>
         <button class="submit" id="send">🩸 Reservar por WhatsApp</button>
@@ -433,6 +461,18 @@ const EVENTO='The Red Room · 31 Oct';
   tick();setInterval(tick,1000);
 })();
 
+/* contador de personas */
+let ppl=2;const ppValEl=document.getElementById('ppVal');
+function setPpl(n){ppl=Math.max(1,Math.min(30,n));if(ppValEl)ppValEl.textContent=ppl;}
+document.getElementById('ppPlus').addEventListener('click',()=>setPpl(ppl+1));
+document.getElementById('ppMinus').addEventListener('click',()=>setPpl(ppl-1));
+
+/* botón flotante de reserva */
+(function(){const f=document.getElementById('rrFloat');if(!f)return;
+  const on=()=>f.classList.toggle('show',(window.scrollY||0)>520);
+  addEventListener('scroll',on,{passive:true});on();
+})();
+
 /* zonas */
 let zona='General';
 document.getElementById('zones').addEventListener('click',e=>{const z=e.target.closest('.zone');if(!z)return;
@@ -453,7 +493,7 @@ function waURL(d){
 document.getElementById('send').addEventListener('click',()=>{
   const nombre=document.getElementById('fName').value.trim();
   const telefono=document.getElementById('fPhone').value.trim();
-  const personas=Math.max(1,Math.min(30,parseInt(document.getElementById('fPpl').value)||1));
+  const personas=ppl;
   const nota=document.getElementById('fNote').value.trim();
   const eN=document.getElementById('eName'),eP=document.getElementById('ePhone');
   eN.style.display=nombre?'none':'block';
