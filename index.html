@@ -201,6 +201,15 @@ main,footer,.nav,.menu{position:relative;z-index:2}
 .lugar-card p{color:var(--silver);font-size:.84rem;margin-top:.35rem;line-height:1.4;max-height:0;opacity:0;overflow:hidden;transition:.5s var(--ease)}
 .lugar-card:hover p{max-height:72px;opacity:1}
 @media(hover:none){.lugar-card p{max-height:72px;opacity:1}}
+.lugar-card{cursor:zoom-in}
+.lightbox{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.93);display:none;align-items:center;justify-content:center;padding:1.5rem;cursor:zoom-out;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.lightbox.open{display:flex}
+.lightbox img{max-width:92vw;max-height:88vh;border-radius:8px;box-shadow:0 30px 80px rgba(0,0,0,.7);animation:lbIn .4s var(--ease)}
+@keyframes lbIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.lightbox .lb-x{position:absolute;top:1.2rem;right:1.2rem;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(0,0,0,.5);color:var(--paper);font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.share-btn{display:inline-flex;align-items:center;gap:.5rem;font-family:inherit;font-weight:600;font-size:.82rem;color:var(--paper);background:none;border:1px solid var(--line);border-radius:40px;padding:.55rem 1rem;cursor:pointer;transition:.3s}
+.share-btn:hover{border-color:rgba(201,255,232,.5);background:rgba(201,255,232,.06)}
+.share-btn svg{width:16px;height:16px}
 
 /* ---------- floating whatsapp ---------- */
 .wa-float{position:fixed;right:max(1.1rem,env(safe-area-inset-right));bottom:calc(1.1rem + env(safe-area-inset-bottom));z-index:60;
@@ -729,7 +738,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
     <div class="f-col"><h5>NAVEGA</h5><a href="#reservas" data-hover>Reservas</a><a href="#eventos" data-hover>Eventos</a><a href="/verlanoche" data-hover>La noche</a><a href="/theredroom" data-hover>Red Room</a><a href="#cartas" data-hover>Cartas</a><a href="#lugar" data-hover>El lugar</a><a href="#faq" data-hover>Info</a></div>
   </div>
   <div class="f-word" id="footWord"><span class="holo-text">martini</span></div>
-  <div class="f-bottom"><span>© 2026 Martini Bar · Todos los derechos reservados</span><a href="/admin.html" style="color:var(--muted);opacity:.6" data-hover>Panel</a></div>
+  <div class="f-bottom"><span>© 2026 Martini Bar · Todos los derechos reservados</span><div style="display:flex;gap:1.2rem;align-items:center;flex-wrap:wrap"><button class="share-btn" id="shareBtn" data-hover><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg> Invita a tus panas</button><a href="/admin.html" style="color:var(--muted);opacity:.6" data-hover>Panel</a></div></div>
 </footer>
 
 <a class="wa-float" id="waFloat" href="https://wa.me/584247819621?text=Hola!%20Quiero%20reservar%20en%20Martini%20Bar%20%F0%9F%8D%B8" target="_blank" rel="noopener" aria-label="Reservar por WhatsApp" data-hover>
@@ -742,6 +751,8 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
   <span class="bars"><i></i><i></i><i></i><i></i></span>
   <span class="st-lbl">Música</span>
 </button>
+
+<div class="lightbox" id="lightbox"><button class="lb-x" id="lbX" aria-label="Cerrar">✕</button><img id="lbImg" alt="Martini Bar"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -1115,6 +1126,29 @@ if(!isTouch&&hasGSAP){
   });
 }
 
+/* ----- lightbox (ver fotos en grande) ----- */
+(function(){
+  const lb=document.getElementById('lightbox'),img=document.getElementById('lbImg');if(!lb||!img)return;
+  function openLb(src){if(!src)return;img.src=src;lb.classList.add('open');document.body.style.overflow='hidden';}
+  function closeLb(){lb.classList.remove('open');document.body.style.overflow='';}
+  document.querySelectorAll('.lugar-card').forEach(card=>card.addEventListener('click',()=>{
+    const bg=card.querySelector('.lc-bg');if(!bg)return;const m=/url\(["']?(.*?)["']?\)/.exec(bg.style.backgroundImage||'');if(m)openLb(m[1]);
+  }));
+  lb.addEventListener('click',e=>{if(e.target!==img)closeLb();});
+  addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();});
+})();
+
+/* ----- compartir / invitar ----- */
+(function(){
+  const b=document.getElementById('shareBtn');if(!b)return;
+  const url=location.origin&&location.origin!=='null'?location.origin+'/':location.href;
+  const txt='🍸 Martini Bar — bar, terraza y VIP. Reserva tu sábado aquí: ';
+  b.addEventListener('click',async()=>{
+    if(navigator.share){try{await navigator.share({title:'Martini Bar',text:'Martini Bar — bar, terraza y VIP.',url});return;}catch(e){}}
+    const wa='https://wa.me/?text='+encodeURIComponent(txt+url);
+    window.open(wa,'_blank');
+  });
+})();
 
 </script>
 </body>

@@ -172,6 +172,14 @@ h2{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(2.
 .exp-card svg{width:28px;height:28px;color:var(--blood);margin-bottom:.9rem;filter:drop-shadow(0 0 10px rgba(212,17,43,.45))}
 .exp-card h4{font-size:1.1rem;font-weight:700;margin-bottom:.4rem}
 .exp-card p{color:var(--ash);font-size:.88rem;line-height:1.5}
+.strip figure{cursor:zoom-in}
+.lightbox{position:fixed;inset:0;z-index:300;background:rgba(5,1,2,.94);display:none;align-items:center;justify-content:center;padding:1.5rem;cursor:zoom-out;backdrop-filter:blur(4px)}
+.lightbox.open{display:flex}
+.lightbox img{max-width:92vw;max-height:88vh;border-radius:8px;box-shadow:0 30px 80px rgba(0,0,0,.8);filter:saturate(.85) hue-rotate(-10deg)}
+.lightbox .lb-x{position:absolute;top:1.2rem;right:1.2rem;width:44px;height:44px;border-radius:50%;border:1px solid var(--line-red);background:rgba(0,0,0,.5);color:var(--paper);font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.share-btn{display:inline-flex;align-items:center;gap:.5rem;font-family:inherit;font-weight:600;font-size:.82rem;color:var(--paper);background:none;border:1px solid var(--line-red);border-radius:40px;padding:.55rem 1rem;cursor:pointer;transition:.3s}
+.share-btn:hover{border-color:var(--blood);background:rgba(212,17,43,.08)}
+.share-btn svg{width:16px;height:16px}
 .zones{display:flex;flex-wrap:wrap;gap:.5rem}
 .zone{border:1px solid var(--line);border-radius:40px;padding:.5rem 1rem;font-size:.82rem;cursor:pointer;transition:.3s;user-select:none}
 .zone.active{background:var(--blood);border-color:var(--blood);color:#fff}
@@ -364,8 +372,13 @@ footer a{color:var(--ash)}
 
 <footer>
   <span>© 2026 Martini Bar · The Red Room</span>
-  <a href="/">← Volver al inicio</a>
+  <div style="display:flex;gap:1.2rem;align-items:center;flex-wrap:wrap">
+    <button class="share-btn" id="shareBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg> Comparte la noche</button>
+    <a href="/">← Volver al inicio</a>
+  </div>
 </footer>
+
+<div class="lightbox" id="lightbox"><button class="lb-x" id="lbX" aria-label="Cerrar">✕</button><img id="lbImg" alt="The Red Room"></div>
 
 <script>
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
@@ -439,6 +452,25 @@ function thunder(){if(!audioReady||!AC)return;try{
   ['pointerdown','touchstart','keydown','scroll'].forEach(ev=>addEventListener(ev,function once(){if(!started)start();removeEventListener(ev,once);},{once:true,passive:true}));
 })();
 const PHONE='584247819621';
+
+/* lightbox */
+(function(){const lb=document.getElementById('lightbox'),img=document.getElementById('lbImg');if(!lb||!img)return;
+  function openLb(s){img.src=s;lb.classList.add('open');document.body.style.overflow='hidden';}
+  function closeLb(){lb.classList.remove('open');document.body.style.overflow='';}
+  document.querySelectorAll('.strip figure img').forEach(im=>im.addEventListener('click',()=>openLb(im.src)));
+  lb.addEventListener('click',e=>{if(e.target!==img)closeLb();});
+  addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();});
+})();
+
+/* compartir la noche */
+(function(){const b=document.getElementById('shareBtn');if(!b)return;
+  const url=location.origin&&location.origin!=='null'?location.origin+'/theredroom':location.href;
+  const txt='🩸 The Red Room · Sáb 31 de Octubre en Martini Bar. Negro, rojo o disfraz. Reserva: ';
+  b.addEventListener('click',async()=>{
+    if(navigator.share){try{await navigator.share({title:'The Red Room — Martini Bar',text:'The Red Room · 31 Oct en Martini Bar.',url});return;}catch(e){}}
+    window.open('https://wa.me/?text='+encodeURIComponent(txt+url),'_blank');
+  });
+})();
 const EVENTO='The Red Room · 31 Oct';
 
 /* glow que sigue el cursor */
