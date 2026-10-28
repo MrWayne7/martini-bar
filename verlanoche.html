@@ -58,7 +58,7 @@ header.vh-hero{padding:clamp(3.5rem,9vw,7rem) 0 clamp(1.8rem,4vw,3rem)}
 h1.vh-title{font-weight:800;letter-spacing:-.04em;line-height:.9;font-size:clamp(3rem,13vw,9rem);text-transform:lowercase}
 .vh-sub{font-family:var(--serif);font-style:italic;color:var(--silver);font-size:clamp(1.1rem,2.6vw,1.6rem);margin-top:1rem;max-width:40ch}
 
-.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.1rem;padding-bottom:clamp(3rem,8vw,6rem)}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,200px));justify-content:center;gap:1rem;padding-bottom:clamp(3rem,8vw,6rem)}
 .vcard{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#070707;aspect-ratio:9/16;cursor:pointer;transition:border-color .4s,transform .5s var(--ease)}
 .vcard:hover{border-color:rgba(201,255,232,.45);transform:translateY(-4px)}
 .vcard img.thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s var(--ease),opacity .5s;filter:saturate(1.02)}
@@ -77,7 +77,7 @@ h1.vh-title{font-weight:800;letter-spacing:-.04em;line-height:.9;font-size:clamp
 .vcard .lbl-yt:hover{opacity:1}
 .vcard.playing .lbl{opacity:0;pointer-events:none}
 .empty{border:1px dashed var(--line);border-radius:8px;padding:2.5rem 1.5rem;text-align:center;color:var(--silver);grid-column:1/-1}
-@media(max-width:560px){.vgrid{grid-template-columns:1fr;gap:.8rem}}
+@media(max-width:560px){.vgrid{grid-template-columns:repeat(2,1fr);gap:.7rem}}
 
 footer{border-top:1px solid var(--line);padding:2.4rem max(var(--padx),env(safe-area-inset-left));display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;color:var(--muted);font-size:.82rem}
 footer a{color:var(--silver)}
