@@ -188,6 +188,20 @@ main,footer,.nav,.menu{position:relative;z-index:2}
 .night-cta .nc-r{font-family:var(--serif);font-style:italic;color:var(--silver);font-size:1.05rem}
 @media(max-width:560px){.night-cta{padding:1.1rem 1.2rem}.night-cta .nc-l{font-size:1rem}.night-cta .nc-r{font-size:.92rem}}
 
+/* ---------- el lugar ---------- */
+.lugar{margin-top:8rem}
+.lugar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-top:3rem}
+.lugar-card{position:relative;aspect-ratio:4/5;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#070707}
+.lugar-card .lc-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.03);transition:transform .8s var(--ease),filter .5s;filter:saturate(1.05) brightness(.78)}
+.lugar-card:hover .lc-bg{transform:scale(1.11);filter:saturate(1.12) brightness(1)}
+.lugar-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 38%,rgba(0,0,0,.86))}
+.lugar-card .lc-badge{position:absolute;top:1rem;left:1rem;z-index:2;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--paper);background:rgba(0,0,0,.42);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:.35rem .65rem;border-radius:20px;border:1px solid var(--line)}
+.lugar-card .lc-in{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:1.4rem}
+.lugar-card h4{font-size:1.35rem;font-weight:700;letter-spacing:-.01em}
+.lugar-card p{color:var(--silver);font-size:.84rem;margin-top:.35rem;line-height:1.4;max-height:0;opacity:0;overflow:hidden;transition:.5s var(--ease)}
+.lugar-card:hover p{max-height:72px;opacity:1}
+@media(hover:none){.lugar-card p{max-height:72px;opacity:1}}
+
 /* ---------- floating whatsapp ---------- */
 .wa-float{position:fixed;right:max(1.1rem,env(safe-area-inset-right));bottom:calc(1.1rem + env(safe-area-inset-bottom));z-index:60;
   display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1.3rem;border-radius:40px;
@@ -310,6 +324,10 @@ main,footer,.nav,.menu{position:relative;z-index:2}
 .zones{display:flex;gap:.5rem;flex-wrap:wrap}
 .zone{padding:.75rem 1.1rem;border:1px solid var(--line);border-radius:40px;font-size:.88rem;transition:.3s var(--ease);white-space:nowrap;user-select:none}
 .zone.active{background:var(--paper);color:#000;border-color:var(--paper)}
+.date-row{display:flex;gap:.5rem;align-items:stretch}
+.date-row input{flex:1;min-width:0}
+.qsat{white-space:nowrap;border:1px solid var(--line);background:rgba(201,255,232,.06);color:var(--paper);border-radius:6px;padding:0 .85rem;font-family:inherit;font-size:.76rem;font-weight:600;cursor:pointer;transition:.3s}
+.qsat:hover{border-color:rgba(201,255,232,.5);background:rgba(201,255,232,.12)}
 .counter{display:flex;align-items:center;gap:.8rem;border:1px solid var(--line);border-radius:40px;padding:.45rem .8rem;width:fit-content}
 .counter button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--paper);font-size:1.3rem;transition:.3s}
 .counter button:active,.counter button:hover{background:var(--paper);color:#000}
@@ -476,7 +494,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
     <a href="/verlanoche" data-hover>La noche</a>
     <a href="/theredroom" data-hover>Red Room</a>
     <a href="#cartas" data-hover>Cartas</a>
-    <a href="#terraza" data-hover>Terraza · VIP</a>
+    <a href="#lugar" data-hover>El lugar</a>
     <a href="#faq" data-hover>Info</a>
     <a href="#reservas" class="nav-cta" data-hover>Reservar sábado</a>
   </div>
@@ -490,7 +508,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
   <a href="/verlanoche" data-hover><span>La noche</span></a>
   <a href="/theredroom" data-hover><span>Red Room · 31 Oct</span></a>
   <a href="#cartas" data-hover><span>Cartas</span></a>
-  <a href="#terraza" data-hover><span>Terraza · VIP</span></a>
+  <a href="#lugar" data-hover><span>El lugar</span></a>
   <a href="#faq" data-hover><span>Info</span></a>
   <div class="m-foot"><a href="#" data-hover>Instagram</a><a href="#" data-hover>TikTok</a><a href="https://wa.me/584247819621" target="_blank" rel="noopener" data-hover>WhatsApp</a></div>
 </div>
@@ -616,7 +634,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
       <div class="field"><label>Personas</label><div class="counter">
         <button id="minus" aria-label="Menos" data-hover>–</button><span class="val" id="pplVal">4</span><button id="plus" aria-label="Más" data-hover>+</button>
       </div></div>
-      <div class="field"><label>Fecha</label><input type="date" id="resvDate" aria-label="Fecha"></div>
+      <div class="field"><label>Fecha</label><div class="date-row"><input type="date" id="resvDate" aria-label="Fecha"><button type="button" class="qsat" id="qSat" data-hover>Próx. sábado</button></div></div>
     </div>
     <div class="resv-grid2">
       <div class="field" id="fName"><label>Nombre</label><input type="text" id="resvName" placeholder="Tu nombre" autocomplete="name" enterkeyhint="next"><span class="warn">Escribe tu nombre.</span></div>
@@ -668,9 +686,21 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
   </div>
 </section>
 
+<!-- EL LUGAR -->
+<section class="wrap lugar" id="lugar">
+  <div class="chapter reveal"><span class="no">04</span><div><h2>El lugar.</h2><p class="sub">Pista, terraza solar, área VIP y zona junto al DJ. Pasa por cada espacio.</p></div></div>
+  <div class="lugar-grid">
+    <article class="lugar-card reveal"><div class="lc-bg" style="background-image:url('assets/fotos/foto-1.webp')"></div><span class="lc-badge">Pista</span><div class="lc-in"><h4>La pista</h4><p>El corazón de la noche — luces, láseres y música hasta la madrugada.</p></div></article>
+    <article class="lugar-card reveal" data-anim="up"><div class="lc-bg" style="background-image:url('assets/fotos/foto-5.webp')"></div><span class="lc-badge">VIP</span><div class="lc-in"><h4>Área VIP</h4><p>Mesas con botella y servicio dedicado, con la mejor vista de la pista.</p></div></article>
+    <article class="lugar-card reveal"><div class="lc-bg" style="background-image:url('assets/fotos/foto-2.webp')"></div><span class="lc-badge">Terraza</span><div class="lc-in"><h4>Terraza solar</h4><p>Al aire libre, bajo las luces y con la mejor brisa. También bodegón y tasca.</p></div></article>
+    <article class="lugar-card reveal" data-anim="up"><div class="lc-bg" style="background-image:url('assets/fotos/foto-3.webp')"></div><span class="lc-badge">VIP · DJ</span><div class="lc-in"><h4>VIP + DJ</h4><p>Una zona exclusiva justo al lado del DJ, donde todo se siente más fuerte.</p></div></article>
+    <article class="lugar-card reveal"><div class="lc-bg" style="background-image:url('assets/fotos/foto-4.webp')"></div><span class="lc-badge">Barra</span><div class="lc-in"><h4>La barra</h4><p>Whisky, ron, tequila y energizantes — listo para tu mesa o la barra.</p></div></article>
+  </div>
+</section>
+
 <!-- CARTAS -->
 <section class="gallery" id="cartas">
-  <div class="wrap"><div class="chapter reveal"><span class="no">04</span><div><h2>La carta.</h2><p class="sub">Lo que servimos en la barra y en tu mesa VIP. Toca cada una.</p></div></div></div>
+  <div class="wrap"><div class="chapter reveal"><span class="no">05</span><div><h2>La carta.</h2><p class="sub">Lo que servimos en la barra y en tu mesa VIP. Toca cada una.</p></div></div></div>
   <div class="gscroller"><div class="gtrack" id="gtrack"></div></div>
   <p class="gnote">Arrastra o desliza · toca una carta para voltearla.</p>
 </section>
@@ -680,7 +710,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 
 <!-- FAQ -->
 <section class="wrap" id="faq">
-  <div class="chapter reveal"><span class="no">05</span><div><h2>Antes de venir.</h2><p class="sub">Lo que todos preguntan.</p></div></div>
+  <div class="chapter reveal"><span class="no">06</span><div><h2>Antes de venir.</h2><p class="sub">Lo que todos preguntan.</p></div></div>
   <div id="faqList">
     <div class="faq-item reveal" data-anim="left"><div class="faq-q">¿Dónde queda y hay parqueadero? <span class="ico">+</span></div><div class="faq-a">Estamos dentro del centro comercial, con estacionamiento propio. La entrada al bar es independiente y la terraza da al exterior.</div></div>
     <div class="faq-item reveal" data-anim="left"><div class="faq-q">¿Cómo reservo mesa o VIP? <span class="ico">+</span></div><div class="faq-a">Usa "Arma tu reserva": eliges zona, personas y fecha, y te abre WhatsApp con todo listo. También puedes escribirnos por redes.</div></div>
@@ -696,7 +726,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
   <div class="f-grid">
     <div class="f-col"><h5>MARTINI BAR</h5><p class="f-info">Bar · Terraza · Área VIP.<br>Dentro del centro comercial, con estacionamiento.<br>Sábados de fiesta hasta la madrugada.</p></div>
     <div class="f-col"><h5>SÍGUENOS</h5><a href="#" data-hover>Instagram</a><a href="#" data-hover>TikTok</a><a href="https://wa.me/584247819621" target="_blank" rel="noopener" data-hover>WhatsApp</a></div>
-    <div class="f-col"><h5>NAVEGA</h5><a href="#reservas" data-hover>Reservas</a><a href="#eventos" data-hover>Eventos</a><a href="/verlanoche" data-hover>La noche</a><a href="/theredroom" data-hover>Red Room</a><a href="#cartas" data-hover>Cartas</a><a href="#faq" data-hover>Info</a></div>
+    <div class="f-col"><h5>NAVEGA</h5><a href="#reservas" data-hover>Reservas</a><a href="#eventos" data-hover>Eventos</a><a href="/verlanoche" data-hover>La noche</a><a href="/theredroom" data-hover>Red Room</a><a href="#cartas" data-hover>Cartas</a><a href="#lugar" data-hover>El lugar</a><a href="#faq" data-hover>Info</a></div>
   </div>
   <div class="f-word" id="footWord"><span class="holo-text">martini</span></div>
   <div class="f-bottom"><span>© 2026 Martini Bar · Todos los derechos reservados</span><a href="/admin.html" style="color:var(--muted);opacity:.6" data-hover>Panel</a></div>
@@ -981,7 +1011,10 @@ function waURL(){
 document.getElementById('zones').addEventListener('click',e=>{const z=e.target.closest('.zone');if(!z)return;document.querySelectorAll('.zone').forEach(x=>x.classList.remove('active'));z.classList.add('active');state.zone=z.dataset.zone;updSummary();});
 document.getElementById('plus').addEventListener('click',()=>{state.ppl=Math.min(40,state.ppl+1);pplVal.textContent=state.ppl;updSummary();});
 document.getElementById('minus').addEventListener('click',()=>{state.ppl=Math.max(1,state.ppl-1);pplVal.textContent=state.ppl;updSummary();});
+function nextSatISO(){const n=new Date();const t=new Date(n);t.setDate(n.getDate()+((6-n.getDay()+7)%7));return t.toISOString().slice(0,10);}
+dateEl.value=nextSatISO();state.date=dateEl.value;
 dateEl.addEventListener('change',e=>{state.date=e.target.value;updSummary();});
+document.getElementById('qSat').addEventListener('click',()=>{dateEl.value=nextSatISO();state.date=dateEl.value;updSummary();});
 timeEl.addEventListener('change',e=>{state.time=e.target.value;updSummary();});
 nameEl.addEventListener('input',e=>{state.name=e.target.value.trim();document.getElementById('fName').classList.remove('err');});
 phoneEl.addEventListener('input',e=>{state.phone=e.target.value.trim();document.getElementById('fPhone').classList.remove('err');});
