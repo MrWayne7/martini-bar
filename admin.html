@@ -184,6 +184,69 @@ button{cursor:pointer}
 .ev-item .btns button:hover{background:#141414}
 .ev-item .btns .px{color:var(--green);border-color:rgba(201,255,232,.3)}
 .ev-item .btns .del{color:var(--red);border-color:rgba(255,143,163,.3)}
+
+/* ---------- pulido Apple ---------- */
+.pane{opacity:0;transform:translateY(8px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.pane.on{opacity:1;transform:none}
+.stat,.rcard,.ev-item,.ev-form,.post-item,.blog-editor{transition:transform .5s var(--ease),border-color .4s,box-shadow .5s var(--ease),opacity .3s}
+.stat:hover,.ev-item:hover,.post-item:hover{transform:translateY(-3px);box-shadow:0 14px 40px -24px rgba(201,255,232,.3)}
+.tab{transition:color .3s var(--ease)}
+
+/* ---------- blog editor ---------- */
+.blog-editor{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:1.4rem;margin-bottom:2rem}
+.blog-editor h3{font-size:1.05rem;font-weight:700;margin-bottom:.3rem}
+.blog-editor .hint{color:var(--muted);font-size:.84rem;margin-bottom:1.2rem}
+.be-title{width:100%;background:none;border:none;border-bottom:1px solid var(--line);color:var(--paper);font-family:var(--font);font-size:1.5rem;font-weight:700;letter-spacing:-.02em;padding:.5rem 0 .7rem;margin-bottom:1.2rem}
+.be-title::placeholder{color:var(--muted)}
+.be-title:focus{outline:none;border-color:var(--paper)}
+
+.be-cover{border:1.5px dashed var(--line);border-radius:10px;padding:1.1rem;text-align:center;cursor:pointer;transition:.25s;color:var(--silver);position:relative;margin-bottom:1.2rem}
+.be-cover:hover{border-color:var(--silver);background:#0d0d0d}
+.be-cover.has{border-style:solid;border-color:rgba(201,255,232,.4);padding:0;overflow:hidden}
+.be-cover input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.be-cover img{width:100%;max-height:220px;object-fit:cover;display:block}
+.be-cover .ph small{display:block;color:var(--muted);margin-top:.25rem;font-size:.76rem}
+
+.be-toolbar{display:flex;gap:.3rem;flex-wrap:wrap;padding:.5rem;border:1px solid var(--line);border-bottom:none;border-radius:10px 10px 0 0;background:#0d0d0d;position:sticky;top:64px;z-index:5}
+.be-toolbar button{width:34px;height:32px;border:1px solid transparent;border-radius:7px;background:none;color:var(--silver);font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:.18s;font-weight:600}
+.be-toolbar button:hover{background:#1a1a1a;color:var(--paper)}
+.be-toolbar button.wide{width:auto;padding:0 .6rem;font-size:.78rem;gap:.3rem}
+.be-toolbar .sep{width:1px;background:var(--line);margin:.2rem .2rem}
+.be-body{border:1px solid var(--line);border-radius:0 0 10px 10px;background:#070707;color:#e4e5e0;min-height:260px;max-height:50vh;overflow-y:auto;padding:1.1rem 1.2rem;font-size:1.02rem;line-height:1.7;outline:none}
+.be-body:focus{border-color:rgba(201,255,232,.3)}
+.be-body:empty::before{content:attr(data-ph);color:var(--muted)}
+.be-body h2{font-size:1.5rem;font-weight:700;margin:1rem 0 .5rem}
+.be-body h3{font-size:1.2rem;font-weight:600;margin:.8rem 0 .4rem}
+.be-body p{margin:0 0 .9rem}
+.be-body img{max-width:100%;border-radius:10px;margin:.8rem 0;border:1px solid var(--line)}
+.be-body blockquote{border-left:2px solid var(--green);padding-left:1rem;margin:1rem 0;font-family:var(--serif);font-style:italic;color:var(--silver)}
+.be-body ul,.be-body ol{margin:0 0 .9rem 1.4rem}
+.be-body a{color:var(--green)}
+
+.be-actions{display:flex;gap:.7rem;margin-top:1.2rem;align-items:center}
+.be-save{flex:1;background:var(--paper);color:#000;border:none;border-radius:8px;padding:.95rem;font-weight:700;font-size:1rem;transition:transform .2s,opacity .2s}
+.be-save:active{transform:scale(.98)}
+.be-save:disabled{opacity:.5}
+.be-draft{background:none;border:1px solid var(--line);color:var(--silver);border-radius:8px;padding:.95rem 1.2rem;font-size:.9rem;transition:.2s}
+.be-draft:hover{color:var(--paper);border-color:var(--paper)}
+.be-cancel{background:none;border:none;color:var(--muted);font-size:.86rem;padding:.5rem}
+.be-cancel:hover{color:var(--red)}
+
+.post-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
+.post-item{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+.post-item .pi-cover{aspect-ratio:16/10;background:#0c0c0c}
+.post-item .pi-cover img{width:100%;height:100%;object-fit:cover}
+.post-item .pi-nocover{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-style:italic;color:var(--muted)}
+.post-item .pi-body{padding:.85rem .9rem 1rem}
+.post-item .pi-date{color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.04em}
+.post-item .pi-title{font-weight:600;font-size:.98rem;margin:.25rem 0;line-height:1.2}
+.post-item .pi-badge{display:inline-block;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:.2rem .5rem;border-radius:20px;margin-bottom:.3rem}
+.post-item .pi-badge.publicado{background:#c9ffe8;color:#000}
+.post-item .pi-badge.borrador{background:rgba(255,225,168,.18);color:var(--amber);border:1px solid rgba(255,225,168,.4)}
+.post-item .pi-btns{display:flex;gap:.4rem;margin-top:.7rem}
+.post-item .pi-btns button{flex:1;border:1px solid var(--line);border-radius:7px;background:none;color:var(--paper);font-size:.74rem;padding:.45rem;transition:.2s}
+.post-item .pi-btns button:hover{background:#141414}
+.post-item .pi-btns .del{color:var(--red);border-color:rgba(255,143,163,.3)}
 </style>
 </head>
 <body>
@@ -218,6 +281,7 @@ button{cursor:pointer}
     <div class="tabs">
       <button class="tab on" data-pane="reservas">Reservas</button>
       <button class="tab" data-pane="eventos">Eventos</button>
+      <button class="tab" data-pane="blog">Blog</button>
     </div>
 
     <!-- ===== PANE RESERVAS ===== -->
@@ -285,6 +349,43 @@ button{cursor:pointer}
 
       <div class="ev-list" id="evAdminList"></div>
     </div><!-- /pane-eventos -->
+
+    <!-- ===== PANE BLOG ===== -->
+    <div class="pane" id="pane-blog">
+      <div class="blog-editor">
+        <h3 id="beHeading">Escribir una publicación</h3>
+        <p class="hint">Cuenta lo que pasó: una noche, un evento, una novedad. Puedes poner negritas, títulos y fotos.</p>
+
+        <input type="text" class="be-title" id="beTitle" placeholder="Título de la publicación" maxlength="120">
+
+        <div class="be-cover" id="beCover">
+          <input type="file" id="beCoverFile" accept="image/jpeg,image/png,image/webp,image/gif">
+          <div class="ph" id="beCoverPh"><strong>Portada</strong><small>Toca para elegir la foto principal (opcional)</small></div>
+        </div>
+
+        <div class="be-toolbar" id="beToolbar">
+          <button type="button" data-cmd="bold" title="Negrita"><b>B</b></button>
+          <button type="button" data-cmd="italic" title="Cursiva"><i>I</i></button>
+          <div class="sep"></div>
+          <button type="button" data-cmd="h2" title="Título">H2</button>
+          <button type="button" data-cmd="h3" title="Subtítulo">H3</button>
+          <button type="button" data-cmd="quote" title="Cita">❝</button>
+          <button type="button" data-cmd="ul" title="Lista">•</button>
+          <div class="sep"></div>
+          <button type="button" class="wide" data-cmd="link" title="Enlace">🔗 Link</button>
+          <button type="button" class="wide" data-cmd="image" title="Insertar foto">🖼 Foto</button>
+        </div>
+        <div class="be-body" id="beBody" contenteditable="true" data-ph="Escribe aquí lo que pasó esta semana…"></div>
+
+        <div class="be-actions">
+          <button class="be-save" id="beSave">Publicar</button>
+          <button class="be-draft" id="beDraft">Guardar borrador</button>
+          <button class="be-cancel" id="beCancel" style="display:none">Cancelar edición</button>
+        </div>
+      </div>
+
+      <div class="post-list" id="postList"></div>
+    </div><!-- /pane-blog -->
   </div>
 </div>
 
@@ -478,7 +579,10 @@ $$('.tab').forEach(t=>t.addEventListener('click',()=>{
   $$('.tab').forEach(x=>x.classList.remove('on'));t.classList.add('on');
   const pane=t.dataset.pane;
   $$('.pane').forEach(p=>p.classList.toggle('on',p.id==='pane-'+pane));
+  const active=$('#pane-'+pane);
+  if(hasGSAP&&active){gsap.fromTo(active.children,{y:14,opacity:0},{y:0,opacity:1,duration:.5,stagger:.04,ease:'power3.out',clearProps:'all'});}
   if(pane==='eventos')loadEventos();
+  if(pane==='blog')loadPosts();
 }));
 
 /* ================= EVENTOS ================= */
@@ -571,6 +675,169 @@ $('#evAdminList').addEventListener('click',async e=>{
     const res=await api('/api/eventos/'+id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({estado:to})});
     if(res.ok){toast(to==='proximo'?'Marcado como próximo':'Marcado como pasado','good');loadEventos();}
     else toast('No se pudo cambiar','bad');
+  }
+});
+
+/* ================= BLOG ================= */
+let beCoverFile=null;      // portada elegida (File) para post nuevo
+let beEditId=null;         // id si estamos editando
+let beEditPortadaKey=null; // portada existente al editar
+
+/* --- toolbar de formato --- */
+$('#beToolbar').addEventListener('click',async e=>{
+  const btn=e.target.closest('button[data-cmd]');if(!btn)return;
+  e.preventDefault();
+  const cmd=btn.dataset.cmd;
+  const body=$('#beBody');body.focus();
+  if(cmd==='bold')execCmd('bold');
+  else if(cmd==='italic')execCmd('italic');
+  else if(cmd==='h2')execCmd('formatBlock','h2');
+  else if(cmd==='h3')execCmd('formatBlock','h3');
+  else if(cmd==='quote')execCmd('formatBlock','blockquote');
+  else if(cmd==='ul')execCmd('insertUnorderedList');
+  else if(cmd==='link'){const url=prompt('Pega el enlace (https://…):');if(url)execCmd('createLink',url);}
+  else if(cmd==='image')await insertImage();
+});
+function execCmd(c,v){try{document.execCommand(c,false,v||null);}catch(e){}}
+
+/* insertar foto dentro del texto: sube a R2 y la mete donde está el cursor */
+async function insertImage(){
+  const inp=document.createElement('input');inp.type='file';inp.accept='image/jpeg,image/png,image/webp,image/gif';
+  inp.onchange=async()=>{
+    const f=inp.files[0];if(!f)return;
+    toast('Subiendo foto…');
+    const fd=new FormData();fd.append('file',f);
+    try{
+      const res=await api('/api/upload',{method:'POST',body:fd});
+      const d=await res.json();
+      if(res.ok&&d.ok){
+        $('#beBody').focus();
+        execCmd('insertHTML',`<img src="${d.url}" alt="">`);
+        toast('Foto insertada','good');
+      }else toast(d.error||'No se pudo subir','bad');
+    }catch(e){toast('Error al subir','bad');}
+  };
+  inp.click();
+}
+
+/* --- portada --- */
+$('#beCoverFile').addEventListener('change',onCoverPick);
+function onCoverPick(e){
+  const f=e.target.files[0];if(!f)return;
+  beCoverFile=f;
+  const c=$('#beCover');const url=URL.createObjectURL(f);
+  c.classList.add('has');
+  c.innerHTML='<input type="file" id="beCoverFile" accept="image/jpeg,image/png,image/webp,image/gif"><img src="'+url+'" alt="portada">';
+  c.querySelector('#beCoverFile').addEventListener('change',onCoverPick);
+}
+function resetCover(){
+  beCoverFile=null;beEditPortadaKey=null;
+  const c=$('#beCover');c.classList.remove('has');
+  c.innerHTML='<input type="file" id="beCoverFile" accept="image/jpeg,image/png,image/webp,image/gif"><div class="ph"><strong>Portada</strong><small>Toca para elegir la foto principal (opcional)</small></div>';
+  c.querySelector('#beCoverFile').addEventListener('change',onCoverPick);
+}
+
+/* --- guardar (publicar o borrador) --- */
+$('#beSave').addEventListener('click',()=>savePost('publicado'));
+$('#beDraft').addEventListener('click',()=>savePost('borrador'));
+$('#beCancel').addEventListener('click',resetEditor);
+
+async function savePost(estado){
+  const titulo=$('#beTitle').value.trim();
+  const cuerpo=$('#beBody').innerHTML.trim();
+  if(!titulo){toast('Ponle un título','bad');return;}
+  if(!cuerpo||cuerpo==='<br>'){toast('Escribe algo en el cuerpo','bad');return;}
+  const btn=estado==='publicado'?$('#beSave'):$('#beDraft');
+  const prev=btn.textContent;btn.disabled=true;btn.textContent='Guardando…';
+
+  try{
+    let res;
+    if(beEditId){
+      // editar: PATCH json (la portada no se cambia aquí para mantenerlo simple)
+      res=await api('/api/posts/'+beEditId,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({titulo,cuerpo,estado})});
+    }else{
+      const fd=new FormData();
+      fd.append('titulo',titulo);fd.append('cuerpo',cuerpo);fd.append('estado',estado);
+      if(beCoverFile)fd.append('portada',beCoverFile);
+      res=await api('/api/posts',{method:'POST',body:fd});
+    }
+    const d=await res.json();
+    if(res.ok&&d.ok){
+      toast(estado==='publicado'?'Publicado':'Borrador guardado','good');
+      resetEditor();loadPosts();
+    }else toast(d.error||'No se pudo guardar','bad');
+  }catch(e){toast('Error de conexión','bad');}
+  btn.disabled=false;btn.textContent=prev;
+}
+
+function resetEditor(){
+  beEditId=null;
+  $('#beTitle').value='';$('#beBody').innerHTML='';
+  $('#beHeading').textContent='Escribir una publicación';
+  $('#beSave').textContent='Publicar';
+  $('#beCancel').style.display='none';
+  $('#beCover').style.display='';
+  resetCover();
+}
+
+/* --- lista de posts --- */
+async function loadPosts(){
+  const cont=$('#postList');
+  cont.innerHTML='<div class="skeleton" style="grid-column:1/-1"></div>';
+  try{
+    const res=await api('/api/posts?admin=1');
+    const d=await res.json();
+    if(!d.ok||!d.posts.length){cont.innerHTML='<div class="state" style="grid-column:1/-1"><div class="big">Sin publicaciones</div><div>Escribe la primera arriba.</div></div>';return;}
+    cont.innerHTML=d.posts.map(postItemHTML).join('');
+  }catch(e){cont.innerHTML='<div class="state err" style="grid-column:1/-1"><div class="big">No se pudieron cargar</div></div>';}
+}
+function fmtF(iso){if(!iso)return'';try{return new Date(iso.replace(' ','T')+'Z').toLocaleDateString('es',{day:'numeric',month:'short'});}catch(e){return iso.slice(0,10);}}
+function postItemHTML(p){
+  const cover=p.portada_key?'/api/img/'+encodeURIComponent(p.portada_key):'';
+  return `<div class="post-item" data-id="${p.id}" data-slug="${esc(p.slug)}">
+    <div class="pi-cover">${cover?`<img src="${cover}" alt="">`:`<div class="pi-nocover">Martini</div>`}</div>
+    <div class="pi-body">
+      <span class="pi-badge ${p.estado}">${p.estado}</span>
+      <div class="pi-date">${esc(fmtF(p.creado))}</div>
+      <div class="pi-title">${esc(p.titulo)}</div>
+      <div class="pi-btns">
+        <button data-act="edit">Editar</button>
+        <button data-act="toggle" data-to="${p.estado==='publicado'?'borrador':'publicado'}">${p.estado==='publicado'?'Ocultar':'Publicar'}</button>
+        <button class="del" data-act="del">Borrar</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+$('#postList').addEventListener('click',async e=>{
+  const btn=e.target.closest('[data-act]');if(!btn)return;
+  const item=btn.closest('.post-item');const id=item.dataset.id;const act=btn.dataset.act;
+  if(act==='del'){
+    if(!confirm('¿Borrar esta publicación? No se puede deshacer.'))return;
+    const res=await api('/api/posts/'+id,{method:'DELETE'});
+    if(res.ok){toast('Publicación borrada');loadPosts();}else toast('No se pudo borrar','bad');
+    return;
+  }
+  if(act==='toggle'){
+    const to=btn.dataset.to;
+    const res=await api('/api/posts/'+id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({estado:to})});
+    if(res.ok){toast(to==='publicado'?'Publicado':'Oculto (borrador)','good');loadPosts();}else toast('No se pudo cambiar','bad');
+    return;
+  }
+  if(act==='edit'){
+    const slug=item.dataset.slug;
+    toast('Cargando…');
+    const res=await api('/api/posts?slug='+encodeURIComponent(slug));
+    const d=await res.json();
+    if(!res.ok||!d.post){toast('No se pudo cargar','bad');return;}
+    beEditId=d.post.id;
+    $('#beTitle').value=d.post.titulo;
+    $('#beBody').innerHTML=d.post.cuerpo||'';
+    $('#beHeading').textContent='Editando publicación';
+    $('#beSave').textContent='Guardar cambios';
+    $('#beCancel').style.display='';
+    $('#beCover').style.display='none'; // la portada no se cambia al editar (se mantiene)
+    $('#pane-blog').scrollIntoView({behavior:'smooth',block:'start'});
   }
 });
 </script>
