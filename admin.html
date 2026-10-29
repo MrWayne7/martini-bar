@@ -138,6 +138,52 @@ button{cursor:pointer}
 .toast.good{border-color:rgba(201,255,232,.5)}
 .toast.bad{border-color:rgba(255,143,163,.5);color:var(--red)}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ---------- tabs ---------- */
+.tabs{display:flex;gap:.5rem;margin-bottom:1.6rem;border-bottom:1px solid var(--line-soft)}
+.tab{background:none;border:none;color:var(--muted);font-size:.95rem;font-weight:600;padding:.7rem .2rem;margin-right:1.2rem;position:relative;transition:color .2s}
+.tab:hover{color:var(--silver)}
+.tab.on{color:var(--paper)}
+.tab.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--holo);background-size:200%}
+.pane{display:none}
+.pane.on{display:block}
+
+/* ---------- eventos admin ---------- */
+.ev-form{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:1.4rem;margin-bottom:2rem}
+.ev-form h3{font-size:1.05rem;font-weight:700;margin-bottom:.3rem}
+.ev-form .hint{color:var(--muted);font-size:.84rem;margin-bottom:1.2rem}
+.ev-form .row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:.9rem}
+@media(max-width:600px){.ev-form .row{grid-template-columns:1fr}}
+.ev-form label{display:block;font-size:.76rem;color:var(--silver);letter-spacing:.04em;margin-bottom:.4rem;text-transform:uppercase}
+.ev-form input[type=text],.ev-form select,.ev-form textarea{width:100%;background:none;border:1px solid var(--line);border-radius:8px;color:var(--paper);font-size:16px;padding:.7rem .85rem;color-scheme:dark}
+.ev-form input:focus,.ev-form select:focus,.ev-form textarea:focus{outline:none;border-color:var(--paper)}
+.ev-form textarea{resize:vertical;min-height:60px;font-family:inherit}
+.ev-drop{border:1.5px dashed var(--line);border-radius:10px;padding:1.4rem;text-align:center;cursor:pointer;transition:.25s;color:var(--silver);position:relative}
+.ev-drop:hover{border-color:var(--silver);background:#0d0d0d}
+.ev-drop.has{border-style:solid;border-color:rgba(201,255,232,.4);padding:0;overflow:hidden}
+.ev-drop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.ev-drop .ph{font-size:.88rem}.ev-drop .ph small{display:block;color:var(--muted);margin-top:.3rem;font-size:.76rem}
+.ev-drop img{width:100%;max-height:300px;object-fit:contain;display:block;background:#000}
+.ev-submit{margin-top:1.2rem;width:100%;background:var(--paper);color:#000;border:none;border-radius:8px;padding:.95rem;font-weight:700;font-size:1rem;transition:transform .2s,opacity .2s}
+.ev-submit:active{transform:scale(.98)}
+.ev-submit:disabled{opacity:.5;cursor:default}
+
+.ev-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem}
+.ev-item{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card);transition:opacity .3s,transform .3s}
+.ev-item.leaving{opacity:0;transform:scale(.95)}
+.ev-item .thumb{position:relative;aspect-ratio:4/5;background:#000}
+.ev-item .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.ev-item .tag{position:absolute;top:.6rem;left:.6rem;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:.25rem .5rem;border-radius:20px}
+.ev-item .tag.proximo{background:#c9ffe8;color:#000}
+.ev-item .tag.pasado{background:rgba(0,0,0,.65);color:var(--silver);border:1px solid var(--line)}
+.ev-item .body{padding:.8rem .85rem 1rem}
+.ev-item .t{font-weight:600;font-size:.95rem;line-height:1.2}
+.ev-item .d{color:var(--muted);font-size:.78rem;margin-top:.25rem}
+.ev-item .btns{display:flex;gap:.4rem;margin-top:.8rem}
+.ev-item .btns button{flex:1;border:1px solid var(--line);border-radius:7px;background:none;color:var(--paper);font-size:.74rem;padding:.45rem;transition:.2s}
+.ev-item .btns button:hover{background:#141414}
+.ev-item .btns .px{color:var(--green);border-color:rgba(201,255,232,.3)}
+.ev-item .btns .del{color:var(--red);border-color:rgba(255,143,163,.3)}
 </style>
 </head>
 <body>
@@ -169,6 +215,13 @@ button{cursor:pointer}
   </div>
 
   <div class="wrap">
+    <div class="tabs">
+      <button class="tab on" data-pane="reservas">Reservas</button>
+      <button class="tab" data-pane="eventos">Eventos</button>
+    </div>
+
+    <!-- ===== PANE RESERVAS ===== -->
+    <div class="pane on" id="pane-reservas">
     <div class="stats" id="stats">
       <div class="stat" data-f="todas"><div class="n" id="s-total">0</div><div class="l">Reservas</div></div>
       <div class="stat" data-f="pendiente"><div class="n a" id="s-pend">0</div><div class="l">Pendientes</div></div>
@@ -190,6 +243,48 @@ button{cursor:pointer}
     </div>
 
     <div class="list" id="list"></div>
+    </div><!-- /pane-reservas -->
+
+    <!-- ===== PANE EVENTOS ===== -->
+    <div class="pane" id="pane-eventos">
+      <div class="ev-form">
+        <h3>Subir un evento nuevo</h3>
+        <p class="hint">Sube el flyer, ponle nombre y márcalo como próximo o pasado. Aparece al instante en la página.</p>
+        <div class="row">
+          <div>
+            <label>Título</label>
+            <input type="text" id="evTitulo" placeholder="Ej: The Red Room" maxlength="80">
+          </div>
+          <div>
+            <label>Fecha (texto libre)</label>
+            <input type="text" id="evFecha" placeholder="Ej: 31 Oct" maxlength="40">
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>Estado</label>
+            <select id="evEstado">
+              <option value="proximo">Próximo (con badge)</option>
+              <option value="pasado">Pasado (abre el flyer)</option>
+            </select>
+          </div>
+          <div>
+            <label>Link (opcional, solo próximos)</label>
+            <input type="text" id="evLink" placeholder="Ej: /theredroom" maxlength="200">
+          </div>
+        </div>
+        <div style="margin-bottom:.9rem">
+          <label>Flyer</label>
+          <div class="ev-drop" id="evDrop">
+            <input type="file" id="evFile" accept="image/jpeg,image/png,image/webp,image/gif">
+            <div class="ph" id="evDropPh"><strong>Toca para elegir el flyer</strong><small>JPG, PNG o WEBP · vertical se ve mejor</small></div>
+          </div>
+        </div>
+        <button class="ev-submit" id="evSubmit">Publicar evento</button>
+      </div>
+
+      <div class="ev-list" id="evAdminList"></div>
+    </div><!-- /pane-eventos -->
   </div>
 </div>
 
@@ -376,6 +471,107 @@ $('#csvBtn').addEventListener('click',()=>{
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='reservas-martini-bar.csv';a.click();URL.revokeObjectURL(a.href);
   toast('CSV exportado','good');
+});
+
+/* ================= TABS ================= */
+$$('.tab').forEach(t=>t.addEventListener('click',()=>{
+  $$('.tab').forEach(x=>x.classList.remove('on'));t.classList.add('on');
+  const pane=t.dataset.pane;
+  $$('.pane').forEach(p=>p.classList.toggle('on',p.id==='pane-'+pane));
+  if(pane==='eventos')loadEventos();
+}));
+
+/* ================= EVENTOS ================= */
+let evFileData=null;
+
+/* preview del flyer elegido (onFilePick se define más abajo) */
+$('#evFile').addEventListener('change',onFilePick);
+
+/* publicar evento */
+$('#evSubmit').addEventListener('click',async()=>{
+  const titulo=$('#evTitulo').value.trim();
+  if(!titulo){toast('Ponle un título','bad');return;}
+  if(!evFileData){toast('Falta el flyer','bad');return;}
+  const btn=$('#evSubmit');btn.disabled=true;btn.textContent='Subiendo…';
+  const fd=new FormData();
+  fd.append('titulo',titulo);
+  fd.append('fecha',$('#evFecha').value.trim());
+  fd.append('estado',$('#evEstado').value);
+  fd.append('link',$('#evLink').value.trim());
+  fd.append('flyer',evFileData);
+  try{
+    const res=await api('/api/eventos',{method:'POST',body:fd});
+    const d=await res.json();
+    if(res.ok&&d.ok){
+      toast('Evento publicado','good');
+      // limpiar form
+      $('#evTitulo').value='';$('#evFecha').value='';$('#evLink').value='';$('#evEstado').value='proximo';
+      evFileData=null;
+      const drop=$('#evDrop');drop.classList.remove('has');
+      drop.innerHTML='<input type="file" id="evFile" accept="image/jpeg,image/png,image/webp,image/gif"><div class="ph"><strong>Toca para elegir el flyer</strong><small>JPG, PNG o WEBP · vertical se ve mejor</small></div>';
+      drop.querySelector('#evFile').addEventListener('change',onFilePick);
+      loadEventos();
+    }else{toast(d.error||'No se pudo publicar','bad');}
+  }catch(e){toast('Error de conexión','bad');}
+  btn.disabled=false;btn.textContent='Publicar evento';
+});
+
+function onFilePick(e){
+  const f=e.target.files[0];if(!f)return;
+  evFileData=f;
+  const drop=$('#evDrop');const url=URL.createObjectURL(f);
+  drop.classList.add('has');
+  drop.innerHTML='<input type="file" id="evFile" accept="image/jpeg,image/png,image/webp,image/gif"><img src="'+url+'" alt="flyer">';
+  drop.querySelector('#evFile').addEventListener('change',onFilePick);
+}
+
+/* cargar lista de eventos */
+async function loadEventos(){
+  const cont=$('#evAdminList');
+  cont.innerHTML='<div class="skeleton" style="grid-column:1/-1"></div>';
+  try{
+    const res=await fetch('/api/eventos');
+    const d=await res.json();
+    if(!d.ok||!d.eventos.length){cont.innerHTML='<div class="state" style="grid-column:1/-1"><div class="big">Sin eventos todavía</div><div>Sube el primero con el formulario de arriba.</div></div>';return;}
+    cont.innerHTML=d.eventos.map(evItemHTML).join('');
+  }catch(e){cont.innerHTML='<div class="state err" style="grid-column:1/-1"><div class="big">No se pudieron cargar</div></div>';}
+}
+function evItemHTML(ev){
+  const img=ev.flyer_key?'/api/flyer/'+encodeURIComponent(ev.flyer_key):'';
+  const esProx=ev.estado==='proximo';
+  return `<div class="ev-item" data-id="${ev.id}">
+    <div class="thumb">
+      ${img?`<img src="${img}" alt="${esc(ev.titulo)}">`:''}
+      <span class="tag ${ev.estado}">${esProx?'Próximo':'Pasado'}</span>
+    </div>
+    <div class="body">
+      <div class="t">${esc(ev.titulo)}</div>
+      ${ev.fecha?`<div class="d">${esc(ev.fecha)}</div>`:''}
+      <div class="btns">
+        <button class="px" data-act="toggle" data-to="${esProx?'pasado':'proximo'}">${esProx?'→ Pasado':'→ Próximo'}</button>
+        <button class="del" data-act="del">Eliminar</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* acciones de la lista de eventos */
+$('#evAdminList').addEventListener('click',async e=>{
+  const btn=e.target.closest('[data-act]');if(!btn)return;
+  const item=btn.closest('.ev-item');const id=item.dataset.id;const act=btn.dataset.act;
+  if(act==='del'){
+    if(!confirm('¿Eliminar este evento? Se borra también su flyer.'))return;
+    const res=await api('/api/eventos/'+id,{method:'DELETE'});
+    if(res.ok){item.classList.add('leaving');setTimeout(loadEventos,300);toast('Evento eliminado');}
+    else toast('No se pudo eliminar','bad');
+    return;
+  }
+  if(act==='toggle'){
+    const to=btn.dataset.to;
+    const res=await api('/api/eventos/'+id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({estado:to})});
+    if(res.ok){toast(to==='proximo'?'Marcado como próximo':'Marcado como pasado','good');loadEventos();}
+    else toast('No se pudo cambiar','bad');
+  }
 });
 </script>
 </body>

@@ -6,3 +6,7 @@ pages_build_output_dir = "."
 binding = "DB"
 database_name = "martini-bar-db"
 database_id = "7325ee65-c67f-4f75-88c6-5122799a1c5f"
+
+[[r2_buckets]]
+binding = "FLYERS"
+bucket_name = "martini-flyers"

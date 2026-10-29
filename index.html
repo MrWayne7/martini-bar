@@ -737,7 +737,8 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
     <span class="no">03</span>
     <div><h2>Las noches.</h2><p class="sub">Lo próximo es el Red Room. Lo demás son noches que ya vivimos — toca un flyer para verlo.</p></div>
   </div>
-  <div class="ev-grid">
+  <div class="ev-grid" id="evGrid">
+    <!-- Fallback: se muestra si la API aún no responde. El JS lo reemplaza con los eventos reales. -->
     <a class="ev-card ev-next reveal" href="/theredroom" data-hover>
       <img src="assets/flyer-redroom.webp" alt="The Red Room — 31 de octubre" loading="lazy" onerror="this.src='assets/eventos/evento-5.webp'">
       <span class="ev-badge">Próximo</span>
@@ -1248,15 +1249,63 @@ if(!isTouch&&hasGSAP){
   });
 }
 
+/* ----- eventos dinámicos (se gestionan desde /admin.html) ----- */
+(function(){
+  const grid=document.getElementById('evGrid');if(!grid)return;
+  const esc=s=>(s||'').toString().replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const flyerURL=k=>'/api/flyer/'+encodeURIComponent(k);
+
+  function cardHTML(ev){
+    const img=ev.flyer_key?flyerURL(ev.flyer_key):'assets/eventos/evento-5.webp';
+    const titulo=esc(ev.titulo||'');
+    const sub=ev.fecha?' · '+esc(ev.fecha):'';
+    if(ev.estado==='proximo'){
+      const href=ev.link||'/theredroom';
+      return `<a class="ev-card ev-next reveal" href="${esc(href)}" data-hover>
+        <img src="${img}" alt="${titulo}" loading="lazy">
+        <span class="ev-badge">Próximo</span>
+        <div class="ev-meta"><span class="ev-name">${titulo}${sub}</span><span class="ev-cta">Ver evento →</span></div>
+      </a>`;
+    }
+    return `<div class="ev-card ev-past reveal" data-hover data-full="${img}">
+      <img src="${img}" alt="${titulo}" loading="lazy">
+      <div class="ev-meta"><span class="ev-name">${titulo}${sub}</span><span class="ev-cta">Ver flyer</span></div>
+    </div>`;
+  }
+
+  fetch('/api/eventos').then(r=>r.json()).then(d=>{
+    if(!d.ok||!Array.isArray(d.eventos)||!d.eventos.length)return; // deja el fallback fijo
+    grid.innerHTML=d.eventos.map(cardHTML).join('');
+    bindPast();
+    if(window.gsap&&window.ScrollTrigger){
+      gsap.utils.toArray('#evGrid .reveal').forEach(el=>{
+        gsap.from(el,{opacity:0,y:46,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 92%'}});
+      });
+    }
+  }).catch(()=>{/* sin conexión: queda el fallback */});
+
+  // enlaza el lightbox a las tarjetas pasadas (fijas o dinámicas)
+  function bindPast(){
+    document.querySelectorAll('#evGrid .ev-past').forEach(c=>{
+      if(c._lb)return;c._lb=true;
+      c.addEventListener('click',()=>{const src=c.dataset.full||(c.querySelector('img')||{}).src;if(src)window.__openLb&&window.__openLb(src);});
+    });
+  }
+  window.__bindPastEvents=bindPast;
+})();
+
 /* ----- lightbox (ver fotos en grande) ----- */
 (function(){
   const lb=document.getElementById('lightbox'),img=document.getElementById('lbImg');if(!lb||!img)return;
   function openLb(src){if(!src)return;img.src=src;lb.classList.add('open');document.body.style.overflow='hidden';}
   function closeLb(){lb.classList.remove('open');document.body.style.overflow='';}
+  window.__openLb=openLb;
   document.querySelectorAll('.lugar-card').forEach(card=>card.addEventListener('click',()=>{
     const bg=card.querySelector('.lc-bg');if(!bg)return;const m=/url\(["']?(.*?)["']?\)/.exec(bg.style.backgroundImage||'');if(m)openLb(m[1]);
   }));
-  document.querySelectorAll('.ev-past').forEach(c=>c.addEventListener('click',()=>{const im=c.querySelector('img');if(im)openLb(im.src);}));
+  // tarjetas pasadas iniciales (fallback). Las dinámicas las enlaza __bindPastEvents.
+  document.querySelectorAll('#evGrid .ev-past').forEach(c=>c.addEventListener('click',()=>{const im=c.querySelector('img');if(im)openLb(im.src);}));
+  if(window.__bindPastEvents)window.__bindPastEvents();
   lb.addEventListener('click',e=>{if(e.target!==img)closeLb();});
   addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();});
 })();
