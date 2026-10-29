@@ -311,6 +311,9 @@ main,footer,.nav,.menu{position:relative;z-index:2}
 .ev-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.82) 100%);pointer-events:none}
 .ev-card:hover{transform:translateY(-5px);border-color:rgba(226,183,92,.5)}
 .ev-card:hover img{transform:scale(1.06)}
+.ev-past{cursor:zoom-in}
+.ev-next{border-color:rgba(201,255,232,.4)}
+.ev-badge{position:absolute;top:.9rem;left:.9rem;z-index:3;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#000;background:#c9ffe8;padding:.3rem .6rem;border-radius:20px}
 .ev-meta{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:1.1rem 1.1rem 1rem;display:flex;flex-direction:column;gap:.25rem}
 .ev-meta .ev-name{font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
 .ev-meta .ev-cta{font-size:.74rem;letter-spacing:.14em;color:#e2b75c;opacity:.9;text-transform:uppercase}
@@ -732,29 +735,30 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 <section class="wrap events" id="eventos">
   <div class="chapter reveal" data-anim="down">
     <span class="no">03</span>
-    <div><h2>Las noches.</h2><p class="sub">Lo que se viene en Martini Bar. Toca un flyer y reserva para esa fecha directo por WhatsApp.</p></div>
+    <div><h2>Las noches.</h2><p class="sub">Lo próximo es el Red Room. Lo demás son noches que ya vivimos — toca un flyer para verlo.</p></div>
   </div>
   <div class="ev-grid">
-    <a class="ev-card reveal" href="https://wa.me/584247819621?text=Hola!%20Quiero%20reservar%20para%20Ladies%20Night%20en%20Martini%20Bar%20%F0%9F%8D%B8" target="_blank" rel="noopener" data-hover>
-      <img src="assets/eventos/ladies-night.webp" alt="Ladies Night" loading="lazy">
-      <div class="ev-meta"><span class="ev-name">Ladies Night</span><span class="ev-cta">Reservar →</span></div>
-    </a>
-    <a class="ev-card reveal" href="https://wa.me/584247819621?text=Hola!%20Quiero%20reservar%20para%20la%20noche%20Los%20de%20Siempre%20en%20Martini%20Bar%20%F0%9F%8D%B8" target="_blank" rel="noopener" data-hover>
-      <img src="assets/eventos/los-de-siempre.webp" alt="Los de Siempre" loading="lazy">
-      <div class="ev-meta"><span class="ev-name">Los de Siempre</span><span class="ev-cta">Reservar →</span></div>
-    </a>
-    <a class="ev-card reveal" href="https://wa.me/584247819621?text=Hola!%20Quiero%20reservar%20para%20%C3%81ngel%20vs%20Diablitos%20en%20Martini%20Bar%20%F0%9F%8D%B8" target="_blank" rel="noopener" data-hover>
-      <img src="assets/eventos/angel-vs-diablitos.webp" alt="Ángel vs Diablitos" loading="lazy">
-      <div class="ev-meta"><span class="ev-name">Ángel vs Diablitos</span><span class="ev-cta">Reservar →</span></div>
-    </a>
-    <a class="ev-card reveal" href="https://wa.me/584247819621?text=Hola!%20Quiero%20reservar%20para%20Otra%20Noche%20Nuevas%20Historias%20en%20Martini%20Bar%20%F0%9F%8D%B8" target="_blank" rel="noopener" data-hover>
-      <img src="assets/eventos/otra-noche.webp" alt="Otra Noche, Nuevas Historias" loading="lazy">
-      <div class="ev-meta"><span class="ev-name">Otra Noche, Nuevas Historias</span><span class="ev-cta">Reservar →</span></div>
-    </a>
-    <a class="ev-card reveal" href="/theredroom" data-hover>
-      <img src="assets/eventos/evento-5.webp" alt="The Red Room — 31 de octubre" loading="lazy">
+    <a class="ev-card ev-next reveal" href="/theredroom" data-hover>
+      <img src="assets/flyer-redroom.webp" alt="The Red Room — 31 de octubre" loading="lazy" onerror="this.src='assets/eventos/evento-5.webp'">
+      <span class="ev-badge">Próximo</span>
       <div class="ev-meta"><span class="ev-name">The Red Room · 31 Oct</span><span class="ev-cta">Ver evento →</span></div>
     </a>
+    <div class="ev-card ev-past reveal" data-hover>
+      <img src="assets/eventos/los-de-siempre.webp" alt="Los de Siempre" loading="lazy">
+      <div class="ev-meta"><span class="ev-name">Los de Siempre</span><span class="ev-cta">Ver flyer</span></div>
+    </div>
+    <div class="ev-card ev-past reveal" data-hover>
+      <img src="assets/eventos/angel-vs-diablitos.webp" alt="Ángel vs Diablitos" loading="lazy">
+      <div class="ev-meta"><span class="ev-name">Ángel vs Diablitos</span><span class="ev-cta">Ver flyer</span></div>
+    </div>
+    <div class="ev-card ev-past reveal" data-hover>
+      <img src="assets/eventos/otra-noche.webp" alt="Otra Noche, Nuevas Historias" loading="lazy">
+      <div class="ev-meta"><span class="ev-name">Otra Noche, Nuevas Historias</span><span class="ev-cta">Ver flyer</span></div>
+    </div>
+    <div class="ev-card ev-past reveal" data-hover>
+      <img src="assets/eventos/evento-5.webp" alt="Del Tiempo" loading="lazy">
+      <div class="ev-meta"><span class="ev-name">Del Tiempo</span><span class="ev-cta">Ver flyer</span></div>
+    </div>
   </div>
 </section>
 
@@ -1252,6 +1256,7 @@ if(!isTouch&&hasGSAP){
   document.querySelectorAll('.lugar-card').forEach(card=>card.addEventListener('click',()=>{
     const bg=card.querySelector('.lc-bg');if(!bg)return;const m=/url\(["']?(.*?)["']?\)/.exec(bg.style.backgroundImage||'');if(m)openLb(m[1]);
   }));
+  document.querySelectorAll('.ev-past').forEach(c=>c.addEventListener('click',()=>{const im=c.querySelector('img');if(im)openLb(im.src);}));
   lb.addEventListener('click',e=>{if(e.target!==img)closeLb();});
   addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();});
 })();
