@@ -247,6 +247,62 @@ button{cursor:pointer}
 .post-item .pi-btns button{flex:1;border:1px solid var(--line);border-radius:7px;background:none;color:var(--paper);font-size:.74rem;padding:.45rem;transition:.2s}
 .post-item .pi-btns button:hover{background:#141414}
 .post-item .pi-btns .del{color:var(--red);border-color:rgba(255,143,163,.3)}
+
+/* ---------- videos ---------- */
+.vid-storage{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:1.2rem 1.3rem;margin-bottom:1.6rem}
+.vid-storage .st-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.7rem}
+.vid-storage .st-label{font-size:.82rem;color:var(--silver);letter-spacing:.03em;text-transform:uppercase}
+.vid-storage .st-num{font-size:.9rem;color:var(--paper);font-weight:600}
+.vid-bar{height:9px;border-radius:20px;background:#1a1a1a;overflow:hidden}
+.vid-bar span{display:block;height:100%;width:0;border-radius:20px;background:var(--green);transition:width .8s var(--ease)}
+.vid-bar.warn span{background:var(--amber)}
+.vid-bar.full span{background:var(--red)}
+.vid-storage .st-note{margin-top:.6rem;font-size:.78rem;color:var(--muted)}
+.vid-storage .st-note.alert{color:var(--amber)}
+
+.vid-modes{display:flex;gap:.5rem;margin-bottom:1.2rem;flex-wrap:wrap}
+.vid-mode{flex:1;min-width:120px;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:.8rem;text-align:center;transition:.25s;color:var(--silver)}
+.vid-mode:hover{border-color:var(--silver);color:var(--paper)}
+.vid-mode.on{border-color:rgba(201,255,232,.5);color:var(--paper);background:#0d1310}
+.vid-mode .mi{font-size:1.3rem;display:block;margin-bottom:.2rem}
+.vid-mode .ml{font-size:.82rem;font-weight:600}
+.vid-mode .md{font-size:.7rem;color:var(--muted);margin-top:.1rem}
+
+.vid-form{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:1.4rem;margin-bottom:2rem}
+.vid-form label{display:block;font-size:.76rem;color:var(--silver);letter-spacing:.04em;margin-bottom:.4rem;text-transform:uppercase}
+.vid-form input[type=text]{width:100%;background:none;border:1px solid var(--line);border-radius:8px;color:var(--paper);font-size:16px;padding:.7rem .85rem;margin-bottom:1rem;color-scheme:dark}
+.vid-form input:focus{outline:none;border-color:var(--paper)}
+.vid-drop{border:1.5px dashed var(--line);border-radius:10px;padding:1.6rem 1rem;text-align:center;cursor:pointer;transition:.25s;color:var(--silver);position:relative;margin-bottom:1rem}
+.vid-drop:hover{border-color:var(--silver);background:#0d0d0d}
+.vid-drop.has{border-style:solid;border-color:rgba(201,255,232,.4)}
+.vid-drop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.vid-drop .vd-ph strong{display:block}
+.vid-drop .vd-ph small{display:block;color:var(--muted);margin-top:.25rem;font-size:.76rem}
+.vid-submit{width:100%;background:var(--paper);color:#000;border:none;border-radius:8px;padding:.95rem;font-weight:700;font-size:1rem;transition:transform .2s,opacity .2s}
+.vid-submit:active{transform:scale(.98)}
+.vid-submit:disabled{opacity:.5}
+.vid-help{margin-top:1rem;border-left:2px solid var(--line);padding:.2rem 0 .2rem 1rem}
+.vid-help summary{cursor:pointer;color:var(--silver);font-size:.84rem;list-style:none}
+.vid-help summary::-webkit-details-marker{display:none}
+.vid-help summary::before{content:"ⓘ ";color:var(--green)}
+.vid-help .hc{font-size:.82rem;color:var(--muted);line-height:1.6;margin-top:.6rem}
+.vid-help .hc b{color:var(--silver)}
+
+.vid-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem}
+.vid-item{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+.vid-item .vi-prev{aspect-ratio:9/13;background:#000;position:relative;display:flex;align-items:center;justify-content:center}
+.vid-item .vi-prev video{width:100%;height:100%;object-fit:cover}
+.vid-item .vi-prev iframe{width:100%;height:100%;border:0}
+.vid-item .vi-badge{position:absolute;top:.5rem;left:.5rem;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:.2rem .45rem;border-radius:20px;background:rgba(0,0,0,.7);color:var(--silver);border:1px solid var(--line);z-index:2}
+.vid-item .vi-badge.r2{color:var(--green);border-color:rgba(201,255,232,.4)}
+.vid-item .vi-body{padding:.7rem .8rem .9rem}
+.vid-item .vi-title{font-size:.9rem;font-weight:600;line-height:1.2}
+.vid-item .vi-sub{font-size:.72rem;color:var(--muted);margin-top:.2rem}
+.vid-item .vi-btns{display:flex;gap:.4rem;margin-top:.7rem}
+.vid-item .vi-btns button{flex:1;border:1px solid var(--line);border-radius:7px;background:none;color:var(--paper);font-size:.72rem;padding:.4rem;transition:.2s}
+.vid-item .vi-btns button:hover{background:#141414}
+.vid-item .vi-btns .del{color:var(--red);border-color:rgba(255,143,163,.3)}
+.vid-item.oculto{opacity:.5}
 </style>
 </head>
 <body>
@@ -282,6 +338,7 @@ button{cursor:pointer}
       <button class="tab on" data-pane="reservas">Reservas</button>
       <button class="tab" data-pane="eventos">Eventos</button>
       <button class="tab" data-pane="blog">Blog</button>
+      <button class="tab" data-pane="videos">Videos</button>
     </div>
 
     <!-- ===== PANE RESERVAS ===== -->
@@ -386,6 +443,68 @@ button{cursor:pointer}
 
       <div class="post-list" id="postList"></div>
     </div><!-- /pane-blog -->
+
+    <!-- ===== PANE VIDEOS ===== -->
+    <div class="pane" id="pane-videos">
+      <!-- barra de almacenamiento -->
+      <div class="vid-storage">
+        <div class="st-top">
+          <span class="st-label">Almacenamiento usado</span>
+          <span class="st-num" id="stNum">—</span>
+        </div>
+        <div class="vid-bar" id="stBar"><span></span></div>
+        <div class="st-note" id="stNote">Calculando…</div>
+      </div>
+
+      <!-- selector de modo -->
+      <div class="vid-modes" id="vidModes">
+        <button class="vid-mode on" data-mode="r2"><span class="mi">⬆️</span><span class="ml">Subir archivo</span><span class="md">desde el teléfono</span></button>
+        <button class="vid-mode" data-mode="youtube"><span class="mi">▶️</span><span class="ml">YouTube</span><span class="md">pegar link</span></button>
+        <button class="vid-mode" data-mode="instagram"><span class="mi">📸</span><span class="ml">Instagram</span><span class="md">pegar link</span></button>
+      </div>
+
+      <!-- formulario -->
+      <div class="vid-form">
+        <label>Título (opcional)</label>
+        <input type="text" id="vidTitle" placeholder="Ej: Noche del Red Room" maxlength="100">
+
+        <!-- modo archivo -->
+        <div id="vidModeR2">
+          <label>Video</label>
+          <div class="vid-drop" id="vidDrop">
+            <input type="file" id="vidFile" accept="video/mp4,video/quicktime,video/webm">
+            <div class="vd-ph" id="vidDropPh"><strong>Toca para elegir el video</strong><small>MP4, MOV o WEBM · máximo 60 MB · vertical se ve mejor</small></div>
+          </div>
+        </div>
+
+        <!-- modo link (youtube/instagram) -->
+        <div id="vidModeLink" style="display:none">
+          <label id="vidLinkLabel">Link de YouTube</label>
+          <input type="text" id="vidUrl" placeholder="Pega aquí el link" inputmode="url" autocapitalize="off" autocorrect="off" spellcheck="false">
+        </div>
+
+        <button class="vid-submit" id="vidSubmit">Publicar video</button>
+
+        <details class="vid-help" id="vidHelpYT" style="display:none">
+          <summary>¿Cómo subir bien un video a YouTube?</summary>
+          <div class="hc">
+            1) Sube el video a tu canal de YouTube.<br>
+            2) En <b>Visibilidad</b> elige <b>Público</b> o <b>No listado</b> (nunca "Privado", porque entonces no se puede mostrar aquí).<br>
+            3) En la configuración del video, revisa que <b>"Permitir insertados"</b> esté activado (suele venir activo).<br>
+            4) Copia el link del video (o del Short) y pégalo arriba. ¡Listo!
+          </div>
+        </details>
+        <details class="vid-help" id="vidHelpIG" style="display:none">
+          <summary>¿Cómo poner un reel de Instagram?</summary>
+          <div class="hc">
+            Copia el link del <b>reel</b> o la publicación (botón compartir → copiar enlace) y pégalo arriba.<br>
+            Importante: la cuenta y la publicación deben ser <b>públicas</b>; si el perfil es privado, Instagram no deja mostrarlo fuera de la app.
+          </div>
+        </details>
+      </div>
+
+      <div class="vid-list" id="vidList"></div>
+    </div><!-- /pane-videos -->
   </div>
 </div>
 
@@ -583,6 +702,7 @@ $$('.tab').forEach(t=>t.addEventListener('click',()=>{
   if(hasGSAP&&active){gsap.fromTo(active.children,{y:14,opacity:0},{y:0,opacity:1,duration:.5,stagger:.04,ease:'power3.out',clearProps:'all'});}
   if(pane==='eventos')loadEventos();
   if(pane==='blog')loadPosts();
+  if(pane==='videos'){loadVideos();loadStorage();}
 }));
 
 /* ================= EVENTOS ================= */
@@ -838,6 +958,131 @@ $('#postList').addEventListener('click',async e=>{
     $('#beCancel').style.display='';
     $('#beCover').style.display='none'; // la portada no se cambia al editar (se mantiene)
     $('#pane-blog').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+});
+
+/* ================= VIDEOS ================= */
+let vidMode='r2';
+let vidFileData=null;
+
+/* cambio de modo */
+$('#vidModes').addEventListener('click',e=>{
+  const b=e.target.closest('.vid-mode');if(!b)return;
+  vidMode=b.dataset.mode;
+  $$('.vid-mode').forEach(x=>x.classList.toggle('on',x===b));
+  $('#vidModeR2').style.display=vidMode==='r2'?'':'none';
+  $('#vidModeLink').style.display=vidMode==='r2'?'none':'';
+  $('#vidHelpYT').style.display=vidMode==='youtube'?'':'none';
+  $('#vidHelpIG').style.display=vidMode==='instagram'?'':'none';
+  $('#vidLinkLabel').textContent=vidMode==='youtube'?'Link de YouTube':'Link de Instagram';
+  $('#vidUrl').placeholder=vidMode==='youtube'?'https://youtu.be/… o el Short':'https://instagram.com/reel/…';
+});
+
+/* preview del archivo elegido */
+$('#vidFile').addEventListener('change',onVidPick);
+function onVidPick(e){
+  const f=e.target.files[0];if(!f)return;
+  const mb=(f.size/1024/1024);
+  if(mb>60){toast('Ese video pesa '+mb.toFixed(0)+' MB. El máximo es 60 MB.','bad');e.target.value='';return;}
+  vidFileData=f;
+  const d=$('#vidDrop');d.classList.add('has');
+  d.querySelector('.vd-ph').innerHTML='<strong>'+f.name+'</strong><small>'+mb.toFixed(1)+' MB · listo para subir</small>';
+}
+
+/* publicar video */
+$('#vidSubmit').addEventListener('click',async()=>{
+  const titulo=$('#vidTitle').value.trim();
+  const btn=$('#vidSubmit');
+  const fd=new FormData();
+  fd.append('tipo',vidMode);
+  fd.append('titulo',titulo);
+
+  if(vidMode==='r2'){
+    if(!vidFileData){toast('Elige un video','bad');return;}
+    fd.append('video',vidFileData);
+  }else{
+    const url=$('#vidUrl').value.trim();
+    if(!url){toast('Pega el link','bad');return;}
+    fd.append('url',url);
+  }
+
+  btn.disabled=true;btn.textContent=vidMode==='r2'?'Subiendo video…':'Guardando…';
+  try{
+    const res=await api('/api/videos',{method:'POST',body:fd});
+    const d=await res.json();
+    if(res.ok&&d.ok){
+      toast('Video publicado','good');
+      // limpiar
+      $('#vidTitle').value='';$('#vidUrl').value='';vidFileData=null;
+      const dz=$('#vidDrop');dz.classList.remove('has');
+      dz.querySelector('.vd-ph').innerHTML='<strong>Toca para elegir el video</strong><small>MP4, MOV o WEBM · máximo 60 MB · vertical se ve mejor</small>';
+      loadVideos();loadStorage();
+    }else{
+      toast(d.error||'No se pudo publicar','bad');
+    }
+  }catch(e){toast('Error de conexión','bad');}
+  btn.disabled=false;btn.textContent='Publicar video';
+});
+
+/* barra de almacenamiento */
+function fmtMB(b){const mb=b/1024/1024;return mb>=1024?(mb/1024).toFixed(2)+' GB':mb.toFixed(0)+' MB';}
+async function loadStorage(){
+  try{
+    const res=await api('/api/storage');const d=await res.json();
+    if(!d.ok){$('#stNote').textContent='No se pudo calcular';return;}
+    $('#stNum').textContent=fmtMB(d.usado)+' de '+fmtMB(d.limite);
+    const bar=$('#stBar');bar.querySelector('span').style.width=d.porcentaje+'%';
+    bar.classList.toggle('warn',d.porcentaje>=70&&d.porcentaje<90);
+    bar.classList.toggle('full',d.porcentaje>=90);
+    const note=$('#stNote');
+    if(d.porcentaje>=90){note.textContent='⚠️ Casi lleno. Borra videos viejos para liberar espacio.';note.classList.add('alert');}
+    else if(d.porcentaje>=70){note.textContent='Vas por buen camino de llenarlo. '+d.videos+' videos guardados.';note.classList.add('alert');}
+    else{note.textContent=d.videos+' video(s) ocupando espacio. YouTube e Instagram no gastan nada.';note.classList.remove('alert');}
+  }catch(e){$('#stNote').textContent='No se pudo calcular';}
+}
+
+/* lista de videos */
+async function loadVideos(){
+  const cont=$('#vidList');
+  cont.innerHTML='<div class="skeleton" style="grid-column:1/-1"></div>';
+  try{
+    const res=await api('/api/videos?admin=1');const d=await res.json();
+    if(!d.ok||!d.videos.length){cont.innerHTML='<div class="state" style="grid-column:1/-1"><div class="big">Sin videos</div><div>Sube el primero arriba.</div></div>';return;}
+    cont.innerHTML=d.videos.map(vidItemHTML).join('');
+  }catch(e){cont.innerHTML='<div class="state err" style="grid-column:1/-1"><div class="big">No se pudieron cargar</div></div>';}
+}
+function vidItemHTML(v){
+  let prev='',badge='';
+  if(v.tipo==='r2'){prev='<video src="/api/video/'+encodeURIComponent(v.video_key)+'" muted preload="metadata"></video>';badge='<span class="vi-badge r2">Archivo</span>';}
+  else if(v.tipo==='youtube'){prev='<iframe src="'+v.url+'" loading="lazy" allowfullscreen></iframe>';badge='<span class="vi-badge">YouTube</span>';}
+  else{prev='<iframe src="'+v.url+'" loading="lazy" allowfullscreen></iframe>';badge='<span class="vi-badge">Instagram</span>';}
+  const oc=v.estado==='oculto';
+  return `<div class="vid-item ${oc?'oculto':''}" data-id="${v.id}">
+    <div class="vi-prev">${badge}${prev}</div>
+    <div class="vi-body">
+      <div class="vi-title">${esc(v.titulo||'(sin título)')}</div>
+      <div class="vi-sub">${v.tipo==='r2'?fmtMB(v.tamano):v.tipo}</div>
+      <div class="vi-btns">
+        <button data-act="toggle" data-to="${oc?'publicado':'oculto'}">${oc?'Mostrar':'Ocultar'}</button>
+        <button class="del" data-act="del">Borrar</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+$('#vidList').addEventListener('click',async e=>{
+  const btn=e.target.closest('[data-act]');if(!btn)return;
+  const item=btn.closest('.vid-item');const id=item.dataset.id;const act=btn.dataset.act;
+  if(act==='del'){
+    if(!confirm('¿Borrar este video? Si es archivo subido, se libera su espacio.'))return;
+    const res=await api('/api/videos/'+id,{method:'DELETE'});
+    if(res.ok){toast('Video borrado');loadVideos();loadStorage();}else toast('No se pudo borrar','bad');
+    return;
+  }
+  if(act==='toggle'){
+    const to=btn.dataset.to;
+    const res=await api('/api/videos/'+id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({estado:to})});
+    if(res.ok){toast(to==='publicado'?'Mostrando':'Oculto','good');loadVideos();}else toast('No se pudo cambiar','bad');
   }
 });
 </script>
