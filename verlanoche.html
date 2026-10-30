@@ -77,6 +77,15 @@ h1.vh-title{font-weight:800;letter-spacing:-.04em;line-height:.9;font-size:clamp
 .vcard .lbl-yt:hover{opacity:1}
 .vcard.playing .lbl{opacity:0;pointer-events:none}
 .empty{border:1px dashed var(--line);border-radius:8px;padding:2.5rem 1.5rem;text-align:center;color:var(--silver);grid-column:1/-1}
+/* video nativo (archivo R2) */
+.vcard video.r2vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;background:#000}
+.vcard.playing video.r2vid{z-index:4}
+/* badge de origen */
+.vcard .src{position:absolute;top:.6rem;right:.6rem;z-index:3;font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;padding:.2rem .45rem;border-radius:20px;background:rgba(0,0,0,.55);color:var(--silver);backdrop-filter:blur(4px);transition:opacity .4s}
+.vcard.playing .src{opacity:0}
+/* skeleton de carga */
+.vsk{border-radius:10px;border:1px solid var(--line);aspect-ratio:9/16;background:linear-gradient(90deg,#070707,#141414,#070707);background-size:200% 100%;animation:vsk 1.3s linear infinite}
+@keyframes vsk{to{background-position:-200% 0}}
 @media(max-width:560px){.vgrid{grid-template-columns:repeat(2,1fr);gap:.7rem}}
 
 footer{border-top:1px solid var(--line);padding:2.4rem max(var(--padx),env(safe-area-inset-left));display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;color:var(--muted);font-size:.82rem}
@@ -109,53 +118,79 @@ footer a{color:var(--silver)}
 </footer>
 
 <script>
-/* ============================================================
-   PEGA AQUÍ LOS VIDEOS DE YOUTUBE
-   Por cada video reemplaza el id por el de tu link de YouTube.
-   El id es lo que va después de  watch?v=  o de  youtu.be/
-   Ej: https://youtu.be/dQw4w9WgXcQ  ->  id: 'dQw4w9WgXcQ'
-   Puedes agregar o quitar líneas. Cambia el "name" a gusto.
-   ============================================================ */
-const VIDEOS=[
-  {id:'yLpsVgl7pYU', name:'La pista'},
-  {id:'4SsfRaEgXfc', name:'Las luces'},
-  {id:'nOycOYXvPXQ', name:'El ambiente'},
-  {id:'86T3N278_to', name:'VIP'},
-  {id:'CULcavd6KBo', name:'La barra'},
-  {id:'0Hw2eDndFs0', name:'La noche'}
-];
-
+/* Los videos ahora se gestionan desde el panel (/admin.html → Videos).
+   Esta página los lee de la API y arma la grilla con los 3 tipos:
+   archivo (R2), YouTube e Instagram. */
 const grid=document.getElementById('vgrid');
-const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-const ready=VIDEOS.filter(v=>v.id && !/^PEGA_ID/.test(v.id));
+const esc=s=>(s||'').toString().replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-function embed(id,opts){
+/* ids de YouTube a partir de la url de embed guardada */
+function ytId(url){const m=/embed\/([A-Za-z0-9_-]+)/.exec(url||'');return m?m[1]:null;}
+
+function ytEmbed(id){
   const f=document.createElement('iframe');
-  f.src='https://www.youtube-nocookie.com/embed/'+id+'?'+opts+'&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1&fs=0';
+  f.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&mute=0&loop=1&playlist='+id+'&controls=1&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1&fs=0';
   f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';
   f.setAttribute('frameborder','0');f.setAttribute('tabindex','-1');f.title='';
   return f;
 }
+function igEmbed(url){
+  const f=document.createElement('iframe');
+  f.src=url;  // .../reel/CODE/embed
+  f.allow='encrypted-media; picture-in-picture';
+  f.setAttribute('frameborder','0');f.setAttribute('scrolling','no');f.title='';
+  return f;
+}
 
-if(!ready.length){
-  grid.innerHTML='<div class="empty">Pronto: los videos de la noche.</div>';
-}else{
-  ready.forEach(v=>{
-    const card=document.createElement('div');card.className='vcard';card.dataset.id=v.id;
-    const yt='https://youtube.com/shorts/'+v.id;
-    card.innerHTML=
-      '<img class="thumb" loading="lazy" alt="'+v.name+'" src="https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg" onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/'+v.id+'/mqdefault.jpg\'">'+
-      '<div class="play"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>'+
-      '<div class="lbl"><span class="lbl-name">'+v.name+'</span><a class="lbl-yt" href="'+yt+'" target="_blank" rel="noopener">YouTube ↗</a></div>';
-    grid.appendChild(card);
-    card.querySelector('.lbl-yt').addEventListener('click',e=>e.stopPropagation());
-    card.addEventListener('click',()=>{
-      if(card.querySelector('iframe'))return;
-      const f=embed(v.id,'autoplay=1&mute=0&loop=1&playlist='+v.id+'&controls=1');
-      card.appendChild(f);card.classList.add('playing','sound');
-    });
+function render(videos){
+  if(!videos.length){grid.innerHTML='<div class="empty">Pronto: los videos de la noche.</div>';return;}
+  grid.innerHTML='';
+  videos.forEach(v=>{
+    const card=document.createElement('div');card.className='vcard';card.dataset.tipo=v.tipo;
+    const name=esc(v.titulo||'La noche');
+
+    if(v.tipo==='youtube'){
+      const id=ytId(v.url);if(!id)return;
+      const yt='https://youtube.com/watch?v='+id;
+      card.innerHTML=
+        '<span class="src">YouTube</span>'+
+        '<img class="thumb" loading="lazy" alt="'+name+'" src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg" onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/'+id+'/mqdefault.jpg\'">'+
+        '<div class="play"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>'+
+        '<div class="lbl"><span class="lbl-name">'+name+'</span><a class="lbl-yt" href="'+yt+'" target="_blank" rel="noopener">YouTube ↗</a></div>';
+      grid.appendChild(card);
+      card.querySelector('.lbl-yt').addEventListener('click',e=>e.stopPropagation());
+      card.addEventListener('click',()=>{if(card.querySelector('iframe'))return;card.appendChild(ytEmbed(id));card.classList.add('playing','sound');});
+
+    }else if(v.tipo==='instagram'){
+      card.innerHTML=
+        '<span class="src">Instagram</span>'+
+        '<div class="play"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>'+
+        '<div class="lbl"><span class="lbl-name">'+name+'</span></div>';
+      grid.appendChild(card);
+      card.addEventListener('click',()=>{if(card.querySelector('iframe'))return;card.appendChild(igEmbed(v.url));card.classList.add('playing','sound');});
+
+    }else{ // r2 (archivo)
+      const src='/api/video/'+encodeURIComponent(v.video_key);
+      card.innerHTML=
+        '<span class="src">Martini</span>'+
+        '<video class="r2vid" preload="metadata" playsinline muted loop src="'+src+'#t=0.1"></video>'+
+        '<div class="play"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>'+
+        '<div class="lbl"><span class="lbl-name">'+name+'</span></div>';
+      grid.appendChild(card);
+      const vid=card.querySelector('video');
+      card.addEventListener('click',()=>{
+        if(card.classList.contains('playing')){if(vid.paused)vid.play();else vid.pause();return;}
+        vid.muted=false;vid.controls=true;vid.play();card.classList.add('playing','sound');
+      });
+    }
   });
 }
+
+/* carga */
+grid.innerHTML='<div class="vsk"></div><div class="vsk"></div><div class="vsk"></div>';
+fetch('/api/videos').then(r=>r.json()).then(d=>{
+  render((d&&d.ok&&Array.isArray(d.videos))?d.videos:[]);
+}).catch(()=>{grid.innerHTML='<div class="empty">No se pudieron cargar los videos. Revisa tu conexión.</div>';});
 </script>
 </body>
 </html>
