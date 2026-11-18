@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VIP — Martini Bar · El Vigía, Mérida</title>
+<meta name="description" content="Pasa al VIP de Martini Bar en El Vigía, Mérida. Mesas VIP desde $100 con botella, balde y entradas. Reserva tu mesa para el sábado.">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:title" content="VIP — Martini Bar">
+<meta property="og:description" content="Esta noche estás en la lista. Mesas VIP desde $100 — El Vigía, Mérida.">
+<meta property="og:locale" content="es_VE">
+<!--__OG__-->
+<link rel="icon" href="/assets/icon-192.png">
+<!--__PRELOAD__-->
+<!--__FONTS__-->
+<style>
+/*__CSS__*/
+</style>
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "z6d09cydt7");
+</script>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="glass" viewBox="0 0 64 80">
+    <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M7 15h50L32 43Z"/>
+      <path d="M32 43c-3 7 4 10 1 18-2 6-3 8-1 11"/>
+      <path d="M20 75c6-3 18-3 24 0"/>
+      <path d="M39 22 53 5"/>
+    </g>
+    <circle cx="48" cy="11" r="4.2" fill="currentColor"/>
+  </symbol>
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.6-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.5 1.9 1 .9 1.9 1.2 2.2 1.3.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></symbol>
+</svg>
+
+<div id="sky-bg" aria-hidden="true"></div>
+<canvas id="sky-gl" aria-hidden="true"></canvas>
+
+<div id="loader" role="status" aria-live="polite">
+  <div class="loader-in">
+    <svg class="loader-glass" aria-hidden="true"><use href="#glass"/></svg>
+    <div class="loader-wm">MARTINI</div>
+    <div class="loader-row"><span>Revisando la lista</span><span id="load-n">000</span></div>
+  </div>
+</div>
+
+<div class="cur" id="cur" aria-hidden="true"></div>
+
+<nav id="nav" aria-label="Principal">
+  <a href="#top" class="wm" aria-label="Martini Bar VIP, inicio"><img src="__I_logo__" alt="" width="34" height="34"><span>VIP</span></a>
+  <div class="nav-links">
+    <a href="#mesas">Mesas</a>
+    <a href="#lugar">El lugar</a>
+    <a href="#reservar">Reservar</a>
+    <a href="/">← Martini Bar</a>
+  </div>
+  <div class="nav-right">
+    <a href="#reservar" class="nav-cta">Reservar mesa</a>
+    <button id="burger" class="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
+  </div>
+</nav>
+
+<div id="menu" class="menu" aria-hidden="true">
+  <div class="menu-links">
+    <a href="#mesas">Mesas</a>
+    <a href="#lugar">El lugar</a>
+    <a href="#reservar">Reservar</a>
+    <a href="/">Martini Bar</a>
+  </div>
+  <div class="menu-foot">
+    <div>El Vigía, Mérida</div>
+    <div>Sábados desde las 10pm</div>
+  </div>
+</div>
+
+<!-- ================= HERO: el viaje ================= -->
+<header class="hero" id="top">
+  <div class="hero-ui" id="hero-ui">
+    <div class="hero-meta" id="hero-meta">
+      <p>Martini Bar<br><span>El Vigía, Mérida<br>Venezuela</span></p>
+      <p class="r">Sábados<br><span>Desde las 10pm<br>Mesas desde $100</span></p>
+    </div>
+
+    <div class="gyro-row"><button id="gyro" class="gyro" type="button" hidden>Mover con el teléfono</button></div>
+
+    <div class="hero-core">
+      <div class="hero-title" id="hero-title">
+        <div class="pre">Martini Bar presenta</div>
+        <h1 aria-label="Martini"><span>M</span><span>A</span><span>R</span><span>T</span><span>I</span><span>N</span><span>I</span></h1>
+        <div class="sub holo">VIP</div>
+      </div>
+    </div>
+
+    <div class="hero-foot">
+      <div class="cap" id="cap" aria-live="polite">
+        <div class="cap-n" id="cap-n">01</div>
+        <div>
+          <div class="cap-t" id="cap-t">La puerta</div>
+          <div class="cap-s" id="cap-s">Esta noche estás en la lista.</div>
+        </div>
+      </div>
+      <div class="hero-bar">
+        <span class="bar-idx" id="bar-idx">01 / 04</span>
+        <div class="bar-line" aria-hidden="true"><i id="bar-fill"></i></div>
+        <a href="#mesas" class="skip">Ir a las mesas</a>
+      </div>
+      <div class="hint" id="hint" aria-hidden="true"><span></span>Baja para entrar</div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ================= MESAS ================= -->
+  <section class="mesas" id="mesas">
+    <div class="wrap">
+      <div class="mesas-head">
+        <div>
+          <div class="kicker">Ya estás adentro</div>
+          <h2 class="h2">Elige tu <span class="it">mesa.</span></h2>
+        </div>
+        <p class="lead">Cuatro formas de vivir la noche desde arriba. Todas incluyen botella, hielo y entradas. Toca una para reservarla.</p>
+      </div>
+
+      <div class="mesa-grid">
+        <article class="mesa" data-zona="VIP">
+          <span class="mesa-tag">Hasta 5 personas</span>
+          <h3>Mesa VIP</h3>
+          <div class="price">$100</div>
+          <ul><li>Buchanan's 12</li><li>1 balde</li><li>2 entradas incluidas</li></ul>
+          <div class="pick"><a class="btn btn-line" href="#reservar">Reservar VIP</a></div>
+        </article>
+        <article class="mesa" data-zona="VIP Deluxe">
+          <span class="mesa-tag">Hasta 6 personas</span>
+          <h3>VIP Deluxe</h3>
+          <div class="price">$150</div>
+          <ul><li>Botella de whisky</li><li>2 baldes</li><li>Hooka</li><li>3 entradas incluidas</li></ul>
+          <div class="pick"><a class="btn btn-line" href="#reservar">Reservar Deluxe</a></div>
+        </article>
+        <article class="mesa star" data-zona="VIP Diamante">
+          <span class="mesa-tag">La más completa · 7 personas</span>
+          <h3>VIP Diamante</h3>
+          <div class="price">$200</div>
+          <ul><li>2 botellas</li><li>2 baldes</li><li>Hooka</li><li>4 entradas incluidas</li></ul>
+          <div class="pick"><a class="btn btn-gold" href="#reservar">Reservar Diamante</a></div>
+        </article>
+        <article class="mesa" data-zona="VIP DJ">
+          <span class="mesa-tag">Junto a la cabina</span>
+          <h3>VIP DJ</h3>
+          <div class="price">$100</div>
+          <ul><li>Buchanan's</li><li>1 balde</li><li>2 entradas incluidas</li><li>Al lado del DJ</li></ul>
+          <div class="pick"><a class="btn btn-line" href="#reservar">Reservar VIP DJ</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EL LUGAR ================= -->
+  <section class="lugar" id="lugar">
+    <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee-track">
+      <span>Martini Bar</span><i></i><span class="o">esta noche estás en la lista</span><i></i><span>El Vigía</span><i></i><span class="o">pasa al VIP</span><i></i><span>Martini Bar</span><i></i><span class="o">esta noche estás en la lista</span><i></i><span>El Vigía</span><i></i><span class="o">pasa al VIP</span><i></i>
+    </div></div>
+
+    <div class="wrap">
+      <div class="lugar-grid">
+        <figure class="ph ph-a"><img src="__I_pista__" alt="La pista de Martini Bar con luces rojas y azules y la bola de espejos" loading="lazy" decoding="async"><figcaption>La pista</figcaption></figure>
+        <figure class="ph ph-b"><img src="__I_fach__" alt="La fachada de Martini Bar con su letrero de neón" loading="lazy" decoding="async"><figcaption>La entrada</figcaption></figure>
+        <figure class="ph ph-c"><img src="__I_trago__" alt="Un trago servido en la mesa VIP bajo luz azul" loading="lazy" decoding="async"><figcaption>Servido en tu mesa</figcaption></figure>
+        <figure class="ph ph-d"><img src="__I_gente__" alt="Gente bailando bajo luces de neón en Martini Bar" loading="lazy" decoding="async"><figcaption>Toda la noche</figcaption></figure>
+        <figure class="ph ph-e"><img src="__I_dj__" alt="El DJ mezclando en la cabina de Martini Bar" loading="lazy" decoding="async"><figcaption>DJ en vivo</figcaption></figure>
+      </div>
+
+      <div class="facts">
+        <div><h3>Los sábados</h3><p>Abrimos desde las 10pm. La pista se llena temprano y la noche sigue hasta la madrugada.</p></div>
+        <div><h3>La entrada</h3><p>Gratis hasta la 1am. Después, $3 hombres y $2 mujeres. Las mesas VIP ya traen sus entradas.</p></div>
+        <div><h3>El lugar</h3><p>El Vigía, Mérida. Pista, área VIP, VIP DJ, terraza y parking privado.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RESERVAR ================= -->
+  <section class="reservar" id="reservar">
+    <div class="wrap res-grid">
+      <div class="res-copy">
+        <div class="kicker">Tu nombre en la lista</div>
+        <h2 class="h2">Reserva tu <span class="it">mesa.</span></h2>
+        <p class="lead">Llena el formulario y te confirmamos por WhatsApp. Tu reserva queda guardada de una vez en la lista de la puerta.</p>
+        <p class="res-wa">¿Prefieres escribir directo? <a id="wa-direct" href="https://wa.me/584247819621" target="_blank" rel="noopener">WhatsApp +58 424-7819621</a></p>
+      </div>
+
+      <form class="form" id="form" novalidate>
+        <div id="form-in">
+          <h3>Reserva VIP</h3>
+          <p>Elige mesa, fecha y cuántos van.</p>
+          <div class="chips" id="chips" role="radiogroup" aria-label="Mesa">
+            <button type="button" class="chip" data-zona="VIP" data-price="100" role="radio">VIP <b>$100</b></button>
+            <button type="button" class="chip" data-zona="VIP Deluxe" data-price="150" role="radio">Deluxe <b>$150</b></button>
+            <button type="button" class="chip on" data-zona="VIP Diamante" data-price="200" role="radio" aria-checked="true">Diamante <b>$200</b></button>
+            <button type="button" class="chip" data-zona="VIP DJ" data-price="100" role="radio">VIP DJ <b>$100</b></button>
+          </div>
+          <div class="fields">
+            <div class="field full"><label for="f-name">Nombre</label><input id="f-name" name="nombre" autocomplete="name" required maxlength="80" placeholder="Tu nombre"></div>
+            <div class="field"><label for="f-tel">WhatsApp</label><input id="f-tel" name="telefono" type="tel" inputmode="tel" autocomplete="tel" required maxlength="30" placeholder="0424 000 0000"></div>
+            <div class="field"><label for="f-date">Fecha</label><input id="f-date" name="fecha" type="date"></div>
+            <div class="field"><label>Personas</label><div class="count"><button type="button" id="pp-minus" aria-label="Menos personas">−</button><output id="pp-val">4</output><button type="button" id="pp-plus" aria-label="Más personas">+</button></div></div>
+            <div class="field"><label for="f-hora">Hora de llegada</label><input id="f-hora" name="hora" type="time" value="22:30"></div>
+            <div class="field full"><label for="f-note">Notas (opcional)</label><textarea id="f-note" name="notas" maxlength="200" placeholder="Cumpleaños, pedido especial…"></textarea></div>
+          </div>
+          <div class="form-sum"><span id="sum-txt">VIP Diamante · hasta 7 personas</span><b id="sum-price">$200</b></div>
+          <button class="btn btn-paper" id="send" type="submit"><svg width="20" height="20" aria-hidden="true"><use href="#wa"/></svg>Reservar y confirmar</button>
+          <div class="form-msg" id="form-msg" role="alert"></div>
+        </div>
+        <div class="done" id="done">
+          <div class="tick">✓</div>
+          <h3>Estás en la lista</h3>
+          <p id="done-txt">Te confirmamos por WhatsApp en un momento.</p>
+          <a class="btn btn-paper" id="done-wa" href="https://wa.me/584247819621" target="_blank" rel="noopener">Abrir WhatsApp</a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-wm" aria-hidden="true">MARTINI</div>
+    <div class="foot-cols">
+      <div><h3>Dónde</h3><p>El Vigía, Mérida<br>Venezuela</p><p><a href="https://maps.app.goo.gl/ZvqTJggMUy6rADjA9" target="_blank" rel="noopener">Cómo llegar</a></p></div>
+      <div><h3>Ir a</h3><p><a href="#mesas">Mesas</a><br><a href="#lugar">El lugar</a><br><a href="#reservar">Reservar</a><br><a href="/">Martini Bar</a></p></div>
+      <div><h3>Contacto</h3><p><a href="https://wa.me/584247819621" target="_blank" rel="noopener">+58 424-7819621</a><br><a href="https://www.instagram.com/martinibar.live/" target="_blank" rel="noopener">@martinibar.live</a></p></div>
+    </div>
+    <div class="foot-base"><span>Martini Bar — El Vigía, Mérida</span><span>Consume con moderación · Solo mayores de edad</span></div>
+  </div>
+</footer>
+
+<a class="wa-f" id="wa-f" href="https://wa.me/584247819621" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp"><svg aria-hidden="true"><use href="#wa"/></svg></a>
+
+<script>
+/*__MAIN_JS__*/
+</script>
+</body>
+</html>
