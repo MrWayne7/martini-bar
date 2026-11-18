@@ -265,3 +265,24 @@ main,.foot{position:relative;z-index:1;}
 html.lenis,html.lenis body{height:auto;}
 .lenis.lenis-smooth{scroll-behavior:auto !important;}
 .lenis.lenis-stopped{overflow:hidden;}
+
+/* ---------- la noche en video ---------- */
+.noche{background:var(--void);padding:clamp(40px,6vw,90px) 0 clamp(80px,10vw,150px);}
+.noche-head{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(20px,4vw,60px);align-items:end;}
+.noche-head .lead{margin:0 0 .4em;justify-self:end;}
+.noche-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(10px,1.2vw,18px);margin-top:clamp(40px,5vw,72px);}
+.vcard{position:relative;aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:#0c0709 center/cover no-repeat;border:1px solid var(--line);cursor:pointer;padding:0;color:inherit;font:inherit;text-align:left;}
+.vcard img,.vcard iframe,.vcard video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block;}
+.vcard img{transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .6s;filter:saturate(1.05) brightness(.82);}
+.vcard:hover img{transform:scale(1.05);filter:saturate(1.15) brightness(.95);}
+.vcard .play{position:absolute;left:50%;top:50%;width:62px;height:62px;margin:-31px 0 0 -31px;border-radius:50%;background:rgba(140,13,36,.85);box-shadow:0 0 30px rgba(140,13,36,.8);display:grid;place-items:center;transition:transform .4s;}
+.vcard .play::after{content:"";margin-left:4px;border-left:16px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;}
+.vcard:hover .play{transform:scale(1.1);}
+.vcard .vt{position:absolute;left:0;right:0;bottom:0;padding:40px 14px 14px;font-size:13.5px;background:linear-gradient(transparent,rgba(0,0,0,.85));pointer-events:none;}
+.vcard.on .play,.vcard.on .vt{display:none;}
+.noche-more{margin-top:clamp(28px,3vw,44px);display:flex;justify-content:center;}
+@media (max-width:1100px){ .noche-grid{grid-template-columns:repeat(3,minmax(0,1fr));} }
+@media (max-width:900px){
+  .noche-head{grid-template-columns:1fr;} .noche-head .lead{justify-self:start;}
+}
+@media (max-width:560px){ .noche-grid{grid-template-columns:1fr 1fr;} }

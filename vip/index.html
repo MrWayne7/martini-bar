@@ -293,6 +293,27 @@ html.lenis,html.lenis body{height:auto;}
 .lenis.lenis-smooth{scroll-behavior:auto !important;}
 .lenis.lenis-stopped{overflow:hidden;}
 
+/* ---------- la noche en video ---------- */
+.noche{background:var(--void);padding:clamp(40px,6vw,90px) 0 clamp(80px,10vw,150px);}
+.noche-head{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(20px,4vw,60px);align-items:end;}
+.noche-head .lead{margin:0 0 .4em;justify-self:end;}
+.noche-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(10px,1.2vw,18px);margin-top:clamp(40px,5vw,72px);}
+.vcard{position:relative;aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:#0c0709 center/cover no-repeat;border:1px solid var(--line);cursor:pointer;padding:0;color:inherit;font:inherit;text-align:left;}
+.vcard img,.vcard iframe,.vcard video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block;}
+.vcard img{transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .6s;filter:saturate(1.05) brightness(.82);}
+.vcard:hover img{transform:scale(1.05);filter:saturate(1.15) brightness(.95);}
+.vcard .play{position:absolute;left:50%;top:50%;width:62px;height:62px;margin:-31px 0 0 -31px;border-radius:50%;background:rgba(140,13,36,.85);box-shadow:0 0 30px rgba(140,13,36,.8);display:grid;place-items:center;transition:transform .4s;}
+.vcard .play::after{content:"";margin-left:4px;border-left:16px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;}
+.vcard:hover .play{transform:scale(1.1);}
+.vcard .vt{position:absolute;left:0;right:0;bottom:0;padding:40px 14px 14px;font-size:13.5px;background:linear-gradient(transparent,rgba(0,0,0,.85));pointer-events:none;}
+.vcard.on .play,.vcard.on .vt{display:none;}
+.noche-more{margin-top:clamp(28px,3vw,44px);display:flex;justify-content:center;}
+@media (max-width:1100px){ .noche-grid{grid-template-columns:repeat(3,minmax(0,1fr));} }
+@media (max-width:900px){
+  .noche-head{grid-template-columns:1fr;} .noche-head .lead{justify-self:start;}
+}
+@media (max-width:560px){ .noche-grid{grid-template-columns:1fr 1fr;} }
+
 </style>
 <script type="text/javascript">
 (function(c,l,a,r,i,t,y){
@@ -462,6 +483,21 @@ html.lenis,html.lenis body{height:auto;}
     </div>
   </section>
 
+  <!-- ================= LA NOCHE EN VIDEO ================= -->
+  <section class="noche" id="noche">
+    <div class="wrap">
+      <div class="noche-head">
+        <div>
+          <div class="kicker">Así se vive</div>
+          <h2 class="h2">La noche <span class="it">en video.</span></h2>
+        </div>
+        <p class="lead">Lo que pasa un sábado en Martini Bar. Toca uno para verlo.</p>
+      </div>
+      <div class="noche-grid" id="noche-grid"></div>
+      <div class="noche-more"><a class="btn btn-line" href="/verlanoche">Ver todos los videos</a></div>
+    </div>
+  </section>
+
   <!-- ================= RESERVAR ================= -->
   <section class="reservar" id="reservar">
     <div class="wrap res-grid">
@@ -532,7 +568,8 @@ var CONFIG = {
   evento: 'Reserva VIP · web'
 };
 
-var TEX = {"gente": {"u": "img/t-gente.webp", "a": 0.4596}, "laser": {"u": "img/t-laser.webp", "a": 0.4596}, "fach": {"u": "img/t-fach.webp", "a": 1.3333}, "pista": {"u": "img/t-pista.webp", "a": 1.3333}, "trago": {"u": "img/t-trago.webp", "a": 0.75}, "dj": {"u": "img/t-dj.webp", "a": 1.7778}, "logo": {"u": "img/t-logo.webp", "a": 1.1084}};
+var TEX = {"v-baile": {"u": "img/t-v-baile.webp", "a": 0.5563}, "v-dj": {"u": "img/t-v-dj.webp", "a": 1.7778}, "v-fach": {"u": "img/t-v-fach.webp", "a": 0.75}, "v-gente": {"u": "img/t-v-gente.webp", "a": 0.5563}, "v-mascaras": {"u": "img/t-v-mascaras.webp", "a": 0.5563}, "v-neon": {"u": "img/t-v-neon.webp", "a": 0.5625}, "v-redroom": {"u": "img/t-v-redroom.webp", "a": 0.5625}, "logo": {"u": "img/t-logo.webp", "a": 1.1084}};
+var VID = {"v-baile": {"u": "vid/v-baile.mp4", "a": 0.5563}, "v-dj": {"u": "vid/v-dj.mp4", "a": 1.7778}, "v-fach": {"u": "vid/v-fach.mp4", "a": 0.75}, "v-gente": {"u": "vid/v-gente.mp4", "a": 0.5563}, "v-mascaras": {"u": "vid/v-mascaras.mp4", "a": 0.5563}, "v-neon": {"u": "vid/v-neon.mp4", "a": 0.5625}, "v-redroom": {"u": "vid/v-redroom.mp4", "a": 0.5625}};
 var LIBS = {"three": "js/three.min.js", "gsap": "js/gsap.min.js", "st": "js/ScrollTrigger.min.js", "lenis": "js/lenis.min.js"};
 
 /* ---------- las librerías se cargan sin frenar la página ---------- */
@@ -746,13 +783,35 @@ function initSky(){
     tl.load(TEX[u.key].u, function(t){
       noMip(t);
       if (u.st !== 1){ t.dispose(); return; }
-      u.tex = t; u.mat.uniforms.map.value = t; u.st = 2;
+      u.tex = t; if (u.vs !== 2) u.mat.uniforms.map.value = t; u.st = 2;
     }, undefined, function(){ u.st = 0; });
   }
   function dropTex(g){
     var u = g.userData;
-    if (u.st === 2){ u.mat.uniforms.map.value = blackTex; u.tex.dispose(); u.tex = null; }
+    if (u.st === 2){ if (u.vs !== 2) u.mat.uniforms.map.value = blackTex; u.tex.dispose(); u.tex = null; }
     u.st = 0;
+  }
+  /* videos de la noche: arrancan en bucle al acercarte y se apagan al dejarlos atrás (cuida batería y memoria) */
+  function ensureVid(g){
+    var u = g.userData; if (u.vs || reduce || !VID[u.key]) return;
+    u.vs = 1;
+    var v = document.createElement('video');
+    v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'auto';
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', '');
+    v.addEventListener('playing', function(){
+      if (u.vs !== 1) return;
+      var vt = new THREE.VideoTexture(v); vt.minFilter = THREE.LinearFilter; vt.magFilter = THREE.LinearFilter; vt.generateMipmaps = false;
+      u.vt = vt; u.mat.uniforms.map.value = vt; u.vs = 2;
+    });
+    v.src = VID[u.key].u; u.video = v;
+    var pr = v.play(); if (pr && pr.catch) pr.catch(function(){ u.vs = 3; });   // sin autoplay: se queda la portada
+  }
+  function dropVid(g){
+    var u = g.userData; if (!u.vs) return;
+    if (u.video){ u.video.pause(); u.video.removeAttribute('src'); u.video.load(); u.video = null; }
+    if (u.vt){ u.vt.dispose(); u.vt = null; }
+    if (u.vs === 2) u.mat.uniforms.map.value = u.tex || blackTex;
+    u.vs = 0;
   }
   function canvasTex(c){ return noMip(new THREE.CanvasTexture(c)); }
   var blackTex = noMip(new THREE.DataTexture(new Uint8Array([0, 0, 0, 255]), 1, 1, THREE.RGBAFormat)); blackTex.needsUpdate = true;
@@ -1008,11 +1067,13 @@ function initSky(){
     journey.add(g); frames.push(g);
     return g;
   }
-  photoFrame('fach', 2.6, -3.9, FLOOR + 2.0, -13, 0.62, 0xff3a55, 13);   // la fachada, en la fila de afuera
-  photoFrame('pista', 3.1, -4.2, FLOOR + 2.3, -44, 0.55, 0x9a7cff);       // la pista
-  photoFrame('gente', 3.0, 4.2, FLOOR + 2.2, -61, -0.55, 0x5fe0ff);        // la gente
-  photoFrame('trago', 2.9, 4.3, FLOOR + 2.1, -90, -0.6, 0xffb060);         // el trago
-  photoFrame('dj', 2.6, 4.3, FLOOR + 2.3, -107, -0.6, 0xffd08a);        // el DJ
+  photoFrame('v-fach', 2.8, -3.9, FLOOR + 2.1, -13, 0.62, 0xff3a55, 13);     // la fachada con el letrero
+  photoFrame('v-neon', 3.0, -4.2, FLOOR + 2.3, -45, 0.55, 0x9a7cff);          // la pista y las copas de neón
+  photoFrame('v-gente', 3.0, 4.2, FLOOR + 2.2, -59, -0.55, 0x5fe0ff);          // la gente
+  photoFrame('v-mascaras', 2.9, 4.3, FLOOR + 2.2, -72, -0.55, 0xff5fa8);       // los disfraces
+  photoFrame('v-baile', 2.9, 4.3, FLOOR + 2.1, -90, -0.6, 0xffb060);           // bailando junto a la barra
+  photoFrame('v-dj', 2.0, 4.4, FLOOR + 2.4, -107, -0.6, 0xffd08a);             // el DJ en la cabina
+  photoFrame('v-redroom', 2.8, -6.6, FLOOR + 2.1, -123, 0.5, 0xff2a55);        // la noche del Red Room
 
   /* ============ ACTO 2: la pista ============ */
   /* bola de espejos: caras planas de brillo distinto y reflejos que giran con ella */
@@ -1486,7 +1547,7 @@ function initSky(){
   }
   resize(); window.addEventListener('resize', resize);
 
-  SKY = { tier: function(){ return tier; } };
+  SKY = { tier: function(){ return tier; }, frames: function(){ return frames.map(function(g){ var u = g.userData; return u.key + ':' + (u.st||0) + '/' + (u.vs||0) + (u.video ? '@' + u.video.currentTime.toFixed(1) : ''); }).join(' '); } };
 
   var lazy = frames.slice();
   var texTick = 0;
@@ -1625,12 +1686,13 @@ function initSky(){
         for (var ti = 0; ti < lazy.length; ti++){
           var lg = lazy[ti], lz = cz - lg.position.z;
           if (lz < 40 && lz > -14) ensureTex(lg); else if (lz > 70 || lz < -30) dropTex(lg);
+          if (lz < 24 && lz > -5) ensureVid(lg); else if (lz > 32 || lz < -9) dropVid(lg);
         }
       }
       // fotos y palabras: se encienden como neón al acercarte y se apagan al pasar
       for (var n = 0; n < frames.length; n++){
         var g = frames[n], gu = g.userData, dz = cz - g.position.z;
-        var on = (gu.st === 2 ? 1 : 0) * sstep(gu.near + 8, gu.near, dz) * sstep(-1.5, 2, dz);
+        var on = ((gu.st === 2 || gu.vs === 2) ? 1 : 0) * sstep(gu.near + 8, gu.near, dz) * sstep(-1.5, 2, dz);
         gu.mat.uniforms.uOn.value = on; gu.edge.uniforms.uOn.value = on;
         g.position.y = gu.by + Math.sin(t * 0.6 + n * 1.3) * 0.05;
       }
@@ -1856,6 +1918,7 @@ gsapReady.then(function(){
     g.from(ph, { opacity: 0, y: 50, scale: 0.96, duration: 1.1, ease: 'power3.out', delay: (i % 3) * 0.08, scrollTrigger: { trigger: ph, start: 'top 88%' } });
     g.to($('img', ph), { yPercent: -6, scale: 1.08, ease: 'none', scrollTrigger: { trigger: ph, start: 'top bottom', end: 'bottom top', scrub: 0.6 } });
   });
+  g.from('.noche-head > *', { opacity: 0, y: 34, duration: 1, ease: 'power3.out', stagger: 0.12, scrollTrigger: { trigger: '.noche-head', start: 'top 82%' } });
   g.from('.facts > div', { opacity: 0, y: 30, duration: 0.9, ease: 'power3.out', stagger: 0.1, scrollTrigger: { trigger: '.facts', start: 'top 85%' } });
   g.from('.res-copy > *, .form', { opacity: 0, y: 40, duration: 1, ease: 'power3.out', stagger: 0.1, scrollTrigger: { trigger: '.reservar', start: 'top 70%' } });
   var mt = $('#marquee-track');
@@ -1867,6 +1930,50 @@ gsapReady.then(function(){
   window.addEventListener('load', function(){ window.ScrollTrigger.refresh(); });
   window.ScrollTrigger.refresh();
 });
+
+/* ============================================================
+   La noche en video: lo que Talal sube en el admin (/api/videos)
+   con los links de YouTube de respaldo si la API no responde
+   ============================================================ */
+(function(){
+  var grid = $('#noche-grid'); if (!grid) return;
+  var FALLBACK = ['yLpsVgl7pYU', '4SsfRaEgXfc', 'nOycOYXvPXQ', '86T3N278_to', 'CULcavd6KBo', '0Hw2eDndFs0']
+    .map(function(id){ return { tipo: 'youtube', url: 'https://www.youtube.com/embed/' + id, titulo: '' }; });
+  function ytId(u){ var m = String(u || '').match(/embed\/([A-Za-z0-9_-]{6,})/); return m ? m[1] : null; }
+  function esc(s){ return String(s || '').replace(/[&<>"]/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  var POS = ['v-gente', 'v-neon', 'v-baile', 'v-mascaras', 'v-dj', 'v-redroom', 'v-fach'];
+  function card(v, i){
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'vcard';
+    b.style.backgroundImage = 'url(img/t-' + POS[i % POS.length] + '.webp)';
+    var id = v.tipo === 'youtube' ? ytId(v.url) : null, thumb = '';
+    if (id) thumb = '<img src="https://i.ytimg.com/vi/' + id + '/hqdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">';
+    else if (v.tipo === 'r2') thumb = '<video src="/api/video/' + encodeURIComponent(v.video_key) + '#t=0.5" muted playsinline preload="metadata"></video>';
+    b.innerHTML = thumb + '<span class="play" aria-hidden="true"></span>' + (v.titulo ? '<span class="vt">' + esc(v.titulo) + '</span>' : '');
+    b.setAttribute('aria-label', 'Ver video' + (v.titulo ? ': ' + v.titulo : ''));
+    b.addEventListener('click', function(){
+      if (b.classList.contains('on')) return;
+      b.classList.add('on');
+      if (v.tipo === 'r2'){
+        b.innerHTML = '<video src="/api/video/' + encodeURIComponent(v.video_key) + '" controls autoplay playsinline></video>';
+      } else {
+        var src = id ? 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&playsinline=1&rel=0' : v.url;
+        b.innerHTML = '<iframe src="' + esc(src) + '" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="Video de Martini Bar"></iframe>';
+      }
+    });
+    return b;
+  }
+  function paint(list){
+    list = list.filter(function(v){ return v.tipo !== 'youtube' || ytId(v.url); }).slice(0, 6);
+    if (!list.length) list = FALLBACK;
+    grid.innerHTML = ''; list.forEach(function(v, i){ grid.appendChild(card(v, i)); });
+    if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+  }
+  var done = false;
+  fetch('/api/videos').then(function(r){ return r.json(); })
+    .then(function(d){ done = true; paint((d && d.videos) || []); })
+    .catch(function(){ if (!done) paint([]); });
+  setTimeout(function(){ if (!done){ done = true; paint([]); } }, 3500);
+})();
 
 /* ---------- bucle único ---------- */
 (function loop(now){ for (var i = 0; i < tickers.length; i++){ try { tickers[i](now); } catch (e) { console.error(e); } } requestAnimationFrame(loop); })(performance.now());

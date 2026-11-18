@@ -66,13 +66,35 @@ function initSky(){
     tl.load(TEX[u.key].u, function(t){
       noMip(t);
       if (u.st !== 1){ t.dispose(); return; }
-      u.tex = t; u.mat.uniforms.map.value = t; u.st = 2;
+      u.tex = t; if (u.vs !== 2) u.mat.uniforms.map.value = t; u.st = 2;
     }, undefined, function(){ u.st = 0; });
   }
   function dropTex(g){
     var u = g.userData;
-    if (u.st === 2){ u.mat.uniforms.map.value = blackTex; u.tex.dispose(); u.tex = null; }
+    if (u.st === 2){ if (u.vs !== 2) u.mat.uniforms.map.value = blackTex; u.tex.dispose(); u.tex = null; }
     u.st = 0;
+  }
+  /* videos de la noche: arrancan en bucle al acercarte y se apagan al dejarlos atrás (cuida batería y memoria) */
+  function ensureVid(g){
+    var u = g.userData; if (u.vs || reduce || !VID[u.key]) return;
+    u.vs = 1;
+    var v = document.createElement('video');
+    v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'auto';
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', '');
+    v.addEventListener('playing', function(){
+      if (u.vs !== 1) return;
+      var vt = new THREE.VideoTexture(v); vt.minFilter = THREE.LinearFilter; vt.magFilter = THREE.LinearFilter; vt.generateMipmaps = false;
+      u.vt = vt; u.mat.uniforms.map.value = vt; u.vs = 2;
+    });
+    v.src = VID[u.key].u; u.video = v;
+    var pr = v.play(); if (pr && pr.catch) pr.catch(function(){ u.vs = 3; });   // sin autoplay: se queda la portada
+  }
+  function dropVid(g){
+    var u = g.userData; if (!u.vs) return;
+    if (u.video){ u.video.pause(); u.video.removeAttribute('src'); u.video.load(); u.video = null; }
+    if (u.vt){ u.vt.dispose(); u.vt = null; }
+    if (u.vs === 2) u.mat.uniforms.map.value = u.tex || blackTex;
+    u.vs = 0;
   }
   function canvasTex(c){ return noMip(new THREE.CanvasTexture(c)); }
   var blackTex = noMip(new THREE.DataTexture(new Uint8Array([0, 0, 0, 255]), 1, 1, THREE.RGBAFormat)); blackTex.needsUpdate = true;
@@ -328,11 +350,13 @@ function initSky(){
     journey.add(g); frames.push(g);
     return g;
   }
-  photoFrame('fach', 2.6, -3.9, FLOOR + 2.0, -13, 0.62, 0xff3a55, 13);   // la fachada, en la fila de afuera
-  photoFrame('pista', 3.1, -4.2, FLOOR + 2.3, -44, 0.55, 0x9a7cff);       // la pista
-  photoFrame('gente', 3.0, 4.2, FLOOR + 2.2, -61, -0.55, 0x5fe0ff);        // la gente
-  photoFrame('trago', 2.9, 4.3, FLOOR + 2.1, -90, -0.6, 0xffb060);         // el trago
-  photoFrame('dj', 2.6, 4.3, FLOOR + 2.3, -107, -0.6, 0xffd08a);        // el DJ
+  photoFrame('v-fach', 2.8, -3.9, FLOOR + 2.1, -13, 0.62, 0xff3a55, 13);     // la fachada con el letrero
+  photoFrame('v-neon', 3.0, -4.2, FLOOR + 2.3, -45, 0.55, 0x9a7cff);          // la pista y las copas de neón
+  photoFrame('v-gente', 3.0, 4.2, FLOOR + 2.2, -59, -0.55, 0x5fe0ff);          // la gente
+  photoFrame('v-mascaras', 2.9, 4.3, FLOOR + 2.2, -72, -0.55, 0xff5fa8);       // los disfraces
+  photoFrame('v-baile', 2.9, 4.3, FLOOR + 2.1, -90, -0.6, 0xffb060);           // bailando junto a la barra
+  photoFrame('v-dj', 2.0, 4.4, FLOOR + 2.4, -107, -0.6, 0xffd08a);             // el DJ en la cabina
+  photoFrame('v-redroom', 2.8, -6.6, FLOOR + 2.1, -123, 0.5, 0xff2a55);        // la noche del Red Room
 
   /* ============ ACTO 2: la pista ============ */
   /* bola de espejos: caras planas de brillo distinto y reflejos que giran con ella */
@@ -806,7 +830,7 @@ function initSky(){
   }
   resize(); window.addEventListener('resize', resize);
 
-  SKY = { tier: function(){ return tier; } };
+  SKY = { tier: function(){ return tier; }, frames: function(){ return frames.map(function(g){ var u = g.userData; return u.key + ':' + (u.st||0) + '/' + (u.vs||0) + (u.video ? '@' + u.video.currentTime.toFixed(1) : ''); }).join(' '); } };
 
   var lazy = frames.slice();
   var texTick = 0;
@@ -945,12 +969,13 @@ function initSky(){
         for (var ti = 0; ti < lazy.length; ti++){
           var lg = lazy[ti], lz = cz - lg.position.z;
           if (lz < 40 && lz > -14) ensureTex(lg); else if (lz > 70 || lz < -30) dropTex(lg);
+          if (lz < 24 && lz > -5) ensureVid(lg); else if (lz > 32 || lz < -9) dropVid(lg);
         }
       }
       // fotos y palabras: se encienden como neón al acercarte y se apagan al pasar
       for (var n = 0; n < frames.length; n++){
         var g = frames[n], gu = g.userData, dz = cz - g.position.z;
-        var on = (gu.st === 2 ? 1 : 0) * sstep(gu.near + 8, gu.near, dz) * sstep(-1.5, 2, dz);
+        var on = ((gu.st === 2 || gu.vs === 2) ? 1 : 0) * sstep(gu.near + 8, gu.near, dz) * sstep(-1.5, 2, dz);
         gu.mat.uniforms.uOn.value = on; gu.edge.uniforms.uOn.value = on;
         g.position.y = gu.by + Math.sin(t * 0.6 + n * 1.3) * 0.05;
       }

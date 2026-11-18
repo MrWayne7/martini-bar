@@ -9,6 +9,7 @@ import base64, io, json, os, re, shutil
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 UP = os.environ.get("FOTOS", os.path.join(ROOT, "fotos"))
+CLIPS = os.environ.get("CLIPS", os.path.join(ROOT, "clips"))
 DIST = os.path.join(ROOT, "dist")
 SITE_URL = os.environ.get("SITE_URL", "https://martinibar.live/vip")
 BASE = os.environ.get("BASE", "/vip/")
@@ -81,7 +82,7 @@ def make_og(photo, logo_rgba):
 def main():
     if os.path.exists(DIST):
         shutil.rmtree(DIST)
-    for d in ("inline", "site/img", "site/js", "test/img", "test/js", "test/fonts"):
+    for d in ("inline", "site/img", "site/js", "site/vid", "test/img", "test/js", "test/vid", "test/fonts"):
         os.makedirs(os.path.join(DIST, d))
 
     big_inline, big_site, tex_inline, tex_site = {}, {}, {}, {}
@@ -89,12 +90,23 @@ def main():
         im = Image.open(os.path.join(UP, fn)).convert("RGB")
         big = fit(im, 1400); b = webp_bytes(big, 78)
         big_inline[key] = datauri(b); big_site[key] = f"img/{key}.webp"
-        t = fit(im, 768); tb = webp_bytes(t, 72); a = round(t.width / t.height, 4)
-        tex_inline[key] = {"u": datauri(tb), "a": a}; tex_site[key] = {"u": f"img/t-{key}.webp", "a": a}
         for v in ("site", "test"):
             open(os.path.join(DIST, v, "img", f"{key}.webp"), "wb").write(b)
+        print(f"{key:5} big {len(b)//1024:4} KB  {big.size}")
+
+    # clips de video para los carteles 3D: portada como textura + mp4 en vid/
+    vid_site = {}
+    for fn in sorted(os.listdir(CLIPS)):
+        if not fn.endswith(".mp4"): continue
+        key = fn[:-4]
+        po = Image.open(os.path.join(CLIPS, key + ".jpg")).convert("RGB")
+        t = fit(po, 640); tb = webp_bytes(t, 72); a = round(t.width / t.height, 4)
+        tex_inline[key] = {"u": datauri(tb), "a": a}; tex_site[key] = {"u": f"img/t-{key}.webp", "a": a}
+        vid_site[key] = {"u": f"vid/{fn}", "a": a}
+        for v in ("site", "test"):
             open(os.path.join(DIST, v, "img", f"t-{key}.webp"), "wb").write(tb)
-        print(f"{key:5} big {len(b)//1024:4} KB  tex {len(tb)//1024:3} KB  {big.size}")
+            shutil.copy(os.path.join(CLIPS, fn), os.path.join(DIST, v, "vid", fn))
+        print(f"{key:11} clip {os.path.getsize(os.path.join(CLIPS, fn))//1024:4} KB  poster {len(tb)//1024} KB")
 
     rgba, rgb = logo_parts()
     nav = fit(rgba, 160); nb = webp_bytes(nav, 90)
@@ -133,9 +145,9 @@ def main():
                '<meta name="twitter:card" content="summary_large_image">\n'
                f'<meta name="twitter:image" content="{SITE_URL}/img/og.jpg">')
 
-    def render(big, tex, libs, fonts, og, base):
+    def render(big, tex, libs, fonts, og, base, vids):
         out = tpl.replace("/*__CSS__*/", css)
-        j = js.replace("__TEXMAP__", json.dumps(tex)).replace("__LIBS__", json.dumps(libs))
+        j = js.replace("__TEXMAP__", json.dumps(tex)).replace("__LIBS__", json.dumps(libs)).replace("__VIDMAP__", json.dumps(vids))
         pre = "\n".join(f'<link rel="preload" as="script" href="{libs[k]}">' for k in ("three", "gsap"))
         if base:
             pre = f'<base href="{base}">\n' + pre
@@ -149,9 +161,9 @@ def main():
             print("!! tokens sin reemplazar:", left)
         return out
 
-    open(os.path.join(DIST, "inline", "index.html"), "w", encoding="utf-8").write(render(big_inline, tex_inline, libs_cdn, fonts_google, "", ""))
-    open(os.path.join(DIST, "site", "index.html"), "w", encoding="utf-8").write(render(big_site, tex_site, libs_local, fonts_google, og_meta, BASE))
-    open(os.path.join(DIST, "test", "index.html"), "w", encoding="utf-8").write(render(big_site, tex_site, libs_local, fonts_local, og_meta, ""))
+    open(os.path.join(DIST, "inline", "index.html"), "w", encoding="utf-8").write(render(big_inline, tex_inline, libs_cdn, fonts_google, "", "", {}))
+    open(os.path.join(DIST, "site", "index.html"), "w", encoding="utf-8").write(render(big_site, tex_site, libs_local, fonts_google, og_meta, BASE, vid_site))
+    open(os.path.join(DIST, "test", "index.html"), "w", encoding="utf-8").write(render(big_site, tex_site, libs_local, fonts_local, og_meta, "", vid_site))
 
     for v in ("site", "test"):
         for f in ("three.min.js", "gsap.min.js", "ScrollTrigger.min.js", "lenis.min.js"):

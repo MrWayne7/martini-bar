@@ -10,6 +10,7 @@ var CONFIG = {
 };
 
 var TEX = __TEXMAP__;
+var VID = __VIDMAP__;
 var LIBS = __LIBS__;
 
 /* ---------- las librerías se cargan sin frenar la página ---------- */

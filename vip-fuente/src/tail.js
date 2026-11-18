@@ -177,6 +177,7 @@ gsapReady.then(function(){
     g.from(ph, { opacity: 0, y: 50, scale: 0.96, duration: 1.1, ease: 'power3.out', delay: (i % 3) * 0.08, scrollTrigger: { trigger: ph, start: 'top 88%' } });
     g.to($('img', ph), { yPercent: -6, scale: 1.08, ease: 'none', scrollTrigger: { trigger: ph, start: 'top bottom', end: 'bottom top', scrub: 0.6 } });
   });
+  g.from('.noche-head > *', { opacity: 0, y: 34, duration: 1, ease: 'power3.out', stagger: 0.12, scrollTrigger: { trigger: '.noche-head', start: 'top 82%' } });
   g.from('.facts > div', { opacity: 0, y: 30, duration: 0.9, ease: 'power3.out', stagger: 0.1, scrollTrigger: { trigger: '.facts', start: 'top 85%' } });
   g.from('.res-copy > *, .form', { opacity: 0, y: 40, duration: 1, ease: 'power3.out', stagger: 0.1, scrollTrigger: { trigger: '.reservar', start: 'top 70%' } });
   var mt = $('#marquee-track');
@@ -188,6 +189,50 @@ gsapReady.then(function(){
   window.addEventListener('load', function(){ window.ScrollTrigger.refresh(); });
   window.ScrollTrigger.refresh();
 });
+
+/* ============================================================
+   La noche en video: lo que Talal sube en el admin (/api/videos)
+   con los links de YouTube de respaldo si la API no responde
+   ============================================================ */
+(function(){
+  var grid = $('#noche-grid'); if (!grid) return;
+  var FALLBACK = ['yLpsVgl7pYU', '4SsfRaEgXfc', 'nOycOYXvPXQ', '86T3N278_to', 'CULcavd6KBo', '0Hw2eDndFs0']
+    .map(function(id){ return { tipo: 'youtube', url: 'https://www.youtube.com/embed/' + id, titulo: '' }; });
+  function ytId(u){ var m = String(u || '').match(/embed\/([A-Za-z0-9_-]{6,})/); return m ? m[1] : null; }
+  function esc(s){ return String(s || '').replace(/[&<>"]/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  var POS = ['v-gente', 'v-neon', 'v-baile', 'v-mascaras', 'v-dj', 'v-redroom', 'v-fach'];
+  function card(v, i){
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'vcard';
+    b.style.backgroundImage = 'url(img/t-' + POS[i % POS.length] + '.webp)';
+    var id = v.tipo === 'youtube' ? ytId(v.url) : null, thumb = '';
+    if (id) thumb = '<img src="https://i.ytimg.com/vi/' + id + '/hqdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">';
+    else if (v.tipo === 'r2') thumb = '<video src="/api/video/' + encodeURIComponent(v.video_key) + '#t=0.5" muted playsinline preload="metadata"></video>';
+    b.innerHTML = thumb + '<span class="play" aria-hidden="true"></span>' + (v.titulo ? '<span class="vt">' + esc(v.titulo) + '</span>' : '');
+    b.setAttribute('aria-label', 'Ver video' + (v.titulo ? ': ' + v.titulo : ''));
+    b.addEventListener('click', function(){
+      if (b.classList.contains('on')) return;
+      b.classList.add('on');
+      if (v.tipo === 'r2'){
+        b.innerHTML = '<video src="/api/video/' + encodeURIComponent(v.video_key) + '" controls autoplay playsinline></video>';
+      } else {
+        var src = id ? 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&playsinline=1&rel=0' : v.url;
+        b.innerHTML = '<iframe src="' + esc(src) + '" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="Video de Martini Bar"></iframe>';
+      }
+    });
+    return b;
+  }
+  function paint(list){
+    list = list.filter(function(v){ return v.tipo !== 'youtube' || ytId(v.url); }).slice(0, 6);
+    if (!list.length) list = FALLBACK;
+    grid.innerHTML = ''; list.forEach(function(v, i){ grid.appendChild(card(v, i)); });
+    if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+  }
+  var done = false;
+  fetch('/api/videos').then(function(r){ return r.json(); })
+    .then(function(d){ done = true; paint((d && d.videos) || []); })
+    .catch(function(){ if (!done) paint([]); });
+  setTimeout(function(){ if (!done){ done = true; paint([]); } }, 3500);
+})();
 
 /* ---------- bucle único ---------- */
 (function loop(now){ for (var i = 0; i < tickers.length; i++){ try { tickers[i](now); } catch (e) { console.error(e); } } requestAnimationFrame(loop); })(performance.now());
