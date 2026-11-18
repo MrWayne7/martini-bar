@@ -191,6 +191,35 @@ gsapReady.then(function(){
 });
 
 /* ============================================================
+   Visor de video a pantalla completa (carteles 3D y sección de videos)
+   ============================================================ */
+var openModal = (function(){
+  var m = document.createElement('div'); m.className = 'vmodal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.setAttribute('aria-label', 'Video');
+  m.innerHTML = '<div class="vm-stage"></div><button type="button" class="vm-x" aria-label="Cerrar video">&times;</button>';
+  document.body.appendChild(m);
+  var stage = m.querySelector('.vm-stage'), last = null;
+  function close(){
+    m.classList.remove('on'); document.documentElement.classList.remove('vm-open');
+    setTimeout(function(){ if (!m.classList.contains('on')) stage.innerHTML = ''; }, 350);
+    if (lenis) lenis.start();
+    if (last) last.focus && last.focus();
+  }
+  m.addEventListener('click', function(e){ if (e.target === m || e.target.closest('.vm-x')) close(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && m.classList.contains('on')) close(); });
+  return function(kind, src){
+    last = document.activeElement;
+    stage.className = 'vm-stage ' + (kind === 'clip' ? 'tall' : kind === 'frame' ? 'wide' : 'auto');
+    if (kind === 'frame') stage.innerHTML = '<iframe src="' + src + '" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="Video de Martini Bar"></iframe>';
+    else stage.innerHTML = '<video src="' + src + '" autoplay loop playsinline ' + (kind === 'clip' ? 'muted' : 'controls') + '></video>';
+    var vv = stage.querySelector('video'); if (vv){ vv.muted = kind === 'clip'; var pr = vv.play(); if (pr && pr.catch) pr.catch(function(){}); }
+    m.classList.add('on'); document.documentElement.classList.add('vm-open');
+    if (lenis) lenis.stop();
+    m.querySelector('.vm-x').focus();
+  };
+})();
+window.openClip = function(src){ openModal('clip', src); };
+
+/* ============================================================
    La noche en video: lo que Talal sube en el admin (/api/videos)
    con los links de YouTube de respaldo si la API no responde
    ============================================================ */
@@ -210,14 +239,9 @@ gsapReady.then(function(){
     b.innerHTML = thumb + '<span class="play" aria-hidden="true"></span>' + (v.titulo ? '<span class="vt">' + esc(v.titulo) + '</span>' : '');
     b.setAttribute('aria-label', 'Ver video' + (v.titulo ? ': ' + v.titulo : ''));
     b.addEventListener('click', function(){
-      if (b.classList.contains('on')) return;
-      b.classList.add('on');
-      if (v.tipo === 'r2'){
-        b.innerHTML = '<video src="/api/video/' + encodeURIComponent(v.video_key) + '" controls autoplay playsinline></video>';
-      } else {
-        var src = id ? 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&playsinline=1&rel=0' : v.url;
-        b.innerHTML = '<iframe src="' + esc(src) + '" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="Video de Martini Bar"></iframe>';
-      }
+      if (v.tipo === 'r2') openModal('video', '/api/video/' + encodeURIComponent(v.video_key));
+      else if (id) openModal('frame', 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&playsinline=1&rel=0&modestbranding=1');
+      else openModal('frame', v.url);
     });
     return b;
   }

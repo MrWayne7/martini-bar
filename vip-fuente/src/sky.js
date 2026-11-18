@@ -75,8 +75,16 @@ function initSky(){
     u.st = 0;
   }
   /* videos de la noche: arrancan en bucle al acercarte y se apagan al dejarlos atrás (cuida batería y memoria) */
+  var vidBox = document.createElement('div');
+  vidBox.setAttribute('aria-hidden', 'true');
+  vidBox.style.cssText = 'position:fixed;left:0;top:0;width:2px;height:2px;overflow:hidden;opacity:0.01;pointer-events:none;z-index:-1;';
+  document.body.appendChild(vidBox);
+  function kickVids(){   // iPhone: si el autoplay se bloqueó, el primer toque los arranca
+    frames.forEach(function(g){ var u = g.userData; if (u.video && u.vs !== 2){ var pr = u.video.play(); if (pr && pr.catch) pr.catch(function(){}); } });
+  }
+  ['touchstart', 'pointerdown', 'keydown', 'wheel'].forEach(function(ev){ window.addEventListener(ev, kickVids, { passive: true }); });
   function ensureVid(g){
-    var u = g.userData; if (u.vs || reduce || !VID[u.key]) return;
+    var u = g.userData; if (u.vs || !VID[u.key]) return;
     u.vs = 1;
     var v = document.createElement('video');
     v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'auto';
@@ -86,12 +94,12 @@ function initSky(){
       var vt = new THREE.VideoTexture(v); vt.minFilter = THREE.LinearFilter; vt.magFilter = THREE.LinearFilter; vt.generateMipmaps = false;
       u.vt = vt; u.mat.uniforms.map.value = vt; u.vs = 2;
     });
-    v.src = VID[u.key].u; u.video = v;
-    var pr = v.play(); if (pr && pr.catch) pr.catch(function(){ u.vs = 3; });   // sin autoplay: se queda la portada
+    v.src = VID[u.key].u; u.video = v; vidBox.appendChild(v);
+    var pr = v.play(); if (pr && pr.catch) pr.catch(function(){});   // sin autoplay: portada hasta el primer toque
   }
   function dropVid(g){
     var u = g.userData; if (!u.vs) return;
-    if (u.video){ u.video.pause(); u.video.removeAttribute('src'); u.video.load(); u.video = null; }
+    if (u.video){ u.video.pause(); u.video.removeAttribute('src'); u.video.load(); if (u.video.parentNode) u.video.parentNode.removeChild(u.video); u.video = null; }
     if (u.vt){ u.vt.dispose(); u.vt = null; }
     if (u.vs === 2) u.mat.uniforms.map.value = u.tex || blackTex;
     u.vs = 0;
@@ -315,8 +323,9 @@ function initSky(){
     '  float o=g*0.012; vec3 c=vec3(texture2D(map,uv+vec2(o,0.0)).r,texture2D(map,uv).g,texture2D(map,uv-vec2(o,0.0)).b);',
     '  float fl=1.0-step(0.55,h1(floor(uTime*26.0)+3.0))*g*0.85;',
     '  float a=clamp(uOn*1.15,0.0,1.0)*fl; if(a<0.02) discard;',
-    '  c*=0.92+0.08*sin(vUv.y*480.0);',
-    '  gl_FragColor=vec4(mix(c,fogColor,smoothstep(fogNear,fogFar,vF)*0.8),a);',
+    '  c*=(0.965+0.035*sin(vUv.y*480.0))*1.12;',
+    '  vec2 q=abs(vUv-0.5)*2.0; float rr=0.06; vec2 k=max(q-(1.0-rr),0.0); a*=1.0-smoothstep(rr*0.7,rr,length(k));',
+    '  gl_FragColor=vec4(mix(c,fogColor,smoothstep(fogNear,fogFar,vF)*0.45),a);',
     '}'].join('\n');
   var EDGE_FS = [
     'uniform float uOn,uTime,uW,uH; uniform vec3 uCol; varying vec2 vUv;',
@@ -350,13 +359,32 @@ function initSky(){
     journey.add(g); frames.push(g);
     return g;
   }
-  photoFrame('v-fach', 2.8, -3.9, FLOOR + 2.1, -13, 0.62, 0xff3a55, 13);     // la fachada con el letrero
-  photoFrame('v-neon', 3.0, -4.2, FLOOR + 2.3, -45, 0.55, 0x9a7cff);          // la pista y las copas de neón
-  photoFrame('v-gente', 3.0, 4.2, FLOOR + 2.2, -59, -0.55, 0x5fe0ff);          // la gente
-  photoFrame('v-mascaras', 2.9, 4.3, FLOOR + 2.2, -72, -0.55, 0xff5fa8);       // los disfraces
-  photoFrame('v-baile', 2.9, 4.3, FLOOR + 2.1, -90, -0.6, 0xffb060);           // bailando junto a la barra
-  photoFrame('v-dj', 2.0, 4.4, FLOOR + 2.4, -107, -0.6, 0xffd08a);             // el DJ en la cabina
-  photoFrame('v-redroom', 2.8, -6.6, FLOOR + 2.1, -123, 0.5, 0xff2a55);        // la noche del Red Room
+  photoFrame('v-fach', 3.3, -3.6, FLOOR + 2.15, -13, 0.48, 0xff3a55, 13);    // la fachada con el letrero
+  photoFrame('v-neon', 3.7, -3.6, FLOOR + 2.4, -44, 0.42, 0x9a7cff);          // la pista y las copas de neón
+  photoFrame('v-gente', 3.7, 3.6, FLOOR + 2.4, -59, -0.42, 0x5fe0ff);         // la gente
+  photoFrame('v-mascaras', 3.6, -3.6, FLOOR + 2.4, -76, 0.42, 0xff5fa8);      // los disfraces
+  photoFrame('v-baile', 3.6, 3.7, FLOOR + 2.35, -90, -0.45, 0xffb060);        // bailando junto a la barra
+  photoFrame('v-dj', 2.5, 3.8, FLOOR + 2.5, -107, -0.45, 0xffd08a);           // el DJ en la cabina
+  photoFrame('v-redroom', 3.4, -4.6, FLOOR + 2.3, -123, 0.42, 0xff2a55);      // la noche del Red Room
+
+  /* tocar un cartel lo abre en grande */
+  var ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+  function hitFrame(x, y){
+    ndc.set(x / innerWidth * 2 - 1, -(y / innerHeight) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    var ms = []; frames.forEach(function(g){ if (g.userData.mat.uniforms.uOn.value > 0.5) ms.push(g.children[1]); });
+    var h = ms.length ? ray.intersectObjects(ms, false) : [];
+    return h.length ? h[0].object.parent.userData.key : null;
+  }
+  document.addEventListener('click', function(e){
+    if (e.target.closest && e.target.closest('a,button,input,textarea,label,select,.vmodal,.mesas,.lugar,.noche,.reservar,footer')) return;
+    var k = hitFrame(e.clientX, e.clientY);
+    if (k && VID[k] && window.openClip) window.openClip(VID[k].u);
+  });
+  if (finePointer) document.addEventListener('pointermove', function(e){
+    if (e.target.closest && e.target.closest('a,button,.mesas,.lugar,.noche,.reservar,footer')) return;
+    document.documentElement.classList.toggle('over-clip', !!hitFrame(e.clientX, e.clientY));
+  }, { passive: true });
 
   /* ============ ACTO 2: la pista ============ */
   /* bola de espejos: caras planas de brillo distinto y reflejos que giran con ella */
@@ -459,13 +487,13 @@ function initSky(){
   }
   var words = [];
   var WORDS = [['DJ EN VIVO', 0, 'rgba(120,150,255,0.6)'], ['todos los sábados', 1, 'rgba(255,110,190,0.6)'], ['HASTA LA MADRUGADA', 0, 'rgba(110,255,210,0.55)']];
-  var WZ = [-38, -55, -68];
+  var WZ = [-33, -52, -65];
   function buildText(){
     WORDS.forEach(function(wd, n){
       var it = !!wd[1];
       var m = textPlane([wd[0]], it ? 1.25 : 1.0, { size: 150, italic: it, weight: it ? 400 : 800, family: it ? '"Instrument Serif", Georgia, serif' : undefined, glow: wd[2], maxW: 6.2 });
       var side = (n % 2 ? 1 : -1);
-      m.position.set(0, (n % 2 ? 2.6 : 1.4), WZ[n]);
+      m.position.set(0, (n % 2 ? 3.2 : 2.5), WZ[n]);
       m.userData.by = m.position.y; m.userData.ph = n * 1.7;
       place(m, side * (1.4 + (n % 3) * 0.5), 1);
       journey.add(m); words.push(m);
@@ -969,7 +997,7 @@ function initSky(){
         for (var ti = 0; ti < lazy.length; ti++){
           var lg = lazy[ti], lz = cz - lg.position.z;
           if (lz < 40 && lz > -14) ensureTex(lg); else if (lz > 70 || lz < -30) dropTex(lg);
-          if (lz < 24 && lz > -5) ensureVid(lg); else if (lz > 32 || lz < -9) dropVid(lg);
+          if (lz < 30 && lz > -5) ensureVid(lg); else if (lz > 38 || lz < -9) dropVid(lg);
         }
       }
       // fotos y palabras: se encienden como neón al acercarte y se apagan al pasar

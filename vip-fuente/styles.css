@@ -279,10 +279,25 @@ html.lenis,html.lenis body{height:auto;}
 .vcard .play::after{content:"";margin-left:4px;border-left:16px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;}
 .vcard:hover .play{transform:scale(1.1);}
 .vcard .vt{position:absolute;left:0;right:0;bottom:0;padding:40px 14px 14px;font-size:13.5px;background:linear-gradient(transparent,rgba(0,0,0,.85));pointer-events:none;}
-.vcard.on .play,.vcard.on .vt{display:none;}
 .noche-more{margin-top:clamp(28px,3vw,44px);display:flex;justify-content:center;}
 @media (max-width:1100px){ .noche-grid{grid-template-columns:repeat(3,minmax(0,1fr));} }
 @media (max-width:900px){
   .noche-head{grid-template-columns:1fr;} .noche-head .lead{justify-self:start;}
 }
 @media (max-width:560px){ .noche-grid{grid-template-columns:1fr 1fr;} }
+
+/* visor de video */
+.vmodal{position:fixed;inset:0;z-index:200;background:rgba(4,2,3,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;padding:calc(64px + env(safe-area-inset-top,0px)) 16px calc(24px + env(safe-area-inset-bottom,0px));opacity:0;pointer-events:none;transition:opacity .35s ease;}
+.vmodal.on{opacity:1;pointer-events:auto;}
+.vm-stage{position:relative;border-radius:18px;overflow:hidden;background:#000;box-shadow:0 0 0 1px rgba(216,180,106,.35),0 0 80px rgba(140,13,36,.55);transform:scale(.94);transition:transform .45s cubic-bezier(.2,.7,.2,1);}
+.vmodal.on .vm-stage{transform:none;}
+.vm-stage.tall{height:min(100%,86vh);aspect-ratio:9/16;max-width:100%;}
+.vm-stage.wide{width:min(100%,1100px,calc((100vh - 120px)*16/9));aspect-ratio:16/9;}
+.vm-stage.auto{max-width:min(100%,1100px);max-height:100%;}
+.vm-stage video,.vm-stage iframe{display:block;width:100%;height:100%;border:0;object-fit:contain;background:#000;}
+.vm-stage.auto video{width:auto;height:auto;max-width:100%;max-height:calc(100vh - 120px);}
+.vm-x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:16px;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.4);color:#fff;font-size:28px;line-height:1;cursor:pointer;}
+.vm-x:hover{background:var(--velvet);}
+.vm-open,.vm-open body{overflow:hidden;}
+.over-clip body,.over-clip #top{cursor:pointer;}
+.vm-stage.tall video{object-fit:cover;}
