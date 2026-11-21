@@ -1,15 +1,15 @@
 #!/bin/zsh
 cd "$(dirname "$0")"
 exec > >(tee publicar.log) 2>&1
-echo "== 1/5 Tabla de la lista"
-npx wrangler@latest d1 execute martini-bar-db --remote --yes --file=schema-lista.sql || echo "FALLO tabla lista"
-echo "== 2/5 Evento sabado 21 y Red Room pasados"
-bash evento-sabado21.sh || echo "FALLO evento"
-echo "== 3/5 Git"
+export FILTER_BRANCH_SQUELCH_WARNING=1
+echo "== 1/3 Guardar cambios"
+git rm -q --cached --ignore-unmatch "FLYER SABADO 21.jpg"
 git add -A
-git commit -m "Lista de invitados con QR, evento sabado 21, SEO y links de eventos corregidos" || true
-echo "== 4/5 GitHub"
-git push origin HEAD || echo "FALLO push"
-echo "== 5/5 Publicar en Cloudflare"
-npx wrangler@latest pages deploy . --project-name=martini-bar --commit-dirty=true || echo "FALLO deploy"
+git commit -q -m "Ajustes de publicacion" || true
+echo "== 2/3 Sacar videos pesados del historial de git (los archivos siguen en la carpeta)"
+git filter-branch -f --index-filter 'git rm -r -q --cached --ignore-unmatch "ONLY NEW VIDEOS" "EXPORTED" "NEW PHOTOS AND VIDEOS" "CONTENIDO MARTINI" "SONG" "videos-noche" "FLYER SABADO 21.jpg"' -- origin/main..main || { echo "FALLO limpieza"; exit 1; }
+echo "Archivos de mas de 50MB que quedan por subir:"
+git rev-list --objects origin/main..main | git cat-file --batch-check='%(objectsize) %(rest)' | awk '$1>50000000'
+echo "== 3/3 GitHub"
+git push origin main || echo "FALLO push"
 echo "== LISTO"
