@@ -139,6 +139,32 @@ button{cursor:pointer}
 .toast.bad{border-color:rgba(255,143,163,.5);color:var(--red)}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 
+
+/* ---------- lista ---------- */
+.li-top{display:flex;gap:.6rem;align-items:center;margin-bottom:1rem;flex-wrap:wrap}
+.li-scan{flex:1;min-width:220px;display:flex;align-items:center;justify-content:center;gap:.6rem;background:var(--paper);color:#000;border:none;border-radius:10px;padding:1rem;font-weight:700;font-size:1.02rem}
+.li-scan svg{width:22px;height:22px}
+.li-stats{grid-template-columns:repeat(4,1fr)}
+@media(max-width:640px){.li-stats{grid-template-columns:repeat(2,1fr)}}
+.li-share{display:flex;flex-wrap:wrap;gap:.5rem .7rem;align-items:center;border:1px dashed var(--line);border-radius:10px;padding:.8rem 1rem;margin:1rem 0;font-size:.88rem;color:var(--silver)}
+.li-share code{color:var(--paper);font-size:.92rem}
+.li-share .hint{flex-basis:100%;color:var(--muted);font-size:.8rem}
+.rcard.entro{opacity:.6}
+.badge.st-entro{color:var(--green);border-color:rgba(201,255,232,.4)}
+.badge.st-inscrito{color:var(--amber);border-color:rgba(255,225,168,.4)}
+.badge.org{color:var(--blue);border-color:rgba(188,212,255,.4)}
+.scan{position:fixed;inset:0;z-index:70;background:#000;display:none}
+.scan.on{display:block}
+.scan video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.scan-frame{position:absolute;left:50%;top:44%;width:min(70vw,320px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:22px;box-shadow:0 0 0 200vmax rgba(0,0,0,.55);border:2px solid rgba(255,255,255,.8)}
+.scan-res{position:absolute;left:1rem;right:1rem;top:max(1rem,env(safe-area-inset-top));border-radius:14px;padding:1.1rem 1.2rem;font-size:1.15rem;font-weight:700;text-align:center;opacity:0;transform:translateY(-10px);transition:.3s var(--ease)}
+.scan-res.show{opacity:1;transform:none}
+.scan-res.ok{background:#0d3b2a;color:var(--green);border:1px solid rgba(201,255,232,.6)}
+.scan-res.warn{background:#3b2d0d;color:var(--amber);border:1px solid rgba(255,225,168,.6)}
+.scan-res.bad{background:#3b0d16;color:var(--red);border:1px solid rgba(255,143,163,.6)}
+.scan-res small{display:block;font-weight:500;font-size:.9rem;margin-top:.25rem;color:var(--paper);opacity:.85}
+.scan-bar{position:absolute;left:0;right:0;bottom:0;display:flex;gap:.5rem;padding:1rem 1rem max(1rem,env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(0,0,0,.85) 30%)}
+.scan-bar input{flex:1;min-width:0;background:rgba(0,0,0,.6);border:1px solid var(--line);border-radius:8px;color:var(--paper);font-size:16px;padding:.7rem .8rem;text-transform:uppercase;letter-spacing:.1em}
 /* ---------- tabs ---------- */
 .tabs{display:flex;gap:.5rem;margin-bottom:1.6rem;border-bottom:1px solid var(--line-soft)}
 .tab{background:none;border:none;color:var(--muted);font-size:.95rem;font-weight:600;padding:.7rem .2rem;margin-right:1.2rem;position:relative;transition:color .2s}
@@ -339,6 +365,7 @@ button{cursor:pointer}
       <button class="tab" data-pane="eventos">Eventos</button>
       <button class="tab" data-pane="blog">Blog</button>
       <button class="tab" data-pane="videos">Videos</button>
+      <button class="tab" data-pane="lista">Lista</button>
     </div>
 
     <!-- ===== PANE RESERVAS ===== -->
@@ -505,6 +532,41 @@ button{cursor:pointer}
 
       <div class="vid-list" id="vidList"></div>
     </div><!-- /pane-videos -->
+
+    <!-- ===== PANE LISTA ===== -->
+    <div class="pane" id="pane-lista">
+      <div class="li-top">
+        <button class="li-scan" id="liScan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"/></svg>Escanear en la puerta</button>
+        <select class="datef" id="liFecha" aria-label="Noche"></select>
+        <button class="iconbtn" id="liCsv" title="Exportar contactos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></button>
+      </div>
+      <div class="stats li-stats">
+        <div class="stat"><div class="n" id="li-ins">0</div><div class="l">Anotados</div></div>
+        <div class="stat"><div class="n" id="li-ppl">0</div><div class="l">Personas</div></div>
+        <div class="stat"><div class="n g" id="li-in">0</div><div class="l">Ya entraron</div></div>
+        <div class="stat"><div class="n a" id="li-cont">0</div><div class="l">Contactos en total</div></div>
+      </div>
+      <div class="li-share">
+        <span>Link para compartir:</span>
+        <code id="liLink">martinibar.live/lista</code>
+        <button class="act mini" id="liCopy" title="Copiar link">Copiar</button>
+        <span class="hint">Para un promotor: agrega <b>?p=nombre</b> al final y verás quién trajo a cada persona.</span>
+      </div>
+      <div class="filters"><input class="search" id="liSearch" type="search" placeholder="Buscar nombre, teléfono o código…" enterkeyhint="search"></div>
+      <div class="list" id="liList"></div>
+    </div><!-- /pane-lista -->
+
+    <!-- escáner de la puerta -->
+    <div class="scan" id="scan" aria-hidden="true">
+      <video id="scanVid" playsinline muted></video>
+      <div class="scan-frame"></div>
+      <div class="scan-res" id="scanRes"></div>
+      <div class="scan-bar">
+        <input id="scanCode" placeholder="O escribe el código" autocapitalize="characters">
+        <button class="act ok" id="scanGo">Validar</button>
+        <button class="act" id="scanClose">Cerrar</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -703,8 +765,112 @@ $$('.tab').forEach(t=>t.addEventListener('click',()=>{
   if(pane==='eventos')loadEventos();
   if(pane==='blog')loadPosts();
   if(pane==='videos'){loadVideos();loadStorage();}
+  if(pane==='lista')loadLista();
 }));
 
+
+/* ================= LISTA DE INVITADOS ================= */
+let liRows=[], liFecha='', liSabado='';
+const liCodeFrom=t=>{t=(t||'').trim();const m=t.match(/[?&]c=([A-Za-z0-9]+)/);return (m?m[1]:t).toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,12);};
+async function loadLista(fecha){
+  const list=$('#liList');list.innerHTML='<div class="skeleton"></div>'.repeat(2);
+  try{
+    const res=await api('/api/lista'+(fecha?'?fecha='+fecha:''));const d=await res.json();
+    if(!d.ok)throw new Error(d.error||'Error');
+    liRows=d.lista;liFecha=d.fecha;liSabado=d.sabado;
+    const sel=$('#liFecha');const fechas=new Set([d.sabado,...d.noches.map(n=>n.fecha)]);
+    sel.innerHTML=[...fechas].sort().reverse().map(f=>`<option value="${f}" ${f===d.fecha?'selected':''}>${esc(fmtDate(f))}${f===d.sabado?' · este sábado':''}</option>`).join('');
+    renderLista();
+    api('/api/lista?todo=1').then(r=>r.json()).then(c=>{if(c.ok)countUp($('#li-cont'),c.contactos.length);});
+  }catch(e){list.innerHTML=`<div class="state err"><div class="big">${esc(e.message)}</div><div>Si es la primera vez, falta crear la tabla de la lista en la base de datos.</div></div>`;}
+}
+function renderLista(){
+  const q=$('#liSearch').value.trim().toLowerCase();
+  const rows=liRows.filter(r=>!q||(r.nombre+' '+r.telefono+' '+r.codigo).toLowerCase().includes(q));
+  countUp($('#li-ins'),liRows.length);
+  countUp($('#li-ppl'),liRows.reduce((a,r)=>a+r.personas,0));
+  countUp($('#li-in'),liRows.filter(r=>r.estado==='entro').reduce((a,r)=>a+r.personas,0));
+  const list=$('#liList');
+  if(!rows.length){list.innerHTML=`<div class="state"><div class="big">${liRows.length?'Nadie con ese nombre':'Todavía nadie en la lista'}</div><div>Comparte martinibar.live/lista en las historias y en los grupos.</div></div>`;return;}
+  list.innerHTML=rows.map(r=>{
+    const wp=waPhone(r.telefono);
+    const hora=r.entro_en?new Date(r.entro_en.replace(' ','T')+'Z').toLocaleTimeString('es',{hour:'numeric',minute:'2-digit'}):'';
+    return `<div class="rcard ${r.estado==='entro'?'entro':''}" data-c="${r.codigo}">
+      <div class="r-main">
+        <div class="r-top"><span class="r-name">${esc(r.nombre)}</span>
+          <span class="badge st-${r.estado}">${r.estado==='entro'?'Entró '+hora:'En la lista'}</span>
+          ${r.origen?`<span class="badge org">${esc(r.origen)}</span>`:''}</div>
+        <div class="r-meta"><span><span class="k">Personas</span> ${r.personas}</span><span><span class="k">Código</span> ${esc(r.codigo)}</span>
+          <span class="r-tel"><span class="k">Tel</span> ${wp?`<a href="https://wa.me/${wp}" target="_blank" rel="noopener">${esc(r.telefono)}</a>`:esc(r.telefono)}</span></div>
+      </div>
+      <div class="r-actions">
+        ${r.estado==='entro'?`<button class="act" data-a="undo">Deshacer entrada</button>`:`<button class="act ok" data-a="in">Marcar entrada</button>`}
+        <button class="act no" data-a="del">Quitar</button>
+      </div></div>`;}).join('');
+}
+$('#liSearch').addEventListener('input',renderLista);
+$('#liFecha').addEventListener('change',e=>loadLista(e.target.value));
+$('#liList').addEventListener('click',async e=>{
+  const b=e.target.closest('[data-a]');if(!b)return;const c=b.closest('[data-c]').dataset.c;
+  if(b.dataset.a==='del'){if(!confirm('¿Quitar a esta persona de la lista?'))return;await api('/api/lista/'+c,{method:'DELETE'});toast('Quitado de la lista');return loadLista(liFecha);}
+  const res=await api('/api/lista/'+c,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(b.dataset.a==='undo'?{estado:'inscrito'}:{})});
+  const d=await res.json();if(!d.ok)return toast(d.error,'bad');
+  toast(b.dataset.a==='undo'?'Entrada deshecha':'¡Adentro! ✓','good');loadLista(liFecha);
+});
+$('#liLink').textContent=location.host.replace(/^www\./,'')+'/lista';
+$('#liCopy').addEventListener('click',()=>{navigator.clipboard&&navigator.clipboard.writeText('https://'+$('#liLink').textContent).then(()=>toast('Link copiado','good'));});
+$('#liCsv').addEventListener('click',async()=>{
+  const d=await (await api('/api/lista?todo=1')).json();if(!d.ok)return toast(d.error,'bad');
+  const head=['nombre','whatsapp','noches_anotado','noches_que_vino','primera','ultima','promotor'];
+  const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+  const rows=d.contactos.map(c=>[c.nombre,'+'+c.telefono,c.noches,c.vino,c.primera,c.ultima,c.origen||''].map(q).join(','));
+  const blob=new Blob(['﻿'+head.join(',')+'\n'+rows.join('\n')],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='contactos-martini-bar.csv';a.click();
+  toast(d.contactos.length+' contactos exportados','good');
+});
+
+/* escáner: cámara trasera + jsQR (se carga solo al abrirlo) */
+let scanStream=null,scanLoop=0,scanBusy=false,lastCode='',lastAt=0;
+function loadJsQR(){return window.jsQR?Promise.resolve():new Promise((ok,ko)=>{const s=document.createElement('script');s.src='/assets/js/jsqr.min.js';s.onload=ok;s.onerror=ko;document.head.appendChild(s);});}
+function scanMsg(kind,big,small){const r=$('#scanRes');r.className='scan-res show '+kind;r.innerHTML=esc(big)+(small?`<small>${esc(small)}</small>`:'');
+  if(navigator.vibrate)navigator.vibrate(kind==='ok'?80:[60,60,60]);clearTimeout(r._t);r._t=setTimeout(()=>r.className='scan-res',3500);}
+async function validar(code){
+  if(!code||scanBusy)return;scanBusy=true;
+  try{
+    const res=await api('/api/lista/'+code,{method:'PATCH',headers:{'Content-Type':'application/json'},body:'{}'});const d=await res.json();
+    if(!d.ok)scanMsg('bad','No está en la lista',code);
+    else if(d.yaEntro){const h=d.pase.entro_en?new Date(d.pase.entro_en.replace(' ','T')+'Z').toLocaleTimeString('es',{hour:'numeric',minute:'2-digit'}):'';scanMsg('warn','Este QR ya entró '+h,d.pase.nombre+' · '+d.pase.personas+' persona'+(d.pase.personas>1?'s':''));}
+    else if(d.pase.fecha!==liSabado)scanMsg('warn','✓ '+d.pase.nombre+' — pase de otra noche',fmtDate(d.pase.fecha)+' · '+d.pase.personas+' persona'+(d.pase.personas>1?'s':''));
+    else scanMsg('ok','✓ '+d.pase.nombre,d.pase.personas+' persona'+(d.pase.personas>1?'s':'')+' · puede pasar');
+  }catch(e){scanMsg('bad','Sin conexión','Intenta otra vez');}
+  scanBusy=false;
+}
+async function openScan(){
+  $('#scan').classList.add('on');$('#scan').setAttribute('aria-hidden','false');
+  try{
+    await loadJsQR();
+    scanStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});
+    const v=$('#scanVid');v.srcObject=scanStream;await v.play();
+    const cv=document.createElement('canvas'),cx=cv.getContext('2d',{willReadFrequently:true});
+    const tick=()=>{
+      if(!scanStream)return;
+      if(v.readyState>=2&&!scanBusy){
+        const w=480,h=Math.round(480*v.videoHeight/v.videoWidth)||480;cv.width=w;cv.height=h;cx.drawImage(v,0,0,w,h);
+        const img=cx.getImageData(0,0,w,h);const r=window.jsQR(img.data,w,h,{inversionAttempts:'dontInvert'});
+        if(r&&r.data){const c=liCodeFrom(r.data);const now=Date.now();if(c&&(c!==lastCode||now-lastAt>4000)){lastCode=c;lastAt=now;validar(c);}}
+      }
+      scanLoop=requestAnimationFrame(tick);
+    };tick();
+  }catch(e){scanMsg('bad','No se pudo abrir la cámara','Escribe el código abajo');}
+}
+function closeScan(){
+  cancelAnimationFrame(scanLoop);if(scanStream){scanStream.getTracks().forEach(t=>t.stop());scanStream=null;}
+  $('#scan').classList.remove('on');$('#scan').setAttribute('aria-hidden','true');loadLista(liFecha);
+}
+$('#liScan').addEventListener('click',openScan);
+$('#scanClose').addEventListener('click',closeScan);
+$('#scanGo').addEventListener('click',()=>{validar(liCodeFrom($('#scanCode').value));$('#scanCode').value='';});
+$('#scanCode').addEventListener('keydown',e=>{if(e.key==='Enter')$('#scanGo').click();});
 /* ================= EVENTOS ================= */
 let evFileData=null;
 

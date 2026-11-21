@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>Ponte en la lista — Martini Bar El Vigía</title>
+<meta name="description" content="Ponte en la lista de Martini Bar para este sábado. Te llega tu pase con QR al instante: lo muestras en la puerta y entras directo. El Vigía, Mérida.">
+<link rel="canonical" href="https://martinibar.live/lista">
+<meta property="og:title" content="Ponte en la lista — Martini Bar">
+<meta property="og:description" content="Tu pase con QR para este sábado. Lo muestras en la puerta y entras directo.">
+<meta property="og:url" content="https://martinibar.live/lista">
+<meta property="og:image" content="https://martinibar.live/assets/og.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23000'/%3E%3Cpath d='M4 5h16l-8 8-8-8Z M12 13v6 M8 21h8' stroke='%23c9ffe8' stroke-width='1.3' fill='none'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#000;--void:#060606;--card:#0c0b0b;--paper:#f2f3ee;--silver:#9a9d9f;--muted:#66625e;
+  --line:rgba(242,243,238,.14);--velvet:#8c0d24;--gold:#d8b46a;--mint:#c9ffe8;
+  --holo:linear-gradient(115deg,#fff,#c8d6ff 22%,#ffc9f0 44%,#c9ffe8 66%,#eae0ff 84%,#fff);
+  --font:'Bricolage Grotesque',system-ui,-apple-system,sans-serif;--serif:'Instrument Serif',Georgia,serif;
+  --ease:cubic-bezier(.19,1,.22,1);--pad:clamp(18px,5vw,40px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#000;-webkit-text-size-adjust:100%}
+body{background:radial-gradient(90% 60% at 80% 0%,rgba(140,13,36,.38),transparent 60%),radial-gradient(70% 50% at 0% 100%,rgba(201,255,232,.07),transparent 60%),#000;color:var(--paper);font-family:var(--font);min-height:100vh;min-height:100dvh;-webkit-font-smoothing:antialiased;line-height:1.4}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+.top{display:flex;align-items:center;justify-content:space-between;padding:calc(16px + env(safe-area-inset-top,0px)) var(--pad) 16px}
+.top img{height:64px;display:block;mix-blend-mode:screen;margin:-10px 0}
+.top a.back{font-size:14px;color:var(--silver);text-decoration:none;border:1px solid var(--line);border-radius:99px;padding:8px 14px}
+main{max-width:1120px;margin:0 auto;padding:clamp(16px,4vw,48px) var(--pad) calc(60px + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(28px,6vw,80px);align-items:start}
+.kick{display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.kick::before{content:"";width:28px;height:1px;background:var(--gold)}
+h1{font-weight:800;font-size:clamp(54px,9vw,128px);line-height:.88;letter-spacing:-.045em;margin:18px 0 0}
+h1 .it{display:block;font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em;background:var(--holo);background-size:250% 250%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:holo 9s var(--ease) infinite}
+@keyframes holo{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.when{margin-top:22px;font-family:var(--serif);font-style:italic;font-size:clamp(22px,2.6vw,30px);color:#e9e2d4}
+.perks{list-style:none;margin-top:30px;display:grid;gap:12px;max-width:460px}
+.perks li{display:flex;gap:14px;align-items:flex-start;font-size:16px;color:#d9d6cf}
+.perks li i{flex:none;width:28px;height:28px;border-radius:50%;border:1px solid rgba(216,180,106,.5);display:grid;place-items:center;font-style:normal;font-size:13px;color:var(--gold);margin-top:-2px}
+.vip-note{margin-top:28px;font-size:14.5px;color:var(--silver)}
+.vip-note a{color:var(--paper)}
+
+/* tarjeta derecha */
+.panel{position:relative;border:1px solid var(--line);border-radius:22px;background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));padding:clamp(22px,3vw,34px);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.panel h2{font-size:22px;font-weight:700;letter-spacing:-.01em}
+.panel p.s{color:var(--silver);font-size:14.5px;margin-top:4px}
+label{display:block;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--silver);margin:20px 0 8px}
+input[type=text],input[type=tel]{width:100%;background:rgba(0,0,0,.4);border:1px solid var(--line);border-radius:12px;color:var(--paper);font-size:17px;padding:15px 16px;outline:none;transition:border-color .2s}
+input:focus{border-color:var(--gold)}
+.stepper{display:flex;align-items:center;border:1px solid var(--line);border-radius:12px;overflow:hidden;width:max-content}
+.stepper button{width:54px;height:52px;background:none;border:none;color:var(--paper);font-size:24px}
+.stepper button:active{background:rgba(255,255,255,.06)}
+.stepper output{min-width:64px;text-align:center;font-size:20px;font-weight:700}
+.stepper-hint{font-size:13px;color:var(--muted);margin-top:8px}
+.go{margin-top:26px;width:100%;border:none;border-radius:99px;background:var(--velvet);color:#fff;font-weight:700;font-size:18px;padding:18px;box-shadow:0 0 40px rgba(140,13,36,.65);transition:transform .3s var(--ease),box-shadow .3s}
+.go:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(140,13,36,.85)}
+.go[disabled]{opacity:.6;pointer-events:none}
+.err{color:#ff8fa3;font-size:14px;margin-top:12px;min-height:1.2em}
+.legal{font-size:12px;color:var(--muted);margin-top:14px}
+
+/* pase */
+.pase{display:none}
+.on-pase .form{display:none}
+.on-pase .pase{display:block}
+.ticket{position:relative;border-radius:20px;overflow:hidden;background:linear-gradient(170deg,#170609 0%,#0b0506 60%);border:1px solid rgba(216,180,106,.4);box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 80px rgba(140,13,36,.35)}
+.t-head{display:flex;justify-content:space-between;align-items:center;padding:20px 22px 0}
+.t-head img{height:58px;mix-blend-mode:screen;margin:-12px 0 -12px -8px}
+.t-badge{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(216,180,106,.5);border-radius:99px;padding:6px 12px}
+.t-name{padding:16px 22px 0;font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.t-sub{padding:6px 22px 0;font-family:var(--serif);font-style:italic;font-size:20px;color:#e9e2d4}
+.t-qr{margin:20px 22px 0;background:#fff;border-radius:14px;padding:16px;display:grid;place-items:center}
+.t-qr canvas{width:100%;max-width:280px;height:auto;image-rendering:pixelated;display:block}
+.t-cut{position:relative;margin:22px 0 0;border-top:1.5px dashed rgba(216,180,106,.35)}
+.t-cut::before,.t-cut::after{content:"";position:absolute;top:-12px;width:24px;height:24px;border-radius:50%;background:#000}
+.t-cut::before{left:-12px}.t-cut::after{right:-12px}
+.t-foot{display:flex;justify-content:space-between;padding:16px 22px 20px;font-size:13px;color:var(--silver)}
+.t-foot b{display:block;color:var(--paper);font-size:16px;margin-top:2px;letter-spacing:.06em}
+.t-used{position:absolute;inset:0;display:none;place-items:center;background:rgba(0,0,0,.7);font-size:28px;font-weight:800;letter-spacing:.1em;color:var(--mint)}
+.ticket.entro .t-used{display:grid}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.acts a,.acts button{border:1px solid var(--line);border-radius:99px;background:none;color:var(--paper);text-decoration:none;text-align:center;padding:14px 10px;font-size:15px;font-weight:600}
+.acts .gold{grid-column:1/-1;background:var(--paper);color:#000;border-color:var(--paper)}
+.pase-note{font-size:13.5px;color:var(--silver);margin-top:14px;text-align:center}
+.again{display:block;margin:14px auto 0;background:none;border:none;color:var(--muted);font-size:13px;text-decoration:underline}
+
+.reveal{opacity:0;transform:translateY(24px);animation:in 1s var(--ease) forwards}
+.reveal.d1{animation-delay:.08s}.reveal.d2{animation-delay:.16s}.reveal.d3{animation-delay:.24s}
+@keyframes in{to{opacity:1;transform:none}}
+@media (max-width:860px){
+  main{grid-template-columns:1fr;gap:30px}
+  .perks{margin-top:22px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "z6d09cydt7");
+</script>
+</head>
+<body>
+<header class="top">
+  <a href="/" aria-label="Martini Bar, inicio"><img src="/assets/logo-blanco.png" alt="Martini Bar"></a>
+  <a class="back" href="/vip/">Mesas VIP</a>
+</header>
+
+<main id="main">
+  <section>
+    <div class="kick reveal">La lista de Martini</div>
+    <h1 class="reveal d1">Ponte en <span class="it">la lista.</span></h1>
+    <p class="when reveal d2" id="when">Este sábado · desde las 10pm</p>
+    <ul class="perks reveal d3">
+      <!-- BENEFICIOS: cámbialos aquí si Talal define otro beneficio para la lista -->
+      <li><i>1</i><span><b>Entras directo.</b> Muestras tu QR en la puerta y pasas por la fila de la lista.</span></li>
+      <li><i>2</i><span><b>Un QR para tu grupo.</b> Anota cuántos vienen contigo, hasta 6.</span></li>
+      <li><i>3</i><span><b>Te enteras primero</b> de los eventos especiales de Martini.</span></li>
+    </ul>
+    <p class="vip-note reveal d3">¿Vienes en grupo y quieres botella? <a href="/vip/">Reserva una mesa VIP</a>.</p>
+  </section>
+
+  <section class="panel reveal d2" id="panel">
+    <div class="form">
+      <h2>Tus datos</h2>
+      <p class="s">Te toma 10 segundos. Tu pase aparece al instante.</p>
+      <form id="f" novalidate>
+        <label for="nombre">Nombre y apellido</label>
+        <input type="text" id="nombre" autocomplete="name" maxlength="80" placeholder="Ej: María Pérez" required>
+        <label for="tel">WhatsApp</label>
+        <input type="tel" id="tel" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="0424 000 0000" required>
+        <label>¿Cuántos vienen? (contándote)</label>
+        <div class="stepper">
+          <button type="button" id="menos" aria-label="Menos">−</button>
+          <output id="pp">1</output>
+          <button type="button" id="mas" aria-label="Más">+</button>
+        </div>
+        <p class="stepper-hint">Un solo QR sirve para todo tu grupo.</p>
+        <button class="go" id="go" type="submit">Quiero mi pase</button>
+        <p class="err" id="err" role="alert"></p>
+        <p class="legal">Usamos tu número solo para la lista y para avisarte de eventos de Martini Bar.</p>
+      </form>
+    </div>
+
+    <div class="pase" id="pase" aria-live="polite">
+      <div class="ticket" id="ticket">
+        <div class="t-head"><img src="/assets/logo-blanco.png" alt="Martini Bar"><span class="t-badge">En la lista</span></div>
+        <div class="t-name" id="tName">—</div>
+        <div class="t-sub" id="tSub">—</div>
+        <div class="t-qr"><canvas id="qr" width="290" height="290" aria-label="Código QR de tu pase"></canvas></div>
+        <div class="t-cut"></div>
+        <div class="t-foot"><div>Personas<b id="tPp">1</b></div><div style="text-align:right">Código<b id="tCode">—</b></div></div>
+        <div class="t-used">YA ENTRASTE ✓</div>
+      </div>
+      <div class="acts">
+        <button type="button" id="save">Guardar imagen</button>
+        <button type="button" id="share">Compartir</button>
+        <a class="gold" href="/vip/">Reservar mesa VIP →</a>
+      </div>
+      <p class="pase-note">Haz captura o guarda la imagen. Muéstrala en la puerta.</p>
+      <button type="button" class="again" id="again">Anotar a otra persona</button>
+    </div>
+  </section>
+</main>
+
+<script src="/assets/js/qrcode.min.js"></script>
+<script>
+(function(){
+  var $ = function(s){ return document.querySelector(s); };
+  var qs = new URLSearchParams(location.search);
+  var origen = (qs.get('p') || '').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 30);
+  if (origen) try { localStorage.setItem('mb_origen', origen); } catch(e){}
+  try { origen = origen || localStorage.getItem('mb_origen') || ''; } catch(e){}
+  var pp = 1, pase = null;
+
+  function fmtFecha(f){
+    try { return new Date(f + 'T12:00:00').toLocaleDateString('es', { weekday: 'long', day: 'numeric', month: 'long' }); }
+    catch(e){ return f; }
+  }
+  function proxSabado(){
+    var d = new Date(), dow = d.getDay(), add = (6 - dow + 7) % 7;
+    if (dow === 0 && d.getHours() < 8) add = -1;
+    d.setDate(d.getDate() + add);
+    return d.toISOString().slice(0, 10);
+  }
+  $('#when').textContent = cap(fmtFecha(proxSabado())) + ' · desde las 10pm';
+  function cap(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  $('#menos').onclick = function(){ pp = Math.max(1, pp - 1); $('#pp').textContent = pp; };
+  $('#mas').onclick = function(){ pp = Math.min(6, pp + 1); $('#pp').textContent = pp; };
+
+  function paseURL(c){ return location.origin + '/lista?c=' + c; }
+  function drawQR(text){
+    var q = qrcode(0, 'M'); q.addData(text); q.make();
+    var n = q.getModuleCount(), cv = $('#qr'), s = Math.floor(290 / (n + 2)), size = s * (n + 2);
+    cv.width = cv.height = size;
+    var x = cv.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, size, size); x.fillStyle = '#0b0506';
+    for (var r = 0; r < n; r++) for (var c = 0; c < n; c++) if (q.isDark(r, c)) x.fillRect((c + 1) * s, (r + 1) * s, s, s);
+  }
+  function show(p, scroll){
+    pase = p;
+    $('#tName').textContent = p.nombre;
+    $('#tSub').textContent = cap(fmtFecha(p.fecha)) + ' · 10pm';
+    $('#tPp').textContent = p.personas;
+    $('#tCode').textContent = p.codigo;
+    $('#ticket').classList.toggle('entro', p.estado === 'entro');
+    drawQR(paseURL(p.codigo));
+    document.body.classList.add('on-pase');
+    try { localStorage.setItem('mb_pase', JSON.stringify(p)); } catch(e){}
+    if (!/[?&]c=/.test(location.search)) history.replaceState(null, '', '/lista?c=' + p.codigo);
+    if (scroll) setTimeout(function(){ $('#panel').scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60);
+  }
+
+  // abrir un pase guardado o desde el link del QR
+  var c = (qs.get('c') || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  var saved = null; try { saved = JSON.parse(localStorage.getItem('mb_pase') || 'null'); } catch(e){}
+  if (c){
+    fetch('/api/lista/' + c).then(function(r){ return r.json(); }).then(function(d){
+      if (d.ok) show(d.pase); else $('#err').textContent = 'No encontramos ese pase. Anótate de nuevo aquí abajo.';
+    }).catch(function(){ if (saved && saved.codigo === c) show(saved); });
+  } else if (saved && saved.fecha >= proxSabado()){
+    show(saved);
+  }
+
+  $('#f').addEventListener('submit', function(e){
+    e.preventDefault();
+    var nombre = $('#nombre').value.trim(), tel = $('#tel').value.trim();
+    if (nombre.length < 2){ $('#err').textContent = 'Escribe tu nombre.'; $('#nombre').focus(); return; }
+    if (tel.replace(/\D/g, '').length < 10){ $('#err').textContent = 'Revisa tu número de WhatsApp.'; $('#tel').focus(); return; }
+    $('#err').textContent = ''; $('#go').disabled = true; $('#go').textContent = 'Anotando…';
+    fetch('/api/lista', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre: nombre, telefono: tel, personas: pp, origen: origen }) })
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if (!d.ok) throw new Error(d.error || 'No se pudo anotar.');
+        show(d.pase, true);
+        if (window.clarity) window.clarity('event', 'lista_inscrito');
+      })
+      .catch(function(err){ $('#err').textContent = err.message || 'Sin conexión. Intenta de nuevo.'; })
+      .then(function(){ $('#go').disabled = false; $('#go').textContent = 'Quiero mi pase'; });
+  });
+
+  // imagen del pase para guardar o compartir
+  function ticketPNG(){
+    return new Promise(function(res){
+      var W = 900, H = 1350, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+      var x = cv.getContext('2d');
+      var g = x.createLinearGradient(0, 0, W, H); g.addColorStop(0, '#2a0910'); g.addColorStop(.6, '#0b0506'); g.addColorStop(1, '#000');
+      x.fillStyle = g; x.fillRect(0, 0, W, H);
+      x.strokeStyle = 'rgba(216,180,106,.6)'; x.lineWidth = 3; x.strokeRect(30, 30, W - 60, H - 60);
+      x.fillStyle = '#d8b46a'; x.font = '600 26px "Bricolage Grotesque", sans-serif'; x.textAlign = 'center';
+      x.fillText('M A R T I N I   B A R   ·   E N   L A   L I S T A', W / 2, 110);
+      x.fillStyle = '#f2f3ee'; x.font = '800 74px "Bricolage Grotesque", sans-serif';
+      x.fillText(pase.nombre.length > 18 ? pase.nombre.slice(0, 18) + '…' : pase.nombre, W / 2, 210);
+      x.fillStyle = '#e9e2d4'; x.font = 'italic 42px "Instrument Serif", serif';
+      x.fillText(cap(fmtFecha(pase.fecha)) + ' · 10pm', W / 2, 270);
+      x.fillStyle = '#fff'; x.fillRect(150, 330, 600, 600);
+      x.imageSmoothingEnabled = false; x.drawImage($('#qr'), 170, 350, 560, 560);
+      x.fillStyle = '#9a9d9f'; x.font = '500 30px "Bricolage Grotesque", sans-serif';
+      x.fillText('Personas: ' + pase.personas + '      Código: ' + pase.codigo, W / 2, 1010);
+      x.fillStyle = '#f2f3ee'; x.font = '600 34px "Bricolage Grotesque", sans-serif';
+      x.fillText('Muestra este QR en la puerta', W / 2, 1100);
+      x.fillStyle = '#d8b46a'; x.font = '500 30px "Bricolage Grotesque", sans-serif';
+      x.fillText('martinibar.live', W / 2, 1250);
+      cv.toBlob(function(b){ res(b); }, 'image/png');
+    });
+  }
+  $('#save').onclick = function(){
+    ticketPNG().then(function(b){
+      var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'pase-martini-' + pase.codigo + '.png';
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){ URL.revokeObjectURL(a.href); }, 2000);
+    });
+  };
+  $('#share').onclick = function(){
+    var url = paseURL(pase.codigo), text = 'Mi pase para Martini Bar este sábado';
+    ticketPNG().then(function(b){
+      var file = new File([b], 'pase-martini.png', { type: 'image/png' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) return navigator.share({ files: [file], title: 'Martini Bar', text: text });
+      if (navigator.share) return navigator.share({ title: 'Martini Bar', text: text, url: url });
+      window.open('https://wa.me/?text=' + encodeURIComponent(text + ': ' + url), '_blank');
+    }).catch(function(){});
+  };
+  $('#again').onclick = function(){
+    try { localStorage.removeItem('mb_pase'); } catch(e){}
+    document.body.classList.remove('on-pase'); history.replaceState(null, '', '/lista');
+    $('#f').reset(); pp = 1; $('#pp').textContent = 1; $('#nombre').focus();
+  };
+})();
+</script>
+</body>
+</html>

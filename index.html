@@ -565,7 +565,8 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
     <a href="#reservas" data-hover>Reservas</a>
     <a href="#eventos" data-hover>Eventos</a>
     <a href="/verlanoche" data-hover>La noche</a>
-    <a href="/theredroom" data-hover>Red Room</a>
+    <a href="/lista" data-hover>La lista</a>
+    <a href="/vip/" data-hover>VIP</a>
     <a href="#cartas" data-hover>Cartas</a>
     <a href="#lugar" data-hover>El lugar</a>
     <a href="#faq" data-hover>Info</a>
@@ -579,7 +580,9 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
   <a href="#reservas" data-hover><span>Reservas</span></a>
   <a href="#eventos" data-hover><span>Eventos</span></a>
   <a href="/verlanoche" data-hover><span>La noche</span></a>
-  <a href="/theredroom" data-hover><span>Red Room · 31 Oct</span></a>
+  <a href="/lista" data-hover><span>Ponte en la lista</span></a>
+  <a href="/vip/" data-hover><span>VIP</span></a>
+  <a href="/redroom2" data-hover><span>Red Room</span></a>
   <a href="#cartas" data-hover><span>Cartas</span></a>
   <a href="#lugar" data-hover><span>El lugar</span></a>
   <a href="#ubicacion" data-hover><span>Cómo llegar</span></a>
@@ -745,13 +748,21 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 <section class="wrap events" id="eventos">
   <div class="chapter reveal" data-anim="down">
     <span class="no">03</span>
-    <div><h2>Las noches.</h2><p class="sub">Lo próximo es el Red Room. Lo demás son noches que ya vivimos — toca un flyer para verlo.</p></div>
+    <div><h2>Las noches.</h2><p class="sub">Lo próximo va primero. Lo demás son noches que ya vivimos — toca un flyer para verlo.</p></div>
   </div>
   <div class="ev-grid" id="evGrid">
     <!-- Fallback: se muestra si la API aún no responde. El JS lo reemplaza con los eventos reales. -->
-    <a class="ev-card ev-next reveal" href="/theredroom" data-hover>
-      <img src="assets/flyer-redroom.webp" alt="The Red Room — 31 de octubre" loading="lazy" onerror="this.src='assets/eventos/evento-5.webp'">
+    <a class="ev-card ev-next reveal" href="/vip/" data-hover>
+      <img src="assets/flyer-sabado21.webp" alt="Sábado de siempre — 21 de noviembre" loading="lazy" onerror="this.src='assets/eventos/evento-5.webp'">
       <span class="ev-badge">Próximo</span>
+      <div class="ev-meta"><span class="ev-name">Sábado de siempre · 21 Nov</span><span class="ev-cta">Reservar mesa →</span></div>
+    </a>
+    <a class="ev-card ev-past-link reveal" href="/redroom2" data-hover>
+      <img src="assets/flyer-redroom2.webp" alt="Red Room 2.0 — 7 de noviembre" loading="lazy">
+      <div class="ev-meta"><span class="ev-name">Red Room 2.0 · 7 Nov</span><span class="ev-cta">Ver evento →</span></div>
+    </a>
+    <a class="ev-card ev-past-link reveal" href="/theredroom" data-hover>
+      <img src="assets/flyer-redroom.webp" alt="The Red Room — 31 de octubre" loading="lazy">
       <div class="ev-meta"><span class="ev-name">The Red Room · 31 Oct</span><span class="ev-cta">Ver evento →</span></div>
     </a>
     <div class="ev-card ev-past reveal" data-hover>
@@ -851,7 +862,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
   <div class="f-grid">
     <div class="f-col"><h5>MARTINI BAR</h5><p class="f-info">Bar · Terraza · Área VIP.<br>El Vigía, Mérida · Venezuela.<br>Sábados de fiesta hasta la madrugada.</p></div>
     <div class="f-col"><h5>SÍGUENOS</h5><a href="https://www.instagram.com/martinibar.live/" target="_blank" rel="noopener" data-hover>Instagram</a><a href="https://wa.me/584247819621" target="_blank" rel="noopener" data-hover>WhatsApp</a></div>
-    <div class="f-col"><h5>NAVEGA</h5><a href="#reservas" data-hover>Reservas</a><a href="#eventos" data-hover>Eventos</a><a href="/verlanoche" data-hover>La noche</a><a href="/theredroom" data-hover>Red Room</a><a href="#cartas" data-hover>Cartas</a><a href="#lugar" data-hover>El lugar</a><a href="#ubicacion" data-hover>Cómo llegar</a><a href="#faq" data-hover>Info</a></div>
+    <div class="f-col"><h5>NAVEGA</h5><a href="#reservas" data-hover>Reservas</a><a href="#eventos" data-hover>Eventos</a><a href="/verlanoche" data-hover>La noche</a><a href="/lista" data-hover>La lista</a><a href="/vip/" data-hover>VIP</a><a href="/redroom2" data-hover>Red Room</a><a href="#cartas" data-hover>Cartas</a><a href="#lugar" data-hover>El lugar</a><a href="#ubicacion" data-hover>Cómo llegar</a><a href="#faq" data-hover>Info</a></div>
   </div>
   <div class="f-word" id="footWord"><span class="holo-text">martini</span></div>
   <div class="f-bottom"><span>© 2026 Martini Bar · Todos los derechos reservados</span><div style="display:flex;gap:1.2rem;align-items:center;flex-wrap:wrap"><button class="share-btn" id="shareBtn" data-hover><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg> Invita a tus panas</button><a href="/admin.html" style="color:var(--muted);opacity:.6" data-hover>Panel</a></div></div>
@@ -1270,13 +1281,17 @@ if(!isTouch&&hasGSAP){
     const titulo=esc(ev.titulo||'');
     const sub=ev.fecha?' · '+esc(ev.fecha):'';
     if(ev.estado==='proximo'){
-      const href=ev.link||'/theredroom';
+      const href=ev.link||'#reservas';
       return `<a class="ev-card ev-next reveal" href="${esc(href)}" data-hover>
         <img src="${img}" alt="${titulo}" loading="lazy">
         <span class="ev-badge">Próximo</span>
-        <div class="ev-meta"><span class="ev-name">${titulo}${sub}</span><span class="ev-cta">Ver evento →</span></div>
+        <div class="ev-meta"><span class="ev-name">${titulo}${sub}</span><span class="ev-cta">${/^\/vip|#reserv/.test(href)?'Reservar mesa →':'Ver evento →'}</span></div>
       </a>`;
     }
+    if(ev.link)return `<a class="ev-card ev-past-link reveal" href="${esc(ev.link)}" data-hover>
+      <img src="${img}" alt="${titulo}" loading="lazy">
+      <div class="ev-meta"><span class="ev-name">${titulo}${sub}</span><span class="ev-cta">Ver evento →</span></div>
+    </a>`;
     return `<div class="ev-card ev-past reveal" data-hover data-full="${img}">
       <img src="${img}" alt="${titulo}" loading="lazy">
       <div class="ev-meta"><span class="ev-name">${titulo}${sub}</span><span class="ev-cta">Ver flyer</span></div>
