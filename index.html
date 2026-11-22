@@ -492,7 +492,7 @@ main,footer,.nav,.menu{position:relative;z-index:2}
 
 /* ---------- footer ---------- */
 footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
-.f-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2rem;padding:0 var(--padx)}
+.f-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:2rem;padding:0 var(--padx)}
 .f-col h5{font-size:.7rem;letter-spacing:.16em;color:var(--muted);margin-bottom:1.1rem}
 .f-col a{display:block;color:var(--silver);margin-bottom:.7rem;font-size:1rem;transition:color .3s}
 .f-col a:hover{color:var(--paper)}
@@ -527,6 +527,57 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 }
 
 .chapter h2 .wword{display:inline-block;white-space:nowrap}
+
+/* ---------- este sábado ---------- */
+.sab{margin-top:4rem;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(1.4rem,4vw,3.4rem);align-items:center}
+.sab-card{display:block;border-radius:14px;overflow:hidden;border:1px solid rgba(201,255,232,.35);box-shadow:0 30px 80px rgba(0,0,0,.55);aspect-ratio:4/5;max-width:420px}
+.sab-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--ease)}
+.sab-card:hover img{transform:scale(1.04)}
+.sab-k{display:inline-flex;align-items:center;gap:.6rem;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--silver)}
+.sab-t{font-size:clamp(2.4rem,6vw,4.6rem);font-weight:800;letter-spacing:-.04em;line-height:.95;margin:.9rem 0 .8rem}
+.sab-d{color:var(--silver);font-size:1rem;max-width:34ch}
+.sab-cd{margin-top:.9rem;font-family:'Instrument Serif',serif;font-style:italic;font-size:1.25rem;color:var(--paper);min-height:1.4em}
+.sab-go{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.4rem}
+.sab-go a{border-radius:40px;padding:.95rem 1.4rem;font-weight:600;font-size:.95rem;border:1px solid var(--line);transition:.3s var(--ease)}
+.sab-b1{background:var(--paper);color:#000;border-color:var(--paper)!important}
+.sab-b2:hover{border-color:var(--paper)}
+
+/* ---------- barra fija del teléfono ---------- */
+.mbar{display:none}
+@media(max-width:880px){
+  .mbar{display:grid;grid-template-columns:1fr 1.15fr 56px;gap:8px;position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:70;
+    padding:7px;border-radius:22px;background:rgba(12,12,12,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line);
+    transform:translateY(130%);transition:transform .45s var(--ease)}
+  .mbar.show{transform:none}
+  .mbar a{display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:16px;padding:.55rem .4rem;border:1px solid var(--line);text-align:center;line-height:1.1}
+  .mbar b{font-size:.95rem;font-weight:700}
+  .mbar small{font-size:.66rem;color:var(--silver);margin-top:2px;letter-spacing:.04em}
+  .mbar a.hot{background:var(--paper);color:#000;border-color:var(--paper)}
+  .mbar a.hot small{color:#333}
+  .mbar a.wa{color:#25D366;border-color:rgba(37,211,102,.45)}
+  .mbar a.wa svg{width:24px;height:24px}
+  .wa-float{display:none!important}
+  .to-top{bottom:calc(84px + env(safe-area-inset-bottom))}
+  .sound-toggle{bottom:calc(84px + env(safe-area-inset-bottom))}
+  footer{padding-bottom:calc(90px + env(safe-area-inset-bottom))}
+
+  /* menos scroll: secciones largas pasan a carrusel horizontal */
+  .sab{grid-template-columns:1fr;margin-top:2.6rem;gap:1.2rem}
+  .sab-card{max-width:none;aspect-ratio:4/4.4}
+  .sab-t{font-size:2.6rem}
+  .sab-go a{flex:1;text-align:center;padding:.9rem .8rem}
+  .plans,.lugar-grid,.rev-grid,.ev-grid{display:flex!important;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    gap:.8rem;margin-left:calc(-1 * var(--padx,1.2rem));margin-right:calc(-1 * var(--padx,1.2rem));padding:0 var(--padx,1.2rem) .4rem;scroll-padding:0 var(--padx,1.2rem);background:none!important}
+  .plans::-webkit-scrollbar,.lugar-grid::-webkit-scrollbar,.rev-grid::-webkit-scrollbar,.ev-grid::-webkit-scrollbar{display:none}
+  .plans>*,.lugar-grid>*,.rev-grid>*,.ev-grid>*{flex:0 0 80%;scroll-snap-align:start}
+  .plans>.plan{border:1px solid var(--line);border-radius:12px}
+  .ev-grid>*{flex-basis:62%}
+  .lugar-grid>*{flex-basis:74%}
+  .swipe-note{display:block;margin-top:.7rem;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  main>section.wrap[style*="margin-top:8rem"],main>section.wrap[style*="margin-top:7rem"]{margin-top:4.5rem!important}
+  .reviews,.events,.lugar{margin-top:4.5rem}
+}
+.swipe-note{display:none}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
 </style>
 <script type="text/javascript">
@@ -632,6 +683,23 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
   <div class="scroll-cue"><span>DESLIZA</span><span class="bar"></span></div>
 </section>
 
+<!-- ESTE SÁBADO -->
+<section class="wrap sab" id="sabado" aria-label="Este sábado">
+  <a class="sab-card reveal" id="sabCard" href="/vip/" data-ev="sabado_flyer">
+    <img id="sabImg" src="assets/flyer-sabado21.webp" alt="Flyer de este sábado en Martini Bar" loading="eager" decoding="async" onerror="this.src='assets/hero-poster.jpg'">
+  </a>
+  <div class="sab-info reveal">
+    <span class="sab-k"><span class="lv"></span> Este sábado · desde las 10pm</span>
+    <h2 class="sab-t" id="sabT">La noche de Martini</h2>
+    <p class="sab-d" id="sabD">Entrada gratis hasta la 1am · DJ en vivo · Mesas VIP desde $100</p>
+    <p class="sab-cd" id="sabCd"></p>
+    <div class="sab-go">
+      <a class="sab-b1" href="/lista" data-ev="sabado_lista">Ponte en la lista</a>
+      <a class="sab-b2" href="#reservas" data-ev="sabado_reservar">Reservar mesa VIP</a>
+    </div>
+  </div>
+</section>
+
 <!-- STATS -->
 <section class="wrap" style="margin-top:7rem" id="terraza">
   <div class="noche-bg" aria-hidden="true"><video id="nocheVid" muted loop playsinline preload="none" poster="assets/hero-poster.jpg"></video></div>
@@ -664,7 +732,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
     <div class="rev-card reveal" data-anim="up"><div class="stars">★★★★★</div><p>"Everything was excellent and luxurious."</p><div class="rev-by">Hector Rivera</div></div>
     <div class="rev-card reveal"><div class="stars">★★★★★</div><p>"Nice!!"</p><div class="rev-by">Christopher Ramírez · Local Guide</div></div>
   </div>
-  <a class="rev-cta" href="https://maps.app.goo.gl/ZvqTJggMUy6rADjA9" target="_blank" rel="noopener" data-hover>Déjanos tu reseña en Google →</a>
+  <a class="rev-cta" href="/resena" data-ev="home_resena" data-hover>Déjanos tu reseña en Google →</a>
 </section>
 
 <!-- PLANS -->
@@ -707,6 +775,8 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
       <a href="#builder" class="go" data-hover data-zone="VIP Diamante"><span>Reservar Diamante</span> →</a>
     </div>
   </div>
+
+  <span class="swipe-note">Desliza para ver las 4 opciones →</span>
 
   <div class="resv" id="builder">
     <h3>Arma tu reserva</h3>
@@ -782,6 +852,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
       <div class="ev-meta"><span class="ev-name">Del Tiempo</span><span class="ev-cta">Ver flyer</span></div>
     </div>
   </div>
+  <span class="swipe-note">Desliza para ver todas las noches →</span>
 </section>
 
 <!-- EL LUGAR -->
@@ -794,6 +865,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
     <article class="lugar-card reveal" data-anim="up"><div class="lc-bg" style="background-image:url('assets/fotos/foto-3.webp')"></div><span class="lc-badge">VIP · DJ</span><div class="lc-in"><h4>VIP + DJ</h4><p>Una zona exclusiva justo al lado del DJ, donde todo se siente más fuerte.</p></div></article>
     <article class="lugar-card reveal"><div class="lc-bg" style="background-image:url('assets/fotos/foto-4.webp')"></div><span class="lc-badge">Barra</span><div class="lc-in"><h4>La barra</h4><p>Whisky, ron, tequila y energizantes — listo para tu mesa o la barra.</p></div></article>
   </div>
+  <span class="swipe-note">Desliza para recorrer el lugar →</span>
 </section>
 
 <!-- CARTAS -->
@@ -820,7 +892,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
 
 <!-- PRIVADOS -->
 <section class="wrap priv" id="privados">
-  <div class="chapter reveal"><div><h2>Cumpleaños y privados.</h2><p class="sub">¿Celebras algo? Reserva el VIP o arma tu evento privado — te cotizamos por WhatsApp.</p></div></div>
+  <div class="chapter reveal"><div><h2>Cumpleaños y privados.</h2><p class="sub">¿Celebras algo? Reserva el VIP o arma tu evento privado — te cotizamos por WhatsApp. <a href="/cumpleanos-el-vigia" style="text-decoration:underline">Ver cumpleaños →</a></p></div></div>
   <div class="priv-box reveal">
     <div class="priv-grid">
       <div class="field"><label>Nombre</label><input id="pvName" type="text" placeholder="Tu nombre" autocomplete="name"></div>
@@ -863,6 +935,7 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
     <div class="f-col"><h5>MARTINI BAR</h5><p class="f-info">Bar · Terraza · Área VIP.<br>El Vigía, Mérida · Venezuela.<br>Sábados de fiesta hasta la madrugada.</p></div>
     <div class="f-col"><h5>SÍGUENOS</h5><a href="https://www.instagram.com/martinibar.live/" target="_blank" rel="noopener" data-hover>Instagram</a><a href="https://wa.me/584247819621" target="_blank" rel="noopener" data-hover>WhatsApp</a></div>
     <div class="f-col"><h5>NAVEGA</h5><a href="#reservas" data-hover>Reservas</a><a href="#eventos" data-hover>Eventos</a><a href="/verlanoche" data-hover>La noche</a><a href="/lista" data-hover>La lista</a><a href="/vip/" data-hover>VIP</a><a href="/redroom2" data-hover>Red Room</a><a href="#cartas" data-hover>Cartas</a><a href="#lugar" data-hover>El lugar</a><a href="#ubicacion" data-hover>Cómo llegar</a><a href="#faq" data-hover>Info</a></div>
+    <div class="f-col"><h5>EL VIGÍA</h5><a href="/discoteca-el-vigia" data-hover>Discoteca en El Vigía</a><a href="/que-hacer-en-el-vigia" data-hover>Qué hacer el sábado</a><a href="/cumpleanos-el-vigia" data-hover>Cumpleaños y grupos</a></div>
   </div>
   <div class="f-word" id="footWord"><span class="holo-text">martini</span></div>
   <div class="f-bottom"><span>© 2026 Martini Bar · Todos los derechos reservados</span><div style="display:flex;gap:1.2rem;align-items:center;flex-wrap:wrap"><button class="share-btn" id="shareBtn" data-hover><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg> Invita a tus panas</button><a href="/admin.html" style="color:var(--muted);opacity:.6" data-hover>Panel</a></div></div>
@@ -874,6 +947,12 @@ footer{padding:5rem 0 0;margin-top:6rem;border-top:1px solid var(--line)}
   <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.9-4.44 9.9-9.9S17.5 2 12.04 2zm0 18.15c-1.48 0-2.93-.4-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.39c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.69 8.24-8.23 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.98-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28z"/></svg>
   <span class="tx">Reservar</span>
 </a>
+
+<nav class="mbar" id="mbar" aria-label="Acciones rápidas">
+  <a href="/lista" data-ev="bar_lista"><b>La lista</b><small>entra gratis</small></a>
+  <a href="#reservas" class="hot" data-ev="bar_reservar"><b>Reservar</b><small>mesa VIP</small></a>
+  <a href="https://wa.me/584247819621?text=Hola!%20Quiero%20reservar%20en%20Martini%20Bar%20%F0%9F%8D%B8" target="_blank" rel="noopener" class="wa" aria-label="WhatsApp" data-ev="bar_whatsapp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.9-4.44 9.9-9.9S17.5 2 12.04 2z"/></svg></a>
+</nav>
 
 <audio id="bgSong" src="assets/blue-martini.mp3" loop preload="none"></audio>
 <button class="sound-toggle" id="soundToggle" aria-label="Activar música" data-hover>
@@ -1281,7 +1360,8 @@ if(!isTouch&&hasGSAP){
     const titulo=esc(ev.titulo||'');
     const sub=ev.fecha?' · '+esc(ev.fecha):'';
     if(ev.estado==='proximo'){
-      const href=ev.link||'#reservas';
+      const slug=t=>(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60);
+      const href=(ev.link&&/^\/(?!vip|lista)[a-z0-9]/i.test(ev.link))?ev.link:(ev.id?'/evento/'+ev.id+'-'+slug(ev.titulo):'#reservas');
       return `<a class="ev-card ev-next reveal" href="${esc(href)}" data-hover>
         <img src="${img}" alt="${titulo}" loading="lazy">
         <span class="ev-badge">Próximo</span>
@@ -1358,6 +1438,33 @@ if(!isTouch&&hasGSAP){
   });
 })();
 
+
+/* ----- este sábado: toma el próximo evento del admin ----- */
+(function(){
+  const t=document.getElementById('sabT'),img=document.getElementById('sabImg'),card=document.getElementById('sabCard'),cd=document.getElementById('sabCd');
+  if(!t)return;
+  fetch('/api/eventos').then(r=>r.json()).then(d=>{
+    const ev=(d.eventos||[]).find(e=>e.estado==='proximo');if(!ev)return;
+    t.textContent=ev.titulo+(ev.fecha?' · '+ev.fecha.replace(/^S[aá]b\.?\s*/i,''):'');
+    if(ev.flyer_key)img.src='/api/flyer/'+encodeURIComponent(ev.flyer_key);
+    img.alt='Flyer de '+ev.titulo+' en Martini Bar';
+    if(ev.id)card.href='/evento/'+ev.id+'-'+(ev.titulo||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60);
+  }).catch(()=>{});
+  function next(){const n=new Date(),v=new Date(n.getTime()+(n.getTimezoneOffset()-240)*60000);const s=new Date(v);s.setHours(22,0,0,0);
+    let add=(6-v.getDay()+7)%7;if(add===0&&v>=s){const e=new Date(s);e.setHours(28);if(v<e)return 0;add=7;}s.setDate(s.getDate()+add);return s-v;}
+  function tick(){const ms=next();if(ms===0){cd.textContent='¡Estamos abiertos ahora mismo!';return;}
+    const h=Math.floor(ms/36e5),dd=Math.floor(h/24);cd.textContent='Abrimos en '+(dd?dd+(dd>1?' días y ':' día y '):'')+(h%24)+' h '+Math.floor(ms/6e4)%60+' min';}
+  tick();setInterval(tick,30000);
+})();
+/* ----- barra fija del teléfono: aparece después del hero ----- */
+(function(){
+  const bar=document.getElementById('mbar');if(!bar)return;
+  const hero=document.querySelector('.hero');
+  const on=()=>bar.classList.toggle('show',scrollY>(hero?hero.offsetHeight*.6:400));
+  addEventListener('scroll',on,{passive:true});on();
+})();
+/* ----- medir en Clarity qué botón convierte ----- */
+document.addEventListener('click',e=>{const a=e.target.closest('[data-ev]');if(a&&window.clarity)window.clarity('event',a.dataset.ev);});
 /* ----- compartir / invitar ----- */
 (function(){
   const b=document.getElementById('shareBtn');if(!b)return;

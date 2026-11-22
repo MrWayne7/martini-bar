@@ -1,6 +1,9 @@
 User-agent: *
 Allow: /
 Disallow: /admin
+Allow: /api/flyer/
+Allow: /api/img/
 Disallow: /api/
+Disallow: /qr
 
 Sitemap: https://martinibar.live/sitemap.xml
