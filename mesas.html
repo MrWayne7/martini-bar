@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>El plano de Martini Bar — elige tu zona y reserva tu mesa VIP en El Vigía</title>
+<meta name="description" content="Explora Martini Bar en 3D: la pista, la barra, el área VIP, el VIP junto al DJ y la terraza. Toca una zona, mira qué incluye y reserva tu mesa en El Vigía, Mérida.">
+<link rel="canonical" href="https://martinibar.live/mesas">
+<meta property="og:type" content="website">
+<meta property="og:title" content="El plano de Martini Bar — elige dónde vives la noche">
+<meta property="og:description" content="Toca una zona del bar en 3D, mira qué incluye y reserva tu mesa VIP.">
+<meta property="og:image" content="https://martinibar.live/assets/og.jpg">
+<meta property="og:url" content="https://martinibar.live/mesas">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23000'/%3E%3Cpath d='M4 5h16l-8 8-8-8Z M12 13v6 M8 21h8' stroke='%23c9ffe8' stroke-width='1.3' fill='none'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"NightClub","name":"Martini Bar","url":"https://martinibar.live/","telephone":"+58 424-7819621","address":{"@type":"PostalAddress","addressLocality":"El Vigía","addressRegion":"Mérida","addressCountry":"VE"},"hasMap":"https://maps.app.goo.gl/ZvqTJggMUy6rADjA9","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"22:00","closes":"04:00"}]}</script>
+<style>
+:root{
+  --black:#000;--paper:#f2f3ee;--silver:#9a9d9f;--muted:#66625e;--line:rgba(242,243,238,.14);
+  --velvet:#8c0d24;--gold:#d8b46a;--mint:#c9ffe8;
+  --font:'Bricolage Grotesque',system-ui,-apple-system,sans-serif;--serif:'Instrument Serif',Georgia,serif;
+  --ease:cubic-bezier(.19,1,.22,1);--pad:clamp(18px,5vw,48px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#000;-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{background:radial-gradient(80% 50% at 90% 0%,rgba(140,13,36,.32),transparent 60%),#000;color:var(--paper);font-family:var(--font);-webkit-font-smoothing:antialiased;line-height:1.45;overflow-x:hidden}
+a{color:inherit}button{font:inherit;cursor:pointer;color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:0 var(--pad)}
+.top{display:flex;justify-content:space-between;align-items:center;padding:calc(14px + env(safe-area-inset-top)) var(--pad) 8px;max-width:1240px;margin:0 auto}
+.top img{height:64px;mix-blend-mode:screen;margin:-10px 0;display:block}
+.top nav{display:flex;gap:8px}
+.pill{font-size:14px;text-decoration:none;border:1px solid var(--line);border-radius:99px;padding:8px 14px;color:#d9d6cf}
+.pill.hot{background:var(--paper);color:#000;border-color:var(--paper);font-weight:600}
+.k{display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.k::before{content:"";width:26px;height:1px;background:var(--gold)}
+
+/* ---------- 1. mensaje primero ---------- */
+.intro{padding-top:clamp(18px,4vw,50px);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(18px,4vw,60px);align-items:end}
+h1{font-weight:800;font-size:clamp(44px,6.2vw,88px);line-height:.88;letter-spacing:-.045em;margin-top:16px}
+h1 .it{display:block;font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em;color:#ffd9a8}
+.lead{color:#cfd0ca;font-size:clamp(16px,1.5vw,19px);max-width:44ch}
+.go{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;border-radius:99px;padding:14px 22px;font-weight:700;font-size:15.5px;border:1px solid var(--line);background:none;transition:transform .3s var(--ease),box-shadow .3s}
+.btn:hover{transform:translateY(-2px)}
+.btn.w{background:var(--paper);color:#000;border-color:var(--paper)}
+.btn.r{background:var(--velvet);border-color:var(--velvet);box-shadow:0 0 36px rgba(140,13,36,.55);color:#fff}
+
+/* ---------- 2. el plano ---------- */
+.plano{margin-top:clamp(26px,4vw,44px);display:grid;grid-template-columns:minmax(0,1.55fr) minmax(320px,.85fr);gap:18px;align-items:start}
+.stage{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:radial-gradient(70% 70% at 50% 40%,#160a10,#050304 70%);aspect-ratio:16/11;min-height:360px;touch-action:pan-y}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:pointer}
+.stage .hint{position:absolute;left:16px;bottom:14px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver);pointer-events:none;background:rgba(0,0,0,.45);padding:7px 11px;border-radius:99px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.stage .all{position:absolute;right:14px;top:14px;font-size:13px;border:1px solid var(--line);background:rgba(0,0,0,.5);border-radius:99px;padding:7px 13px;opacity:0;pointer-events:none;transition:opacity .3s}
+.stage.zoomed .all{opacity:1;pointer-events:auto}
+.pin{position:absolute;left:0;top:0;transform:translate(-50%,-100%);display:flex;align-items:center;gap:7px;padding:6px 11px 6px 6px;border-radius:99px;border:1px solid rgba(242,243,238,.25);background:rgba(8,6,7,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-size:13px;font-weight:600;white-space:nowrap;transition:background .25s,border-color .25s,opacity .3s;will-change:transform}
+.pin b{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--c,#fff);color:#000;font-size:12px}
+.pin:hover,.pin.on{background:rgba(242,243,238,.95);color:#000;border-color:#fff}
+.pin.dim{opacity:.35}
+.pin::after{content:"";position:absolute;left:50%;bottom:-7px;width:1px;height:7px;background:rgba(242,243,238,.5)}
+.nogl .stage canvas,.nogl .stage .hint{display:none}
+.nogl .stage{aspect-ratio:auto;min-height:0;padding:18px;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
+.nogl .pin{position:static;transform:none!important}
+.nogl .pin::after{display:none}
+
+.panel{border-radius:22px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));padding:clamp(20px,2.4vw,30px);display:flex;flex-direction:column}
+.panel .tag{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--c,var(--gold))}
+.panel h2{font-size:clamp(30px,3.4vw,44px);letter-spacing:-.035em;line-height:.95;margin:10px 0 10px}
+.panel p.d{color:#cfd0ca;font-size:16px}
+.panel ul{list-style:none;margin-top:16px;display:grid;gap:9px}
+.panel li{display:flex;gap:10px;font-size:15px;color:#d9d6cf}
+.panel li::before{content:"✦";color:var(--c,var(--gold));font-size:12px;margin-top:3px}
+.opts{display:grid;gap:8px;margin-top:16px}
+.opt{display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left;border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:rgba(0,0,0,.3);transition:border-color .2s,background .2s}
+.opt:hover{border-color:var(--gold)}
+.opt b{display:block;font-size:16px}.opt small{color:var(--silver);font-size:13px}
+.opt .pr{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.panel .go{margin-top:auto;padding-top:20px}
+.zlist{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}
+.zlist button{display:flex;align-items:center;gap:9px;text-align:left;border:1px solid var(--line);border-radius:12px;padding:11px 12px;background:rgba(0,0,0,.25);font-size:14.5px;font-weight:600}
+.zlist button i{width:10px;height:10px;border-radius:50%;background:var(--c);flex:none;box-shadow:0 0 10px var(--c)}
+.zlist button:hover{border-color:rgba(242,243,238,.4)}
+.back{display:block;background:none;border:none;color:var(--silver);font-size:14px;text-decoration:underline;margin-bottom:12px}
+.panel-in{animation:pin .45s var(--ease)}
+@keyframes pin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ---------- 3. datos ---------- */
+.facts{margin-top:clamp(50px,7vw,90px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.facts div{border-top:1px solid rgba(216,180,106,.55);padding-top:12px}
+.facts b{display:block;font-size:clamp(24px,2.6vw,32px);letter-spacing:-.03em}
+.facts span{color:var(--silver);font-size:14px}
+
+/* ---------- 4. reservar ---------- */
+.res{margin-top:clamp(60px,8vw,110px);display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,5vw,70px);align-items:start}
+.res h2{font-size:clamp(40px,6vw,80px);letter-spacing:-.04em;line-height:.92;margin-top:14px}
+.res h2 .it{font-family:var(--serif);font-style:italic;font-weight:400;color:#ffd9a8}
+.res p{color:#cfd0ca;margin-top:14px;max-width:40ch}
+form{border:1px solid var(--line);border-radius:22px;padding:clamp(20px,3vw,32px);background:rgba(255,255,255,.02)}
+label{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--silver);margin:16px 0 8px}
+label:first-child{margin-top:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);border-radius:99px;padding:9px 14px;font-size:14px;background:none}
+.chip.on{background:var(--paper);color:#000;border-color:var(--paper);font-weight:600}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+input{width:100%;background:rgba(0,0,0,.45);border:1px solid var(--line);border-radius:12px;color:var(--paper);font-size:16px;padding:14px 15px;outline:none;color-scheme:dark}
+input:focus{border-color:var(--gold)}
+.step{display:flex;align-items:center;border:1px solid var(--line);border-radius:12px;width:max-content}
+.step button{width:48px;height:48px;border:none;background:none;font-size:22px}
+.step output{min-width:46px;text-align:center;font-weight:700;font-size:18px}
+.sum{display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:16px;border-top:1px solid var(--line);color:var(--silver)}
+.sum b{color:var(--paper);font-size:24px}
+.send{width:100%;margin-top:16px;border:none;border-radius:99px;background:#25D366;color:#04150b;font-weight:800;font-size:17px;padding:17px}
+.send[disabled]{opacity:.6}
+.msg{color:#ff8fa3;font-size:14px;margin-top:10px;min-height:1.2em}
+.done{display:none;text-align:center;padding:20px 0}.done.show{display:block}
+.done h3{font-size:28px;margin-bottom:8px}.done p{margin:0 auto 16px}
+footer{margin-top:90px;padding:30px var(--pad) calc(40px + env(safe-area-inset-bottom));border-top:1px solid rgba(242,243,238,.1);text-align:center;color:var(--muted);font-size:14px}
+footer nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;margin-bottom:12px}footer a{color:var(--silver);text-decoration:none}
+
+@media (max-width:900px){
+  .intro{grid-template-columns:1fr;align-items:start}
+  .plano{grid-template-columns:1fr}
+  .stage{aspect-ratio:7/6;min-height:0}
+  .pin{font-size:12px;padding:5px 9px 5px 5px}.pin b{width:20px;height:20px}
+  .pin span{display:none}.pin.on span{display:inline}
+  .facts{grid-template-columns:1fr 1fr}
+  .res{grid-template-columns:1fr}
+  .top nav .pill:not(.hot){display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z6d09cydt7");</script>
+</head>
+<body>
+<header class="top">
+  <a href="/" aria-label="Martini Bar, inicio"><img src="/assets/logo-blanco.png" alt="Martini Bar"></a>
+  <nav><a class="pill" href="/lista">La lista</a><a class="pill hot" href="#reservar" data-ev="mesas_top_reservar">Reservar</a></nav>
+</header>
+
+<main class="wrap">
+  <section class="intro">
+    <div>
+      <div class="k">El plano de Martini</div>
+      <h1>Elige dónde vives <span class="it">la noche.</span></h1>
+    </div>
+    <div>
+      <p class="lead">Este es Martini Bar por dentro. Toca una zona para ver qué incluye y reservar ahí mismo: la pista, la barra, el área VIP, el VIP junto al DJ o la terraza.</p>
+      <div class="go"><a class="btn r" href="#reservar" data-ev="mesas_intro_reservar">Reservar mesa VIP</a><a class="btn" href="/lista" data-ev="mesas_intro_lista">Ponte en la lista</a></div>
+    </div>
+  </section>
+
+  <section class="plano" aria-label="Plano 3D de Martini Bar">
+    <div class="stage" id="stage">
+      <canvas id="gl" aria-hidden="true"></canvas>
+      <div id="pins"></div>
+      <span class="hint" id="hint">Toca una zona</span>
+      <button class="all" id="all" type="button">Ver todo el bar</button>
+    </div>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </section>
+
+  <section class="facts" aria-label="Datos de la noche">
+    <div><b>Sábados</b><span>desde las 10pm hasta la madrugada</span></div>
+    <div><b>Gratis</b><span>hasta la 1am · luego $3 hombres y $2 mujeres</span></div>
+    <div><b>300</b><span>personas de aforo</span></div>
+    <div><b>Parking</b><span>privado · El Vigía, Mérida</span></div>
+  </section>
+
+  <section class="res" id="reservar">
+    <div>
+      <div class="k">Reserva</div>
+      <h2>Tu mesa, <span class="it">lista.</span></h2>
+      <p>Elige la mesa, cuántos vienen y el día. Te abre WhatsApp con todo escrito y te confirmamos al instante.</p>
+    </div>
+    <form id="form" novalidate>
+      <div id="form-in">
+        <label>Mesa</label>
+        <div class="chips" id="chips" role="radiogroup" aria-label="Mesa">
+          <button type="button" class="chip" data-z="VIP" data-p="100" data-cap="5" role="radio">VIP · $100</button>
+          <button type="button" class="chip" data-z="VIP Deluxe" data-p="150" data-cap="6" role="radio">Deluxe · $150</button>
+          <button type="button" class="chip" data-z="VIP Diamante" data-p="200" data-cap="7" role="radio">Diamante · $200</button>
+          <button type="button" class="chip" data-z="VIP DJ" data-p="100" data-cap="5" role="radio">VIP DJ · $100</button>
+        </div>
+        <div class="row">
+          <div><label for="nom">Nombre</label><input id="nom" autocomplete="name" placeholder="Tu nombre" maxlength="80"></div>
+          <div><label for="tel">WhatsApp</label><input id="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="0424 000 0000" maxlength="20"></div>
+        </div>
+        <div class="row">
+          <div><label for="fec">Fecha</label><input id="fec" type="date"></div>
+          <div><label>Personas</label><div class="step"><button type="button" id="pm" aria-label="Menos">−</button><output id="pv">4</output><button type="button" id="pp" aria-label="Más">+</button></div></div>
+        </div>
+        <label for="nota">Notas (opcional)</label>
+        <input id="nota" maxlength="140" placeholder="Cumpleaños, hora de llegada…">
+        <div class="sum"><span id="sumt">VIP Diamante · hasta 7 personas</span><b id="sump">$200</b></div>
+        <button class="send" id="send" type="submit">Reservar por WhatsApp</button>
+        <p class="msg" id="msg" role="alert"></p>
+      </div>
+      <div class="done" id="done">
+        <h3>¡Reserva enviada!</h3>
+        <p id="donet"></p>
+        <a class="btn w" id="donewa" href="#" target="_blank" rel="noopener">Abrir WhatsApp</a>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <nav><a href="/">Inicio</a><a href="/vip/">VIP</a><a href="/lista">La lista</a><a href="/discoteca-el-vigia">Discoteca en El Vigía</a><a href="/cumpleanos-el-vigia">Cumpleaños</a><a href="https://www.instagram.com/martinibar.live/" target="_blank" rel="noopener">Instagram</a></nav>
+  <p>© 2026 Martini Bar · El Vigía, Mérida, Venezuela</p>
+</footer>
+
+<script src="/vip/js/three.min.js"></script>
+<script>
+(function(){
+'use strict';
+var $ = function(s){ return document.querySelector(s); }, $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
+var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+function ev(n){ if (window.clarity) window.clarity('event', n); }
+document.addEventListener('click', function(e){ var a = e.target.closest('[data-ev]'); if (a) ev(a.dataset.ev); });
+
+/* ============ las zonas ============ */
+var Z = {
+  pista:   { n: 1, name: 'La pista', c: '#c37bff', tag: 'Para bailar',
+    d: 'El centro de la noche: luces, láseres, la bola de espejos y el DJ hasta la madrugada.',
+    li: ['Entrada gratis hasta la 1am', 'DJ en vivo toda la noche', 'Después de la 1am: $3 hombres · $2 mujeres'],
+    go: [['/lista', 'Ponte en la lista', 'w']] },
+  barra:   { n: 2, name: 'La barra', c: '#ffb45c', tag: 'Para pedir',
+    d: 'Whisky, ron, tequila y energizantes, servidos en la barra o en tu mesa.',
+    li: ['Buchanan’s 12, Black & White', 'Tequila y ron Linaje', 'Red Bull para que la noche no pare'],
+    go: [['/lista', 'Ponte en la lista', 'w']] },
+  vip:     { n: 3, name: 'Área VIP', c: '#d8b46a', tag: 'Mesas con botella',
+    d: 'Mesas en alto con vista a la pista, botella, baldes y servicio en tu mesa.',
+    opts: [['VIP', 'Hasta 5 · Buchanan’s 12 · 1 balde · 2 entradas', 100], ['VIP Deluxe', 'Hasta 6 · whisky 12 · 2 baldes · hooka · 3 entradas', 150], ['VIP Diamante', 'Hasta 7 · 2 botellas · 2 baldes · hooka · 4 entradas', 200]] },
+  vipdj:   { n: 4, name: 'VIP DJ', c: '#5fe0ff', tag: 'Junto a la cabina',
+    d: 'Una zona exclusiva al lado del DJ, donde la música se siente más fuerte.',
+    opts: [['VIP DJ', 'Hasta 5 · Buchanan’s · 1 balde · 2 entradas', 100]] },
+  terraza: { n: 5, name: 'La terraza', c: '#9be37a', tag: 'Al aire libre',
+    d: 'Para salir a tomar aire bajo las luces sin irte de la fiesta. También bodegón y tasca.',
+    li: ['Al aire libre, con brisa', 'Bajo las luces', 'Abierta toda la noche'],
+    go: [['/lista', 'Ponte en la lista', 'w']] },
+  entrada: { n: 6, name: 'La entrada', c: '#ff5f7a', tag: 'Cómo entrar',
+    d: 'Con tu pase de la lista muestras el QR en la puerta y entras directo. Estacionamiento propio.',
+    li: ['Gratis hasta la 1am', 'Pase con QR para ti y tu grupo', 'Estacionamiento privado'],
+    go: [['/lista', 'Quiero mi pase', 'w'], ['https://maps.app.goo.gl/ZvqTJggMUy6rADjA9', 'Cómo llegar', '']] },
+};
+var ORDER = ['pista', 'barra', 'vip', 'vipdj', 'terraza', 'entrada'];
+var current = null;
+
+/* ============ panel lateral (funciona aunque no haya 3D) ============ */
+var panel = $('#panel');
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+function panelHome(){
+  panel.style.setProperty('--c', '#d8b46a');
+  panel.innerHTML = '<div class="panel-in"><span class="tag">Martini Bar por dentro</span><h2>¿Dónde quieres estar?</h2>' +
+    '<p class="d">Toca una zona en el plano o elige aquí. Cada una te dice qué incluye y cómo reservar.</p>' +
+    '<div class="zlist">' + ORDER.map(function(k){ return '<button type="button" data-z="' + k + '" style="--c:' + Z[k].c + '"><i></i>' + Z[k].name + '</button>'; }).join('') + '</div></div>' +
+    '<div class="go"><a class="btn r" href="#reservar">Reservar mesa VIP</a></div>';
+}
+function panelZone(k){
+  var z = Z[k], h = '<div class="panel-in"><button type="button" class="back" data-back>← Todas las zonas</button><span class="tag">' + esc(z.tag) + '</span><h2>' + esc(z.name) + '</h2><p class="d">' + esc(z.d) + '</p>';
+  if (z.li) h += '<ul>' + z.li.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>';
+  if (z.opts) h += '<div class="opts">' + z.opts.map(function(o){ return '<button type="button" class="opt" data-mesa="' + o[0] + '"><span><b>' + esc(o[0]) + '</b><small>' + esc(o[1]) + '</small></span><span class="pr">$' + o[2] + '</span></button>'; }).join('') + '</div>';
+  h += '</div><div class="go">';
+  if (z.opts) h += '<a class="btn r" href="#reservar" data-mesa="' + z.opts[z.opts.length - 1][0] + '">Reservar en ' + esc(z.name) + '</a>';
+  (z.go || []).forEach(function(g){ h += '<a class="btn ' + (g[2] || '') + '" href="' + g[0] + '"' + (/^http/.test(g[0]) ? ' target="_blank" rel="noopener"' : '') + '>' + esc(g[1]) + '</a>'; });
+  if (!z.opts) h += '<a class="btn" href="#reservar">Ver mesas VIP</a>';
+  panel.style.setProperty('--c', z.c);
+  panel.innerHTML = h + '</div>';
+}
+panel.addEventListener('click', function(e){
+  var b = e.target.closest('[data-z]'); if (b){ select(b.dataset.z); return; }
+  if (e.target.closest('[data-back]')){ select(null); return; }
+  var m = e.target.closest('[data-mesa]');
+  if (m){ e.preventDefault(); setMesa(m.dataset.mesa); ev('mesas_elige_' + m.dataset.mesa.replace(/\s/g, '_')); $('#reservar').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); setTimeout(function(){ $('#nom').focus({ preventScroll: true }); }, reduce ? 0 : 700); }
+});
+
+/* ============ pins sobre el plano ============ */
+var pinsBox = $('#pins'), pins = {};
+ORDER.forEach(function(k){
+  var b = document.createElement('button');
+  b.type = 'button'; b.className = 'pin'; b.style.setProperty('--c', Z[k].c);
+  b.innerHTML = '<b>' + Z[k].n + '</b><span>' + Z[k].name + '</span>';
+  b.setAttribute('aria-label', 'Ver ' + Z[k].name);
+  b.addEventListener('click', function(e){ e.stopPropagation(); select(current === k ? null : k); });
+  pinsBox.appendChild(b); pins[k] = b;
+});
+function markPins(){ ORDER.forEach(function(k){ pins[k].classList.toggle('on', current === k); pins[k].classList.toggle('dim', !!current && current !== k); }); }
+
+var scene3d = null;
+function select(k){
+  current = k; markPins(); if (k) { panelZone(k); ev('mesas_zona_' + k); } else panelHome();
+  if (scene3d) scene3d.focus(k);
+  $('#stage').classList.toggle('zoomed', !!k);
+  if (k && innerWidth <= 900) setTimeout(function(){ panel.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' }); }, 250);
+}
+$('#all').addEventListener('click', function(){ select(null); });
+panelHome();
+
+/* ============ 3D: maqueta con cámara fija ============ */
+function build(){
+  var canvas = $('#gl'), stage = $('#stage');
+  var renderer;
+  try { renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true, powerPreference: 'high-performance' }); }
+  catch (e){ return null; }
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  var scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(0x050304, 60, 110);
+  var cam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 200);
+  var HOME = { x: -0.8, z: 0.4, zoom: 1 };
+  var view = { x: HOME.x, z: HOME.z, zoom: 1 }, want = { x: HOME.x, z: HOME.z, zoom: 1 };
+  var DIR = new THREE.Vector3(22, 24, 26).normalize().multiplyScalar(60);
+  var par = { x: 0, y: 0 }, parT = { x: 0, y: 0 };
+
+  scene.add(new THREE.HemisphereLight(0x6a5a88, 0x050203, 0.32));
+  var key = new THREE.DirectionalLight(0xffe6d0, 0.32); key.position.set(10, 20, 14); scene.add(key);
+  function plight(col, x, y, z, i, d){ var l = new THREE.PointLight(col, i, d || 14, 2); l.position.set(x, y, z); scene.add(l); return l; }
+  var Lp1 = plight(0xc37bff, -4, 4, -1, 2.2), Lp2 = plight(0x3fd0ff, -1, 3.5, 1, 1.6);
+  plight(0xffa24a, -11, 3, -1, 1.6, 12); plight(0xd8b46a, 3, 3.2, 2, 1.4, 12); plight(0x5fe0ff, 3, 3.2, -6, 1.3, 10); plight(0xffd38a, 9.5, 3, 1, 1.2, 12);
+
+  var M = function(c, o){ o = o || {}; return new THREE.MeshStandardMaterial({ color: c, roughness: o.r == null ? 0.8 : o.r, metalness: o.m || 0, emissive: o.e || 0x000000, emissiveIntensity: o.ei == null ? 1 : o.ei, transparent: !!o.t, opacity: o.t || 1 }); };
+  function box(w, h, d, mat, x, y, z, parent){ var m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat); m.position.set(x, y + h / 2, z); (parent || scene).add(m); return m; }
+  function cyl(rt, rb, h, mat, x, y, z, seg, parent){ var m = new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, seg || 16), mat); m.position.set(x, y + h / 2, z); (parent || scene).add(m); return m; }
+
+  /* piso y paredes (maqueta abierta: solo pared del fondo y la izquierda) */
+  box(19.4, 0.35, 18.4, M(0x0c0709, { r: 0.6 }), -3.5, -0.35, 0);
+  box(7, 0.25, 15, M(0x4a3222, { r: 0.9 }), 9.7, -0.25, 0.5);
+  for (var i = 0; i < 7; i++) box(0.06, 0.02, 15, M(0x2c1c13), 6.6 + i, 0, 0.5);
+  var wallM = M(0x1a1014), trim = M(0x8c0d24, { e: 0x8c0d24, ei: 0.5 });
+  box(19.4, 3.4, 0.4, wallM, -3.5, 0, -9.2); box(0.4, 3.4, 18.4, wallM, -13.2, 0, 0);
+  box(19.4, 0.08, 0.08, trim, -3.5, 3.4, -8.98); box(0.08, 0.08, 18.4, trim, -12.98, 3.4, 0);
+  var glass = new THREE.Mesh(new THREE.BoxGeometry(0.08, 2.6, 14), new THREE.MeshStandardMaterial({ color: 0x9fd8ff, transparent: true, opacity: 0.12, roughness: 0.1 })); glass.position.set(6.1, 1.3, -1.5); scene.add(glass);
+  box(0.12, 0.12, 14, M(0xd8b46a, { m: 0.8, r: 0.3 }), 6.1, 2.6, -1.5);
+
+  /* pantalla LED detrás del DJ */
+  var scr = document.createElement('canvas'); scr.width = 512; scr.height = 128;
+  var sx = scr.getContext('2d'), scrTex = new THREE.CanvasTexture(scr);
+  function drawScreen(t){
+    var g = sx.createLinearGradient(0, 0, 512, 0);
+    g.addColorStop(0, '#3a0a5e'); g.addColorStop(0.5 + Math.sin(t * 0.6) * 0.3, '#ff2a6d'); g.addColorStop(1, '#0a2a5e');
+    sx.fillStyle = g; sx.fillRect(0, 0, 512, 128);
+    sx.fillStyle = 'rgba(255,255,255,.9)'; sx.font = '800 64px Bricolage Grotesque, sans-serif'; sx.textAlign = 'center'; sx.textBaseline = 'middle';
+    sx.fillText('MARTINI', 256, 66); scrTex.needsUpdate = true;
+  }
+  drawScreen(0);
+  var screen = new THREE.Mesh(new THREE.PlaneGeometry(7, 1.75), new THREE.MeshBasicMaterial({ map: scrTex }));
+  screen.position.set(-3.5, 2.3, -8.98); scene.add(screen);
+
+  /* pista con baldosas de luz */
+  var tiles = [], TW = 8, TD = 6, tileGeo = new THREE.BoxGeometry(0.94, 0.06, 0.94);
+  var PAL = [0xc37bff, 0x3fd0ff, 0xff4f9a, 0x6dffb0];
+  for (var tx = 0; tx < TW; tx++) for (var tz = 0; tz < TD; tz++){
+    var tm = new THREE.MeshStandardMaterial({ color: 0x111111, emissive: PAL[(tx + tz) % 4], emissiveIntensity: 0.25, roughness: 0.4 });
+    var t = new THREE.Mesh(tileGeo, tm); t.position.set(-7 + tx + 0.5, 0.03, -4.6 + tz + 0.5); scene.add(t); tiles.push({ m: tm, x: tx, z: tz });
+  }
+  /* bola de espejos */
+  var ball = new THREE.Mesh(new THREE.IcosahedronGeometry(0.55, 1), new THREE.MeshStandardMaterial({ color: 0xdddddd, metalness: 1, roughness: 0.15, flatShading: true, emissive: 0x333344, emissiveIntensity: 0.6 }));
+  ball.position.set(-3, 4.6, -1.6); scene.add(ball);
+  var cord = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 2, 4), M(0x666666)); cord.position.set(-3, 5.9, -1.6); scene.add(cord);
+
+  /* cabina del DJ */
+  box(6, 0.6, 2.4, M(0x1d1218), -3.5, 0, -7.6);
+  box(3, 1.1, 0.9, M(0x0d0d0f, { r: 0.4 }), -3.5, 0.6, -7.1);
+  box(3.02, 0.08, 0.92, M(0x5fe0ff, { e: 0x5fe0ff, ei: 1.3 }), -3.5, 1.7, -7.1);
+  box(1.0, 0.06, 0.6, M(0x222226, { m: 0.5 }), -4.2, 1.72, -7.15); box(1.0, 0.06, 0.6, M(0x222226, { m: 0.5 }), -2.8, 1.72, -7.15);
+  cyl(0.5, 0.6, 1.6, M(0x111111), -6.2, 0.6, -8.2, 8); cyl(0.5, 0.6, 1.6, M(0x111111), -0.8, 0.6, -8.2, 8);
+
+  /* barra con botellas que brillan */
+  box(1.4, 1.15, 12, M(0x2a1810, { r: 0.6 }), -11.3, 0, -0.5);
+  box(1.46, 0.08, 12.06, M(0xd8b46a, { m: 0.8, r: 0.3 }), -11.3, 1.15, -0.5);
+  box(0.6, 2.4, 12, M(0x120a08), -12.7, 0, -0.5);
+  for (var s = 0; s < 3; s++) box(0.6, 0.05, 12, M(0xffb45c, { e: 0xffa24a, ei: 0.8 }), -12.7, 1.0 + s * 0.55, -0.5);
+  var bottleCols = [0xffa24a, 0x9b6a3a, 0x3d7a4a, 0xd8d8d8, 0xb8462e];
+  for (var bz = -6; bz < 5.4; bz += 0.42) for (var sh = 0; sh < 3; sh++)
+    cyl(0.09, 0.11, 0.36, M(bottleCols[Math.floor(Math.abs(bz * 7 + sh * 3)) % 5], { e: bottleCols[(sh + 2) % 5], ei: 0.25, r: 0.3 }), -12.65, 1.05 + sh * 0.55, bz, 8);
+  for (var st = -5.5; st < 5; st += 1.5){ cyl(0.26, 0.26, 0.08, M(0x8c0d24, { r: 0.5 }), -10.1, 0.75, st); cyl(0.05, 0.05, 0.75, M(0x888888, { m: 0.8 }), -10.1, 0, st, 6); }
+
+  /* sofá + mesa para el VIP */
+  var velvet = M(0x6a0a1c, { r: 0.9 }), gold = M(0xd8b46a, { m: 0.85, r: 0.25 });
+  function lounge(x, z, rot){
+    var g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = rot || 0; scene.add(g);
+    box(2.4, 0.45, 0.8, velvet, 0, 0, -0.55, g); box(2.4, 0.55, 0.22, velvet, 0, 0.45, -0.85, g);
+    box(0.8, 0.45, 1.4, velvet, -1.2, 0, 0.05, g);
+    cyl(0.42, 0.42, 0.06, M(0x0d0d0d, { r: 0.2, m: 0.3 }), 0.25, 0.5, 0.35, 20, g); cyl(0.06, 0.12, 0.5, gold, 0.25, 0, 0.35, 8, g);
+    cyl(0.07, 0.09, 0.42, M(0xffb45c, { e: 0xffa24a, ei: 0.7 }), 0.15, 0.56, 0.3, 8, g);
+    cyl(0.15, 0.12, 0.22, M(0xcfd6dc, { m: 0.9, r: 0.2 }), 0.42, 0.56, 0.42, 12, g);
+  }
+  box(5.6, 0.45, 8.2, M(0x1e1116), 3.2, 0, 1.9);
+  box(5.5, 0.04, 8.1, M(0x24160f, { r: 0.7 }), 3.2, 0.45, 1.9);
+  box(0.06, 0.06, 8.2, M(0xd8b46a, { e: 0xd8b46a, ei: 0.9 }), 0.42, 0.47, 1.9); box(5.6, 0.06, 0.06, M(0xd8b46a, { e: 0xd8b46a, ei: 0.9 }), 3.2, 0.47, 6.0);
+  lounge(3.4, -0.6, 0); lounge(3.4, 2.4, 0); lounge(3.4, 5.1, 0);
+  for (var rz = -1.8; rz <= 5.8; rz += 1.9){ cyl(0.06, 0.06, 0.9, gold, 0.5, 0.45, rz, 8); cyl(0.12, 0.12, 0.05, gold, 0.5, 0.45, rz, 12); }
+  var rope = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 7.6, 6), M(0x8c0d24, { e: 0x8c0d24, ei: 0.4 })); rope.rotation.x = Math.PI / 2; rope.position.set(0.5, 1.15, 2); scene.add(rope);
+
+  /* VIP DJ: plataforma junto a la cabina */
+  box(4.8, 0.65, 3.8, M(0x101820), 3.3, 0, -6.6);
+  box(4.7, 0.04, 3.7, M(0x0e1a22, { r: 0.6 }), 3.3, 0.65, -6.6);
+  box(4.8, 0.06, 0.06, M(0x5fe0ff, { e: 0x5fe0ff, ei: 1.1 }), 3.3, 0.67, -4.7); box(0.06, 0.06, 3.8, M(0x5fe0ff, { e: 0x5fe0ff, ei: 1.1 }), 0.9, 0.67, -6.6);
+  lounge(3.6, -6.8, 0);
+
+  /* terraza: plantas, mesas altas y luces colgantes */
+  var leaf = M(0x2f6b3a, { r: 0.9, e: 0x0b2a12, ei: 0.5 }), pot = M(0x3a2a20);
+  [[12.3, -6], [12.3, -2.5], [12.3, 1.5], [12.3, 5.5], [7.2, 7.2]].forEach(function(p){
+    cyl(0.35, 0.28, 0.5, pot, p[0], 0, p[1], 10);
+    var bush = new THREE.Mesh(new THREE.IcosahedronGeometry(0.62, 0), leaf); bush.position.set(p[0], 1.0, p[1]); scene.add(bush);
+  });
+  [[8.6, -3.2], [10.4, 0.6], [8.6, 4.2]].forEach(function(p){
+    cyl(0.48, 0.48, 0.06, M(0x6b4a30, { r: 0.6 }), p[0], 1.05, p[1], 18); cyl(0.05, 0.05, 1.05, M(0x222222, { m: 0.6 }), p[0], 0, p[1], 6);
+    for (var a = 0; a < 3; a++){ var an = a / 3 * Math.PI * 2; cyl(0.2, 0.2, 0.05, M(0x222222), p[0] + Math.cos(an) * 0.85, 0.75, p[1] + Math.sin(an) * 0.85, 10); }
+  });
+  var bulbs = [], bulbM = new THREE.MeshBasicMaterial({ color: 0xffd38a });
+  for (var line = 0; line < 3; line++) for (var bi = 0; bi <= 10; bi++){
+    var f = bi / 10, bx = 6.4 + f * 6.4, bzz = -5.5 + line * 5, by = 3.1 - Math.sin(f * Math.PI) * 0.6;
+    var bulb = new THREE.Mesh(new THREE.SphereGeometry(0.07, 8, 6), bulbM); bulb.position.set(bx, by, bzz); scene.add(bulb); bulbs.push(bulb);
+  }
+
+  /* entrada: alfombra roja, cordones y letrero */
+  box(2.6, 0.03, 3.2, M(0x8c0d24, { r: 0.95, e: 0x3a0510, ei: 0.5 }), -7.6, 0, 7.6);
+  [[-9.1, 6.4], [-9.1, 8.8], [-6.1, 6.4], [-6.1, 8.8]].forEach(function(p){ cyl(0.06, 0.06, 0.9, gold, p[0], 0, p[1], 8); });
+  var sign = document.createElement('canvas'); sign.width = 256; sign.height = 64; var sg = sign.getContext('2d');
+  sg.fillStyle = '#000'; sg.fillRect(0, 0, 256, 64); sg.shadowColor = '#ff4f7a'; sg.shadowBlur = 14; sg.fillStyle = '#ffd1dc';
+  sg.font = '800 38px Bricolage Grotesque, sans-serif'; sg.textAlign = 'center'; sg.textBaseline = 'middle'; sg.fillText('MARTINI', 128, 34);
+  var signM = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 0.65), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(sign) }));
+  signM.position.set(-13.0 + 0.22, 2.7, 6.5); signM.rotation.y = Math.PI / 2; scene.add(signM);
+
+  /* contornos de cada zona (se encienden al tocar) y cajas invisibles para el toque */
+  var AREAS = {
+    pista:   [-7.2, 1.2, -4.8, 1.6, 1.6],
+    barra:   [-13.1, -9.4, -6.8, 5.8, 2.6],
+    vip:     [0.3, 6.0, -2.3, 6.1, 1.8],
+    vipdj:   [0.8, 5.8, -8.6, -4.6, 1.9],
+    terraza: [6.3, 13.2, -7.0, 8.0, 3.0],
+    entrada: [-9.4, -5.8, 5.9, 9.2, 1.4],
+  };
+  var rings = {}, hits = [];
+  Object.keys(AREAS).forEach(function(k){
+    var a = AREAS[k], w = a[1] - a[0], d = a[3] - a[2], cx = (a[0] + a[1]) / 2, cz = (a[2] + a[3]) / 2;
+    var geo = new THREE.EdgesGeometry(new THREE.BoxGeometry(w, 0.01, d));
+    var mat = new THREE.LineBasicMaterial({ color: new THREE.Color(Z[k].c), transparent: true, opacity: 0 });
+    var ring = new THREE.LineSegments(geo, mat); ring.position.set(cx, 0.08, cz); scene.add(ring);
+    var fillM = new THREE.MeshBasicMaterial({ color: new THREE.Color(Z[k].c), transparent: true, opacity: 0, depthWrite: false });
+    var fill = new THREE.Mesh(new THREE.PlaneGeometry(w, d), fillM); fill.rotation.x = -Math.PI / 2; fill.position.set(cx, 0.06, cz); scene.add(fill);
+    rings[k] = { line: mat, fill: fillM, on: 0, hov: 0 };
+    var hit = new THREE.Mesh(new THREE.BoxGeometry(w, 3, d), new THREE.MeshBasicMaterial({ visible: false }));
+    hit.position.set(cx, 1.5, cz); hit.userData.k = k; scene.add(hit); hits.push(hit);
+    Z[k].p = new THREE.Vector3(cx, a[4] + 0.4, cz); Z[k].ctr = { x: cx, z: cz, w: w, d: d };
+  });
+
+  /* tamaño y encuadre */
+  var W = 1, H = 1, base = 1;
+  function resize(){
+    var r = stage.getBoundingClientRect(); W = Math.max(1, r.width); H = Math.max(1, r.height);
+    renderer.setSize(W, H, false);
+    fit();
+    if (!current){ want.x = view.x = HOME.x; want.z = view.z = HOME.z; }
+    apply(); dirty = true;
+  }
+  var tgt = new THREE.Vector3();
+  /* encuadre automático: centra la maqueta y la hace caber en el recuadro (horizontal o cuadrado) */
+  function fit(){
+    var c = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 200);
+    c.position.copy(DIR); c.lookAt(0, 0, 0); c.updateMatrixWorld();
+    var inv = c.matrixWorldInverse, v = new THREE.Vector3(), mnx = 1e9, mxx = -1e9, mny = 1e9, mxy = -1e9;
+    [-13.4, 13.3].forEach(function(x){ [0, 3.4].forEach(function(y){ [-9.4, 9.3].forEach(function(z){
+      v.set(x, y, z).applyMatrix4(inv); mnx = Math.min(mnx, v.x); mxx = Math.max(mxx, v.x); mny = Math.min(mny, v.y); mxy = Math.max(mxy, v.y);
+    }); }); });
+    var cx = (mnx + mxx) / 2, cy = (mny + mxy) / 2;
+    var right = new THREE.Vector3().setFromMatrixColumn(c.matrixWorld, 0), up = new THREE.Vector3().setFromMatrixColumn(c.matrixWorld, 1);
+    var shift = right.multiplyScalar(cx).add(up.multiplyScalar(cy));
+    // mover el objetivo sobre el piso para que el centro de la maqueta quede en el centro
+    var fwd = new THREE.Vector3(); c.getWorldDirection(fwd);
+    var tt = shift.clone(); var k = -tt.y / fwd.y; tt.addScaledVector(fwd, k);
+    HOME.x = tt.x; HOME.z = tt.z;
+    var aspect = W / H, margin = W < 600 ? 1.02 : 1.06;
+    base = Math.max((mxy - mny) / 2, (mxx - mnx) / 2 / aspect) * margin;
+  }
+  function apply(){
+    var hh = base / view.zoom, ww = hh * W / H;
+    cam.left = -ww; cam.right = ww; cam.top = hh; cam.bottom = -hh; cam.updateProjectionMatrix();
+    tgt.set(view.x, 0, view.z);
+    var d = DIR.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), par.x * 0.035);
+    d.y += par.y * 1.2;
+    cam.position.copy(tgt).add(d); cam.lookAt(tgt);
+  }
+
+  /* toque / hover */
+  var ray = new THREE.Raycaster(), nd = new THREE.Vector2(), hover = null, down = null;
+  function pick(e){
+    var r = canvas.getBoundingClientRect();
+    nd.set((e.clientX - r.left) / r.width * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(nd, cam);
+    var h = ray.intersectObjects(hits, false);
+    return h.length ? h[0].object.userData.k : null;
+  }
+  canvas.addEventListener('pointerdown', function(e){ down = { x: e.clientX, y: e.clientY }; });
+  canvas.addEventListener('pointerup', function(e){
+    if (!down || Math.hypot(e.clientX - down.x, e.clientY - down.y) > 10) return; down = null;
+    var k = pick(e); select(k && k === current ? null : k);
+  });
+  if (fine) canvas.addEventListener('pointermove', function(e){
+    var r = canvas.getBoundingClientRect();
+    if (!reduce){ parT.x = ((e.clientX - r.left) / r.width - 0.5) * 2; parT.y = ((e.clientY - r.top) / r.height - 0.5) * 2; }
+    var k = pick(e); if (k !== hover){ hover = k; canvas.style.cursor = k ? 'pointer' : 'default'; dirty = true; }
+  });
+  canvas.addEventListener('pointerleave', function(){ hover = null; parT.x = parT.y = 0; dirty = true; });
+
+  function focus(k){
+    if (k){ var c = Z[k].ctr; want.x = c.x; want.z = c.z; want.zoom = Math.min(1.45, Math.max(1.2, 14 / Math.max(c.w, c.d))); }
+    else { want.x = HOME.x; want.z = HOME.z; want.zoom = 1; }
+    if (reduce){ view.x = want.x; view.z = want.z; view.zoom = want.zoom; apply(); }
+    dirty = true;
+  }
+
+  /* pins encima de cada zona */
+  var pv = new THREE.Vector3();
+  function placePins(){
+    ORDER.forEach(function(k){
+      pv.copy(Z[k].p).project(cam);
+      var x = (pv.x + 1) / 2 * W, y = (1 - pv.y) / 2 * H;
+      var out = x < 10 || x > W - 10 || y < 20 || y > H - 4;
+      pins[k].style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) translate(-50%,-100%)';
+      pins[k].style.visibility = out ? 'hidden' : 'visible';
+    });
+  }
+
+  /* bucle: solo cuando el plano está en pantalla */
+  var visible = true, dirty = true, t0 = performance.now(), last = t0, scrT = 0;
+  new IntersectionObserver(function(es){ visible = es[0].isIntersecting; if (visible) loop(); }, { threshold: 0.01 }).observe(stage);
+  document.addEventListener('visibilitychange', function(){ if (!document.hidden) loop(); });
+  var running = false;
+  function loop(){ if (running) return; running = true; requestAnimationFrame(frame); }
+  function frame(now){
+    if (!visible || document.hidden){ running = false; return; }
+    var dt = Math.min(0.05, (now - last) / 1000); last = now; var t = (now - t0) / 1000;
+    var k = 1 - Math.pow(0.0015, dt);
+    var moving = Math.abs(view.x - want.x) + Math.abs(view.z - want.z) + Math.abs(view.zoom - want.zoom) > 0.001 || Math.abs(par.x - parT.x) + Math.abs(par.y - parT.y) > 0.001;
+    view.x += (want.x - view.x) * k; view.z += (want.z - view.z) * k; view.zoom += (want.zoom - view.zoom) * k;
+    par.x += (parT.x - par.x) * k * 0.6; par.y += (parT.y - par.y) * k * 0.6;
+    Object.keys(rings).forEach(function(z){
+      var r = rings[z], on = current === z ? 1 : 0, hv = hover === z ? 1 : 0;
+      r.on += (on - r.on) * k; r.hov += (hv - r.hov) * k;
+      r.line.opacity = Math.min(1, r.on + r.hov * 0.7 + (current ? 0 : 0.18));
+      r.fill.opacity = r.on * 0.1 + r.hov * 0.06;
+    });
+    if (!reduce){
+      for (var i = 0; i < tiles.length; i++){
+        var tl = tiles[i], w = Math.sin(t * 2.2 - (tl.x + tl.z) * 0.7) * 0.5 + 0.5;
+        tl.m.emissiveIntensity = 0.12 + w * w * 0.9;
+      }
+      ball.rotation.y = t * 0.4;
+      Lp1.intensity = 1.6 + Math.sin(t * 1.7) * 0.8; Lp2.intensity = 1.3 + Math.cos(t * 1.3) * 0.6;
+      if (t - scrT > 0.12){ drawScreen(t); scrT = t; }
+      dirty = true;
+    }
+    if (moving) dirty = true;
+    if (dirty){ apply(); renderer.render(scene, cam); placePins(); dirty = false; }
+    requestAnimationFrame(frame);
+  }
+  addEventListener('resize', resize);
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(stage);
+  resize(); renderer.render(scene, cam); placePins(); loop();
+  if (document.fonts) document.fonts.ready.then(function(){ drawScreen(0); dirty = true; });
+  return { focus: focus };
+}
+
+function hasGL(){ try { var c = document.createElement('canvas'); return !!(window.WebGLRenderingContext && (c.getContext('webgl') || c.getContext('experimental-webgl'))); } catch (e){ return false; } }
+if (window.THREE && hasGL()) scene3d = build();
+if (!scene3d) document.documentElement.classList.add('nogl');
+
+/* ============ formulario de reserva ============ */
+var mesa = 'VIP Diamante', price = 200, cap = 7, pp = 4;
+var chips = $$('#chips .chip');
+function setMesa(z){
+  chips.forEach(function(c){ var on = c.dataset.z === z; c.classList.toggle('on', on); c.setAttribute('aria-checked', on); if (on){ price = +c.dataset.p; cap = +c.dataset.cap; } });
+  mesa = z; pp = Math.min(pp, cap); $('#pv').textContent = pp;
+  $('#sumt').textContent = z + ' · hasta ' + cap + ' personas'; $('#sump').textContent = '$' + price;
+}
+chips.forEach(function(c){ c.addEventListener('click', function(){ setMesa(c.dataset.z); }); });
+$('#pm').onclick = function(){ pp = Math.max(1, pp - 1); $('#pv').textContent = pp; };
+$('#pp').onclick = function(){ pp = Math.min(cap, pp + 1); $('#pv').textContent = pp; };
+var d = new Date(); d.setDate(d.getDate() + ((6 - d.getDay() + 7) % 7));
+var iso = function(x){ return x.getFullYear() + '-' + ('0' + (x.getMonth() + 1)).slice(-2) + '-' + ('0' + x.getDate()).slice(-2); };
+$('#fec').value = iso(d); $('#fec').min = iso(new Date());
+var qz = new URLSearchParams(location.search).get('mesa'); setMesa(qz && chips.some(function(c){ return c.dataset.z === qz; }) ? qz : 'VIP Diamante');
+
+$('#form').addEventListener('submit', function(e){
+  e.preventDefault();
+  var nombre = $('#nom').value.trim(), tel = $('#tel').value.trim(), msg = $('#msg');
+  if (!nombre){ msg.textContent = 'Escribe tu nombre.'; $('#nom').focus(); return; }
+  if (tel.replace(/\D/g, '').length < 7){ msg.textContent = 'Escribe un WhatsApp válido.'; $('#tel').focus(); return; }
+  msg.textContent = '';
+  var fecha = $('#fec').value, nota = $('#nota').value.trim(), ft = fecha;
+  try { ft = new Date(fecha + 'T12:00:00').toLocaleDateString('es', { weekday: 'long', day: 'numeric', month: 'long' }); } catch (x){}
+  var L = ['🍸 Reserva — Martini Bar', 'Mesa: ' + mesa + ' ($' + price + ')', 'Nombre: ' + nombre, 'Teléfono: ' + tel, 'Fecha: ' + ft, 'Personas: ' + pp];
+  if (nota) L.push('Notas: ' + nota);
+  var url = 'https://wa.me/584247819621?text=' + encodeURIComponent(L.join('\n'));
+  $('#send').disabled = true;
+  var w = window.open('', '_blank');
+  fetch('/api/reservas', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nombre: nombre, telefono: tel, zona: mesa, personas: pp, fecha: fecha, hora: '', notas: nota, evento: 'Plano 3D · web' }) })
+    .catch(function(){}).then(function(){
+      if (w) w.location.href = url; else location.href = url;
+      ev('mesas_reserva_enviada');
+      $('#donewa').href = url;
+      $('#donet').textContent = mesa + ' · ' + ft + ' · ' + pp + (pp === 1 ? ' persona' : ' personas') + '. Te confirmamos por WhatsApp.';
+      $('#form-in').style.display = 'none'; $('#done').classList.add('show'); $('#send').disabled = false;
+    });
+});
+window.setMesa = setMesa;
+})();
+</script>
+</body>
+</html>

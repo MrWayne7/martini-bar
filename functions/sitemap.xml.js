@@ -2,7 +2,7 @@
 import { SITIO, urlEvento, fechaISO } from './_sitio.js';
 
 const FIJAS = [
-  ['/', '1.0', 'daily'], ['/vip/', '0.9', 'weekly'], ['/lista', '0.8', 'weekly'],
+  ['/', '1.0', 'daily'], ['/vip/', '0.9', 'weekly'], ['/mesas', '0.9', 'weekly'], ['/lista', '0.8', 'weekly'],
   ['/discoteca-el-vigia', '0.9', 'weekly'], ['/que-hacer-en-el-vigia', '0.8', 'weekly'],
   ['/cumpleanos-el-vigia', '0.8', 'monthly'], ['/blog', '0.7', 'weekly'], ['/verlanoche', '0.6', 'weekly'],
   ['/redroom2', '0.5', 'monthly'], ['/theredroom', '0.5', 'monthly'],
